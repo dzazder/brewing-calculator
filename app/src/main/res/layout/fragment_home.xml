@@ -9,5 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+    
+    <Button
+        android:id="@+id/btn_fragment_og_plato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OG  PLATO"
+        android:clickable="true"
+        android:background="@drawable/button_default" />
 
 </FrameLayout>
