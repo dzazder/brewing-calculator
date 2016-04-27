@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
-import dev.lampart.bartosz.brewingcalculator.fragments.FragmentOgPlato;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment newFragment = null;
         switch (fragment) {
             case DictFragment.FRAGMENT_HOME: newFragment = new FragmentHome(); break;
-            case DictFragment.FRAGMENT_OG_PLATO: newFragment = new FragmentOgPlato(); break;
+            case DictFragment.FRAGMENT_OG_PLATO: newFragment = new FragmentSgPlato(); break;
             default: newFragment = new FragmentHome(); break;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

@@ -16,10 +16,10 @@ import dev.lampart.bartosz.brewingcalculator.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentOgPlato extends Fragment {
+public class FragmentSgPlato extends Fragment {
 
 
-    public FragmentOgPlato() {
+    public FragmentSgPlato() {
         // Required empty public constructor
     }
 
@@ -28,10 +28,10 @@ public class FragmentOgPlato extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_og_plato, container, false);
+        View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
 
         final EditText txtBrix = (EditText)view.findViewById(R.id.txt_calc_brix);
-        final EditText txtOg = (EditText)view.findViewById(R.id.txt_calc_og);
+        final EditText txtSG = (EditText)view.findViewById(R.id.txt_calc_og);
         final EditText txtPlato = (EditText)view.findViewById(R.id.txt_calc_plato);
 
         txtBrix.addTextChangedListener(new TextWatcher() {
@@ -41,9 +41,9 @@ public class FragmentOgPlato extends Fragment {
                 String brixText = s.toString();
                 double brixNum = Double.parseDouble(brixText);
                 double platoNum = 1;
-                double ogNum = 1;
+                double sgNum = 1;
 
-                setValues(brixNum, platoNum, ogNum, txtBrix, txtPlato, txtOg);
+                setValues(platoNum, sgNum, txtPlato, txtSG);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -51,16 +51,16 @@ public class FragmentOgPlato extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        txtOg.addTextChangedListener(new TextWatcher() {
+        txtSG.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
                 Log.d("TEXT_CHANGE", "TXT OG CHANGED");
-                String ogText = s.toString();
-                double ogNum = Double.parseDouble(ogText);
+                String sgText = s.toString();
+                double sgNum = Double.parseDouble(sgText);
                 double platoNum = 1;
                 double brixNum = 1;
 
-                setValues(brixNum, platoNum, ogNum, txtBrix, txtPlato, txtOg);
+                setValues(brixNum, platoNum, txtBrix, txtPlato);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -75,10 +75,10 @@ public class FragmentOgPlato extends Fragment {
 
                 String platoTxt = s.toString();
                 double platoNum = Double.parseDouble(platoTxt);
-                double ogNum = 1;
+                double sgNum = 1;
                 double brixNum = 1;
 
-                setValues(brixNum, platoNum, ogNum, txtBrix, txtPlato, txtOg);
+                setValues(brixNum, sgNum, txtBrix, txtSG);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -89,11 +89,18 @@ public class FragmentOgPlato extends Fragment {
         return view;
     }
 
+    private void setValues(double v1, double v2, EditText t1, EditText t2) {
+        t1.setText(Double.toString(v1));
+        t2.setText(Double.toString(v2));
+    }
+
+    /*
     private void setValues(double brix, double plato, double og,
                            EditText txtBrix, EditText txtPlato, EditText txtOg) {
         txtBrix.setText(Double.toString(brix));
         txtPlato.setText(Double.toString(plato));
         txtOg.setText(Double.toString(og));
     }
+    */
 
 }
