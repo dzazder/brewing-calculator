@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_brix"
             android:minWidth="100dp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -34,7 +35,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_plato"
             android:minWidth="100dp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,6 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_og"
             android:minWidth="100dp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 </LinearLayout>

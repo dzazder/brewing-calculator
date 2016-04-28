@@ -7,12 +7,20 @@ import android.util.Log;
  */
 public class ExtractCalc {
     public static double calcBrixToPlato(double brix) {
-
-        return 1;
+        double plato = 1.04 * brix;
+        return plato;
     }
 
+    /*
+    =1.000898+0.003859118*BRIX+0.00001370735*BRIX*BRIX+0.00000003742517*BRIX*BRIX*BRIX
+
+if I remember correctly, this formula corrects for Plato:
+
+=1.000019+(0.003865613*Plato+0.00001296425*Plato^2+0.00000005701128*Plato^3)
+
+     */
     public static double calcBrixToSG(double brix) {
-        double sg = 1 + (0.0004 * brix);
+        double sg = 1 + (0.004 * brix);
         Log.d("CALC", "Brix: " + brix + " , SG: " + sg);
         return sg;
     }
@@ -33,5 +41,9 @@ public class ExtractCalc {
         return sg;
     }
 
+    public static double calcPlatoToBrix(double plato) {
+        double brix = 1.000019+(0.003865613*plato+0.00001296425*plato*plato+0.00000005701128*plato*plato*plato);
+        return brix;
+    }
 
 }

@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import dev.lampart.bartosz.brewingcalculator.R;
+import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentSgPlato extends Fragment {
 
+    private boolean editedByProgram = false;
 
     public FragmentSgPlato() {
         // Required empty public constructor
@@ -37,13 +39,19 @@ public class FragmentSgPlato extends Fragment {
         txtBrix.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Log.d("TEXT_CHANGE", "TXT BRIX CHANGED");
-                String brixText = s.toString();
-                double brixNum = Double.parseDouble(brixText);
-                double platoNum = 1;
-                double sgNum = 1;
+                if (!editedByProgram) {
+                    editedByProgram = true;
+                    Log.d("TEXT_CHANGE", "TXT BRIX CHANGED");
 
-                setValues(platoNum, sgNum, txtPlato, txtSG);
+                    String brixText = s.toString();
+                    double brixNum = brixText.length() > 0 ? Double.parseDouble(brixText) : 0;
+                    double platoNum = ExtractCalc.calcBrixToPlato(brixNum);
+                    double sgNum = ExtractCalc.calcBrixToSG(brixNum);
+
+                    setValues(platoNum, sgNum, txtPlato, txtSG);
+
+                    editedByProgram = false;
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -54,13 +62,18 @@ public class FragmentSgPlato extends Fragment {
         txtSG.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Log.d("TEXT_CHANGE", "TXT OG CHANGED");
-                String sgText = s.toString();
-                double sgNum = Double.parseDouble(sgText);
-                double platoNum = 1;
-                double brixNum = 1;
+                if (!editedByProgram) {
+                    editedByProgram = true;
+                    Log.d("TEXT_CHANGE", "TXT OG CHANGED");
 
-                setValues(brixNum, platoNum, txtBrix, txtPlato);
+                    String sgText = s.toString();
+                    double sgNum = sgText.length() > 0 ? Double.parseDouble(sgText) : 0;
+                    double platoNum = ExtractCalc.calcSGToPlato(sgNum);
+                    double brixNum = ExtractCalc.calcSGToBrix(sgNum);
+
+                    setValues(brixNum, platoNum, txtBrix, txtPlato);
+                    editedByProgram = false;
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -71,14 +84,18 @@ public class FragmentSgPlato extends Fragment {
         txtPlato.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Log.d("TEXT_CHANGE", "TXT PLATO CHANGED");
+                if (!editedByProgram) {
+                    editedByProgram = true;
+                    Log.d("TEXT_CHANGE", "TXT PLATO CHANGED");
 
-                String platoTxt = s.toString();
-                double platoNum = Double.parseDouble(platoTxt);
-                double sgNum = 1;
-                double brixNum = 1;
+                    String platoTxt = s.toString();
+                    double platoNum = platoTxt.length() > 0 ? Double.parseDouble(platoTxt) : 0;
+                    double sgNum = ExtractCalc.calcPlatoToSG(platoNum);
+                    double brixNum = ExtractCalc.calcPlatoToBrix(platoNum);
 
-                setValues(brixNum, sgNum, txtBrix, txtSG);
+                    setValues(brixNum, sgNum, txtBrix, txtSG);
+                    editedByProgram = false;
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
