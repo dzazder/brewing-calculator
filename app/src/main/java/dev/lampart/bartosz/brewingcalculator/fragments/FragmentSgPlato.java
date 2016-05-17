@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
+import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +25,6 @@ public class FragmentSgPlato extends Fragment {
     public FragmentSgPlato() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +39,7 @@ public class FragmentSgPlato extends Fragment {
         txtBrix.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                if (!editedByProgram) {
+                if (!editedByProgram && NumberFormatter.isNumeric(s.toString())) {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT BRIX CHANGED");
 
@@ -62,7 +62,7 @@ public class FragmentSgPlato extends Fragment {
         txtSG.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                if (!editedByProgram) {
+                if (!editedByProgram && NumberFormatter.isNumeric(s.toString())) {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT OG CHANGED");
 
@@ -84,7 +84,7 @@ public class FragmentSgPlato extends Fragment {
         txtPlato.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                if (!editedByProgram) {
+                if (!editedByProgram && NumberFormatter.isNumeric(s.toString())) {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT PLATO CHANGED");
 
