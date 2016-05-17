@@ -7,42 +7,49 @@ import android.util.Log;
  */
 public class ExtractCalc {
     public static double calcBrixToPlato(double brix) {
-        double plato = 1.04 * brix;
+        double plato = brix / 1.04;
         return plato;
     }
 
-    /*
-    =1.000898+0.003859118*BRIX+0.00001370735*BRIX*BRIX+0.00000003742517*BRIX*BRIX*BRIX
-
-if I remember correctly, this formula corrects for Plato:
-
-=1.000019+(0.003865613*Plato+0.00001296425*Plato^2+0.00000005701128*Plato^3)
-
-     */
     public static double calcBrixToSG(double brix) {
-        double sg = 1 + (0.004 * brix);
+        double plato = brix / 1.04;
+        double sg = calcPlatoToSG(plato);
         Log.d("CALC", "Brix: " + brix + " , SG: " + sg);
         return sg;
     }
 
     public static double calcSGToBrix(double sg) {
-        return 1;
+        double brix = 1.04 *  ((-1 * 616.868) + (1111.14 * sg) - (630.272 * Math.pow(sg, 2)) + (135.997 * Math.pow(sg, 3)));
+        Log.d("CALC", "SG: " + sg + " , Brix: " + brix);
+        return brix;
     }
 
+    /**
+     * Formula from this site:
+     * http://www.brewersfriend.com/plato-to-sg-conversion-chart/
+     * @param sg
+     * @return
+     */
     public static double calcSGToPlato(double sg) {
-        double plato = 258.6 - (258.6/sg);
+        double plato = (-1 * 616.868) + (1111.14 * sg) - (630.272 * Math.pow(sg, 2)) + (135.997 * Math.pow(sg, 3));
         Log.d("CALC", "SG: " + sg + " , Plato: " + plato);
         return plato;
     }
 
+    /**
+     * Formula from this site:
+     * http://www.brewersfriend.com/plato-to-sg-conversion-chart/
+     * @param plato
+     * @return
+     */
     public static double calcPlatoToSG(double plato) {
-        double sg = ((182.4601 * plato - 775.6821) * plato + 1262.7794) * plato - 669.5622;
+        double sg = 1 + (plato / (258.6 - ((plato / 258.2) * 227.1)));
         Log.d("CALC", "Plato: " + plato + " , SG: " + sg);
         return sg;
     }
 
     public static double calcPlatoToBrix(double plato) {
-        double brix = 1.000019+(0.003865613*plato+0.00001296425*plato*plato+0.00000005701128*plato*plato*plato);
+        double brix = 1.04 * plato;
         return brix;
     }
 

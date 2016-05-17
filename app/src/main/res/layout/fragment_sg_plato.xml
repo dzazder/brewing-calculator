@@ -3,56 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    android:padding="10px"
     tools:context=".fragments.FragmentSgPlato">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10px"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="75dp"
             android:text="Brix"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_brix"
-            android:minWidth="100dp"
-            android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            style="@style/StyleEditText_CalcField"/>
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10px"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="75dp"
             android:text="PLATO"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_plato"
-            android:minWidth="100dp"
-            android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            style="@style/StyleEditText_CalcField"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10px"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OG"/>
+            android:layout_gravity="center"
+            android:width="75dp"
+            android:text="SG"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_calc_og"
-            android:minWidth="100dp"
-            android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            style="@style/StyleEditText_CalcField"/>
     </LinearLayout>
 </LinearLayout>

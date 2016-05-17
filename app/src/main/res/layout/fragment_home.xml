@@ -1,21 +1,33 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryMedium"
     tools:context="dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    
-    <Button
-        android:id="@+id/btn_fragment_og_plato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OG  PLATO"
-        android:clickable="true"
-        android:background="@drawable/button_default" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:text="Brewing Calculator"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_fragment_og_plato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OG  PLATO"
+            android:clickable="true"
+            style="@style/StyleButton" />
+
+    </LinearLayout>
+
+</RelativeLayout>

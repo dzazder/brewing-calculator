@@ -43,7 +43,7 @@ public class FragmentSgPlato extends Fragment {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT BRIX CHANGED");
 
-                    String brixText = s.toString();
+                    String brixText = s.toString().replace(',', '.');
                     double brixNum = brixText.length() > 0 ? Double.parseDouble(brixText) : 0;
                     double platoNum = ExtractCalc.calcBrixToPlato(brixNum);
                     double sgNum = ExtractCalc.calcBrixToSG(brixNum);
@@ -66,7 +66,7 @@ public class FragmentSgPlato extends Fragment {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT OG CHANGED");
 
-                    String sgText = s.toString();
+                    String sgText = s.toString().replace(',', '.');
                     double sgNum = sgText.length() > 0 ? Double.parseDouble(sgText) : 0;
                     double platoNum = ExtractCalc.calcSGToPlato(sgNum);
                     double brixNum = ExtractCalc.calcSGToBrix(sgNum);
@@ -88,7 +88,7 @@ public class FragmentSgPlato extends Fragment {
                     editedByProgram = true;
                     Log.d("TEXT_CHANGE", "TXT PLATO CHANGED");
 
-                    String platoTxt = s.toString();
+                    String platoTxt = s.toString().replace(',', '.');
                     double platoNum = platoTxt.length() > 0 ? Double.parseDouble(platoTxt) : 0;
                     double sgNum = ExtractCalc.calcPlatoToSG(platoNum);
                     double brixNum = ExtractCalc.calcPlatoToBrix(platoNum);
@@ -107,8 +107,9 @@ public class FragmentSgPlato extends Fragment {
     }
 
     private void setValues(double v1, double v2, EditText t1, EditText t2) {
-        t1.setText(Double.toString(v1));
-        t2.setText(Double.toString(v2));
+
+        t1.setText(String.format(t1.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v1));
+        t2.setText(String.format(t2.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v2));
     }
 
     /*
