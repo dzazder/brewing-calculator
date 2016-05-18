@@ -24,7 +24,7 @@
             android:id="@+id/btn_fragment_og_plato"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="OG  PLATO"
+            android:text="@string/extract_conversion_calculator"
             android:clickable="true"
             style="@style/StyleButton" />
 

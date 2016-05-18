@@ -4,6 +4,7 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import java.util.Locale;
+
+import dev.lampart.bartosz.brewingcalculator.MainActivity;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
+import dev.lampart.bartosz.brewingcalculator.helpers.InputFilterMinMax;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -26,15 +31,20 @@ public class FragmentSgPlato extends Fragment {
         // Required empty public constructor
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
 
+        getActivity().setTitle("Plato/Brix/SG Calculator");
+
+
         final EditText txtBrix = (EditText)view.findViewById(R.id.txt_calc_brix);
         final EditText txtSG = (EditText)view.findViewById(R.id.txt_calc_og);
         final EditText txtPlato = (EditText)view.findViewById(R.id.txt_calc_plato);
+
 
         txtBrix.addTextChangedListener(new TextWatcher() {
 
@@ -107,9 +117,8 @@ public class FragmentSgPlato extends Fragment {
     }
 
     private void setValues(double v1, double v2, EditText t1, EditText t2) {
-
-        t1.setText(String.format(t1.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v1));
-        t2.setText(String.format(t2.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v2));
+        t1.setText(String.format(Locale.US, t1.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v1));
+        t2.setText(String.format(Locale.US, t2.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v2));
     }
 
     /*

@@ -24,6 +24,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        getActivity().setTitle(R.string.app_name);
 
         Button btn_fragment_ogplato = (Button)view.findViewById(R.id.btn_fragment_og_plato);
         btn_fragment_ogplato.setOnClickListener(this);
