@@ -12,17 +12,28 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.xml.sax.DTDHandler;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.items, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
+
+        super.onOptionsItemSelected(item);
+
+        switch(item.getItemId()) {
+            case R.id.menu_item_settings:
+                Toast.makeText(getBaseContext(), "You selected Settings", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                onBackPressed();
+                break;
+        }
         return true;
     }
 
@@ -65,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         switch (fragment) {
             case DictFragment.FRAGMENT_HOME: newFragment = new FragmentHome(); break;
             case DictFragment.FRAGMENT_OG_PLATO: newFragment = new FragmentSgPlato(); break;
+            case DictFragment.FRAGMENT_ALCOHOL: newFragment = new FragmentAlcohol(); break;
             default: newFragment = new FragmentHome(); break;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

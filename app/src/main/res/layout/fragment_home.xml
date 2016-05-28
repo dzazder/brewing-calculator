@@ -28,6 +28,14 @@
             android:clickable="true"
             style="@style/StyleButton" />
 
+        <Button
+            android:id="@+id/btn_fragment_alcohol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alcohol_calculator"
+            android:clickable="true"
+            style="@style/StyleButton" />
+
     </LinearLayout>
 
 </RelativeLayout>

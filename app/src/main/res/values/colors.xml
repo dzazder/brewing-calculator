@@ -6,6 +6,7 @@
     <color name="colorPrimaryMedium">#FFE082</color>
     <color name="colorAccent">#795548</color>
     <color name="colorAccentDark">#4E342E</color>
+    <color name="colorError">#F44336</color>
     <color name="green_temp">#23A96E</color>
     <color name="green_dark">#159204</color>
     <color name="bright_green">#02D8B0</color>
