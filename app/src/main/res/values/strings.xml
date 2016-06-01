@@ -11,4 +11,7 @@
     <string name="incorrect_value">Incorrect value</string>
 
     <string name="settings">Settings</string>
+    <string name="choose_default_extract_unit">Choose default extract unit: </string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
