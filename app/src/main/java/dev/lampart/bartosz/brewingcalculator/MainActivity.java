@@ -18,13 +18,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.xml.sax.DTDHandler;
 
 import dev.lampart.bartosz.brewingcalculator.dbfile.FileDB;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
+import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
@@ -75,13 +78,19 @@ public class MainActivity extends AppCompatActivity {
 
         super.onOptionsItemSelected(item);
         View dialogview = getLayoutInflater().inflate(R.layout.dialog_settings, null);
+        final Spinner spDefaultExtractUnit = (Spinner)dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
 
         switch(item.getItemId()) {
             case R.id.menu_item_settings:
 
-                if (alertDialog == null || !alertDialog.isShowing()) {
+                //if (alertDialog == null || !alertDialog.isShowing()) {
                     alertDialog = new AlertDialog.Builder(this).create(); //Read Update
                     alertDialog.setView(dialogview);
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
+                            android.R.layout.simple_spinner_item);
+
+                    int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
+                    spDefaultExtractUnit.setSelection(spinnerPosition);
 
                     Button btnSettingsCancel = (Button)dialogview.findViewById(R.id.btn_settings_cancel);
                     btnSettingsCancel.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +104,15 @@ public class MainActivity extends AppCompatActivity {
                     btnSettingsSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
+                            FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
+                            AppConfiguration.getInstance().defaultExtractUnit = selectedUnit;
                             alertDialog.hide();
                         }
                     });
 
                     alertDialog.show();
-                }
+                //}
                 break;
             default:
                 onBackPressed();

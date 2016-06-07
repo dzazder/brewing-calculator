@@ -32,6 +32,7 @@ public class FileDB {
     }
 
     public static ExtractUnit getDefaultExtractUnit(Context context) {
+        Log.d("CFG", "Read configuration default extract unit");
         ExtractUnit defUnit = ExtractUnit.Plato;
 
         try {
@@ -53,6 +54,7 @@ public class FileDB {
             Log.e("Read db", "File read failed" + e.toString());
         }
 
+        Log.d("CFG", "Default unit is: " + defUnit.toString());
         return defUnit;
     }
 }

@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        android:text="Brewing Calculator"/>
+        android:text="@string/app_name_formatted"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +27,10 @@
             android:text="@string/extract_conversion_calculator"
             android:clickable="true"
             style="@style/StyleButton" />
+
+        <View android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryLight"></View>
 
         <Button
             android:id="@+id/btn_fragment_alcohol"

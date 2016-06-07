@@ -2,7 +2,7 @@
     <string name="app_name">BrewingCalculator</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name_formatted">Brewing Calculator</string>
 
     <string name="extract_conversion_calculator">Plato/Brix/SG Conversion Calculator</string>
 
@@ -14,4 +14,17 @@
     <string name="choose_default_extract_unit">Choose default extract unit: </string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="brix">Brix</string>
+    <string name="sg">SG</string>
+    <string name="plato">Plato</string>
+    <string name="zero_value">0.00</string>
+    <string name="one_value">1.00</string>
+
+    <string name="lbl_alcohol">Alcohol</string>
+    <string name="lbl_attenuation">Attenuation</string>
+    <string name="lbl_after_fermentation">After fermentation</string>
+    <string name="lbl_before_fermentation">Before fermentation</string>
+    <string name="lbl_use_refractometer">Use refractometer</string>
+    <string name="lbl_wort_correction_factor">Wort correction factor</string>
+    <string name="lbl_wort_correction_factor_default_value">1.04</string>
 </resources>

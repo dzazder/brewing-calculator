@@ -24,7 +24,7 @@
                 android:divider="@drawable/empty_divider_vertical">
 
                 <TextView
-                    android:text="Before fermentation"
+                    android:text="@string/lbl_before_fermentation"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
 
@@ -55,7 +55,7 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Use refractometr"
+                        android:text="@string/lbl_use_refractometer"
                         android:id="@+id/chb_use_refractometer"/>
 
                 </LinearLayout>
@@ -72,7 +72,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wort correction factor"/>
+                        android:text="@string/lbl_wort_correction_factor"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                         android:id="@+id/txt_calc_wort_correction_factor"
                         android:selectAllOnFocus="true"
                         android:inputType="numberDecimal"
-                        android:text="1.04"/>
+                        android:text="@string/lbl_wort_correction_factor_default_value"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -91,7 +91,7 @@
                 android:showDividers="middle"
                 android:divider="@drawable/empty_divider_vertical">
                 <TextView
-                    android:text="After fermentation"
+                    android:text="@string/lbl_after_fermentation"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:text="Alcohol"
+                    android:text="@string/lbl_alcohol"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:text="Attenuation"
+                    android:text="@string/lbl_attenuation"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
                 <TextView android:layout_width="wrap_content"

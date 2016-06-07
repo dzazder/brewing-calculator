@@ -26,6 +26,7 @@ import java.util.Locale;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
@@ -185,6 +186,14 @@ public class FragmentAlcohol extends Fragment {
                 }
             }
         });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
+                android.R.layout.simple_spinner_item);
+
+        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
+
+        spAfter.setSelection(spinnerPosition);
+        spBefore.setSelection(spinnerPosition);
 
         return rootView;
     }
