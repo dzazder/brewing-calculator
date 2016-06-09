@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KalkulatorPiwowarski</string>
+    <string name="alcohol_calculator">Kalkulator zawartości alkoholu</string>
+    <string name="app_name_formatted">Kalkulator Piwowarski</string>
+    <string name="cancel">Anuluj</string>
+    <string name="choose_default_extract_unit">Wybierz domyślną jednostkę ekstraktu:</string>
+    <string name="extract_conversion_calculator">Kalkulator konwersji Plato/Brix/SG</string>
+    <string name="incorrect_value">Nieprawidłowa wartość</string>
+    <string name="lbl_after_fermentation">Po fermentacji</string>
+    <string name="lbl_alcohol">Alkohol</string>
+    <string name="lbl_attenuation">Odfermentowanie</string>
+    <string name="lbl_before_fermentation">Przed fermentacją</string>
+    <string name="lbl_use_refractometer">Użyto refraktometru</string>
+    <string name="lbl_wort_correction_factor">Współczynnik korekcji brzeczki</string>
+    <string name="save">Zapisz</string>
+    <string name="choose_default_language">Wybierz język: </string>
+    <string name="settings">Ustawienia</string>
+</resources>

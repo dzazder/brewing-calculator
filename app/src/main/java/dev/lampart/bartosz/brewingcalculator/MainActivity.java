@@ -1,5 +1,6 @@
 package dev.lampart.bartosz.brewingcalculator;
 
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
@@ -25,9 +26,13 @@ import android.widget.Toast;
 
 import org.xml.sax.DTDHandler;
 
+import java.util.Locale;
+
 import dev.lampart.bartosz.brewingcalculator.dbfile.FileDB;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
+import dev.lampart.bartosz.brewingcalculator.dicts.DictLanguages;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.entities.Language;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
@@ -50,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppConfiguration.getInstance().defaultExtractUnit = FileDB.getDefaultExtractUnit(getApplicationContext());
+        // todo move to app_start method
+        AppConfiguration.getInstance().defaultExtractUnit = FileDB.getDefaultExtractUnit(this);
+        AppConfiguration.getInstance().defaultLanguage = FileDB.getDefaultLanguage(this);
+        setLanguage(AppConfiguration.getInstance().defaultLanguage);
 
         if (savedInstanceState == null) {
             switchFragment(DictFragment.FRAGMENT_HOME);
@@ -78,40 +86,52 @@ public class MainActivity extends AppCompatActivity {
 
         super.onOptionsItemSelected(item);
         View dialogview = getLayoutInflater().inflate(R.layout.dialog_settings, null);
-        final Spinner spDefaultExtractUnit = (Spinner)dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
+        final Spinner spDefaultExtractUnit = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
+        final Spinner spDefaultLanguage = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_language);
 
-        switch(item.getItemId()) {
+        DictLanguages.setSpinner(spDefaultLanguage, this);
+
+        switch (item.getItemId()) {
             case R.id.menu_item_settings:
 
                 //if (alertDialog == null || !alertDialog.isShowing()) {
-                    alertDialog = new AlertDialog.Builder(this).create(); //Read Update
-                    alertDialog.setView(dialogview);
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
-                            android.R.layout.simple_spinner_item);
+                alertDialog = new AlertDialog.Builder(this).create(); //Read Update
+                alertDialog.setView(dialogview);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
+                        android.R.layout.simple_spinner_item);
+                int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
+                spDefaultExtractUnit.setSelection(spinnerUnitPosition);
 
-                    int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
-                    spDefaultExtractUnit.setSelection(spinnerPosition);
+                ArrayAdapter<String> adapterLang = DictLanguages.getLanguageArrayAdapter(this);
+                int spinnetLanguagePosition = adapterLang.getPosition(AppConfiguration.getInstance().defaultLanguage.toString());
+                spDefaultLanguage.setSelection(spinnetLanguagePosition);
 
-                    Button btnSettingsCancel = (Button)dialogview.findViewById(R.id.btn_settings_cancel);
-                    btnSettingsCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            alertDialog.hide();
-                        }
-                    });
+                Button btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);
+                btnSettingsCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.hide();
+                    }
+                });
 
-                    Button btnSettingsSave = (Button)dialogview.findViewById(R.id.btn_settings_save);
-                    btnSettingsSave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
-                            FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
-                            AppConfiguration.getInstance().defaultExtractUnit = selectedUnit;
-                            alertDialog.hide();
-                        }
-                    });
+                Button btnSettingsSave = (Button) dialogview.findViewById(R.id.btn_settings_save);
+                btnSettingsSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
+                        FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
+                        AppConfiguration.getInstance().defaultExtractUnit = selectedUnit;
 
-                    alertDialog.show();
+                        Language selectedLang = DictLanguages.getLanguageByName(spDefaultLanguage.getSelectedItem().toString());
+                        FileDB.saveDefaultLanguage(selectedLang, getApplicationContext());
+                        AppConfiguration.getInstance().defaultLanguage = selectedLang;
+                        alertDialog.hide();
+
+                        setLanguage(selectedLang);
+                    }
+                });
+
+                alertDialog.show();
                 //}
                 break;
             default:
@@ -123,15 +143,24 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * It runs selected fragment
+     *
      * @param fragment Id of fragment to run, ids are saved in MainActivity fields
      */
     public void switchFragment(int fragment) {
         Fragment newFragment = null;
         switch (fragment) {
-            case DictFragment.FRAGMENT_HOME: newFragment = new FragmentHome(); break;
-            case DictFragment.FRAGMENT_OG_PLATO: newFragment = new FragmentSgPlato(); break;
-            case DictFragment.FRAGMENT_ALCOHOL: newFragment = new FragmentAlcohol(); break;
-            default: newFragment = new FragmentHome(); break;
+            case DictFragment.FRAGMENT_HOME:
+                newFragment = new FragmentHome();
+                break;
+            case DictFragment.FRAGMENT_OG_PLATO:
+                newFragment = new FragmentSgPlato();
+                break;
+            case DictFragment.FRAGMENT_ALCOHOL:
+                newFragment = new FragmentAlcohol();
+                break;
+            default:
+                newFragment = new FragmentHome();
+                break;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -152,10 +181,20 @@ public class MainActivity extends AppCompatActivity {
             if (currentFragment instanceof FragmentSgPlato) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
+    }
+
+    public void setLanguage(Language language) {
+        String languageToLoad  = language.getLocale();
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        this.setContentView(R.layout.activity_main);
     }
 
 }
