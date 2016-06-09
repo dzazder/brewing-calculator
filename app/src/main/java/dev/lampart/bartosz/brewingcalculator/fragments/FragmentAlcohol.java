@@ -47,6 +47,8 @@ public class FragmentAlcohol extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_alcohol, container, false);
 
+        getActivity().setTitle(getResources().getString(R.string.title_alcohol_calculator));
+
         final Spinner spBefore = (Spinner)rootView.findViewById(R.id.sp_extract_before);
         final Spinner spAfter = (Spinner)rootView.findViewById(R.id.sp_extract_after);
 

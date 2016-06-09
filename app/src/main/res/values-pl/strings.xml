@@ -16,4 +16,6 @@
     <string name="save">Zapisz</string>
     <string name="choose_default_language">Wybierz język: </string>
     <string name="settings">Ustawienia</string>
+    <string name="title_extract_calculator">Kalkulator Plato/Brix/SG</string>
+    <string name="title_alcohol_calculator">Kalkulator zawartości alkoholou</string>
 </resources>

@@ -38,7 +38,7 @@ public class FragmentSgPlato extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
 
-        getActivity().setTitle("Plato/Brix/SG Calculator");
+        getActivity().setTitle(getResources().getString(R.string.title_extract_calculator));
 
 
         final EditText txtBrix = (EditText)view.findViewById(R.id.txt_calc_brix);

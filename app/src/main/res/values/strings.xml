@@ -3,13 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="app_name_formatted">Brewing Calculator</string>
-
     <string name="extract_conversion_calculator">Plato/Brix/SG Conversion Calculator</string>
-
     <string name="alcohol_calculator">Alcohol Calculator</string>
-
     <string name="incorrect_value">Incorrect value</string>
-
     <string name="settings">Settings</string>
     <string name="choose_default_extract_unit">Choose default extract unit: </string>
     <string name="choose_default_language">Choose default language: </string>
@@ -28,4 +24,7 @@
     <string name="lbl_use_refractometer">Use refractometer</string>
     <string name="lbl_wort_correction_factor">Wort correction factor</string>
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
+
+    <string name="title_extract_calculator">Plato/Brix/SG Calculator</string>
+    <string name="title_alcohol_calculator">Alcohol Calculator</string>
 </resources>

@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // todo move to app_start method
-        AppConfiguration.getInstance().defaultExtractUnit = FileDB.getDefaultExtractUnit(this);
-        AppConfiguration.getInstance().defaultLanguage = FileDB.getDefaultLanguage(this);
-        setLanguage(AppConfiguration.getInstance().defaultLanguage);
-
         if (savedInstanceState == null) {
             switchFragment(DictFragment.FRAGMENT_HOME);
         }
@@ -99,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setView(dialogview);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
                         android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
                 spDefaultExtractUnit.setSelection(spinnerUnitPosition);
 
                 ArrayAdapter<String> adapterLang = DictLanguages.getLanguageArrayAdapter(this);
+                adapterLang.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 int spinnetLanguagePosition = adapterLang.getPosition(AppConfiguration.getInstance().defaultLanguage.toString());
                 spDefaultLanguage.setSelection(spinnetLanguagePosition);
 
@@ -187,14 +184,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setLanguage(Language language) {
-        String languageToLoad  = language.getLocale();
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-        this.setContentView(R.layout.activity_main);
+        Log.d("LANG", "setLanguage in MainActivity");
+        BrewingCalculatorApplication app = (BrewingCalculatorApplication)getApplication();
+        app.setLanguage(language);
+
+        finish();
+        startActivity(getIntent());
     }
 
 }
