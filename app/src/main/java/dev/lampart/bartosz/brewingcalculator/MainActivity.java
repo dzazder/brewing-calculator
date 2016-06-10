@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         FileDB.saveDefaultLanguage(selectedLang, getApplicationContext());
                         AppConfiguration.getInstance().defaultLanguage = selectedLang;
                         alertDialog.hide();
-
+                        alertDialog.dismiss();
                         setLanguage(selectedLang);
                     }
                 });
@@ -185,11 +186,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void setLanguage(Language language) {
         Log.d("LANG", "setLanguage in MainActivity");
-        BrewingCalculatorApplication app = (BrewingCalculatorApplication)getApplication();
-        app.setLanguage(language);
+        Locale locale = new Locale(language.getLocale());
 
-        finish();
-        startActivity(getIntent());
+        Log.d("LANG", "NEW: " +  locale.getLanguage());
+        Log.d("LANG", "OLD: " + getResources().getConfiguration().locale.getLanguage());
+
+        if (!locale.getLanguage().equals(getResources().getConfiguration().locale.getLanguage())) {
+            //BrewingCalculatorApplication app = (BrewingCalculatorApplication) getApplication();
+            //app.setLanguage(language);
+
+
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            getResources().updateConfiguration(config,dm);
+
+            recreate();
+        }
     }
 
 }

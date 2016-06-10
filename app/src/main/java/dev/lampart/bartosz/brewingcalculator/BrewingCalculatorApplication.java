@@ -2,6 +2,7 @@ package dev.lampart.bartosz.brewingcalculator;
 
 import android.app.Application;
 import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.util.Locale;
@@ -23,8 +24,6 @@ public class BrewingCalculatorApplication extends Application {
         // are bound to the application process.
         //initSingletons();
 
-
-        // todo move to app_start method
         AppConfiguration.getInstance().defaultExtractUnit = FileDB.getDefaultExtractUnit(this);
         AppConfiguration.getInstance().defaultLanguage = FileDB.getDefaultLanguage(this);
         setLanguage(AppConfiguration.getInstance().defaultLanguage);
@@ -36,13 +35,13 @@ public class BrewingCalculatorApplication extends Application {
         Log.d("LANG", "NEW: " +  locale.getLanguage());
         Log.d("LANG", "OLD: " + getResources().getConfiguration().locale.getLanguage());
 
-        if (locale.getLanguage() != getResources().getConfiguration().locale.getLanguage()) {
+        //if (!locale.getLanguage().equals(getResources().getConfiguration().locale.getLanguage())) {
             Locale.setDefault(locale);
             Configuration config = new Configuration();
             config.locale = locale;
-            this.getApplicationContext().getResources().updateConfiguration(config, null);
-
-        }
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            this.getApplicationContext().getResources().updateConfiguration(config, dm);
+        //}
 
     }
 
@@ -52,8 +51,4 @@ public class BrewingCalculatorApplication extends Application {
         //MySingleton.initInstance();
     }
 
-    public void customAppMethod()
-    {
-        // Custom application method
-    }
 }
