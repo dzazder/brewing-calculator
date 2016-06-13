@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    android:padding="10dp"
+    android:padding="@dimen/padding_normal"
     tools:context="dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol">
 
     <ScrollView

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryLight"
-    android:padding="10px"
+    android:padding="@dimen/padding_normal"
     tools:context=".fragments.FragmentSgPlato">
 
     <ScrollView
@@ -19,13 +19,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10px"
+                android:padding="@dimen/padding_normal"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:width="75dp"
+                    android:width="@dimen/label_width_large"
                     android:text="@string/brix"/>
                 <EditText
                     android:layout_width="wrap_content"
@@ -39,13 +39,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10px"
+                android:padding="@dimen/padding_normal"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:width="75dp"
+                    android:width="@dimen/label_width_large"
                     android:text="@string/plato"/>
                 <EditText
                     android:layout_width="wrap_content"
@@ -59,13 +59,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10px"
+                android:padding="@dimen/padding_normal"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:width="75dp"
+                    android:width="@dimen/label_width_large"
                     android:text="@string/sg"/>
                 <EditText
                     android:layout_width="wrap_content"

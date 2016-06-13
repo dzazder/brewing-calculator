@@ -22,7 +22,10 @@ public class DictLanguages {
 
     public static ArrayAdapter<String> getLanguageArrayAdapter(Context context) {
         String[] languages = { LANGUAGE_EN.getLangName(), LANGUAGE_PL.getLangName() };
-        return new ArrayAdapter<String>(context, R.layout.bcalc_spinner_item, languages);
+        ArrayAdapter<String> retArray = new ArrayAdapter<String>(context, R.layout.bcalc_spinner_item, languages);
+        retArray.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
+
+        return retArray;
     }
 
     public static Language getLanguageByName(String langName) {

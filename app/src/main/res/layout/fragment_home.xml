@@ -26,7 +26,7 @@
             android:clickable="true"
             style="@style/StyleButton" />
 
-        <View android:layout_height="1dp"
+        <View android:layout_height="@dimen/stroke_width"
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryLight"></View>
 
