@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.entities.Language;
 
 /**
@@ -21,7 +22,7 @@ public class DictLanguages {
 
     public static ArrayAdapter<String> getLanguageArrayAdapter(Context context) {
         String[] languages = { LANGUAGE_EN.getLangName(), LANGUAGE_PL.getLangName() };
-        return new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, languages);
+        return new ArrayAdapter<String>(context, R.layout.bcalc_spinner_item, languages);
     }
 
     public static Language getLanguageByName(String langName) {

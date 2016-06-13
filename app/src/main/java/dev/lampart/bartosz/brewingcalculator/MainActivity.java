@@ -6,10 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,13 +16,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import org.xml.sax.DTDHandler;
 
 import java.util.Locale;
 
@@ -95,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setView(dialogview);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
                         android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                adapter.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
                 int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
                 spDefaultExtractUnit.setSelection(spinnerUnitPosition);
 
                 ArrayAdapter<String> adapterLang = DictLanguages.getLanguageArrayAdapter(this);
-                adapterLang.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                adapterLang.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
                 int spinnetLanguagePosition = adapterLang.getPosition(AppConfiguration.getInstance().defaultLanguage.toString());
                 spDefaultLanguage.setSelection(spinnetLanguagePosition);
 
@@ -162,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.layout_fragment_area, newFragment);
+        transaction.replace(R.id.layout_fragment_area, newFragment, "FRAGMENT_DISPLAYED");
         transaction.addToBackStack(null);
 
         transaction.commit();
@@ -171,12 +164,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("FRAGMENT_DISPLAYED");
-
+        Log.d("BACK", "Back pressed");
         if (currentFragment != null) {
             if (currentFragment instanceof FragmentHome) {
+                Log.d("BACK", "Finish");
                 finish();
+                System.exit(0);
             }
             if (currentFragment instanceof FragmentSgPlato) {
+                Log.d("BACK", "Current fragment is SGPLATO");
+                switchFragment(DictFragment.FRAGMENT_HOME);
+            }
+            if (currentFragment instanceof  FragmentAlcohol) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
         } else {
