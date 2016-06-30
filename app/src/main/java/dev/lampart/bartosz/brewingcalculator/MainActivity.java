@@ -58,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if (fragmentManager.getBackStackEntryCount() > 1) {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                } else {
+                Log.d("MainActivity", "StackBackEntryCount: " + fragmentManager.getBackStackEntryCount());
+                if (fragmentManager.findFragmentByTag("FRAGMENT_DISPLAYED") instanceof FragmentHome) {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                } else {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 }
             }
         });
@@ -88,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setView(dialogview);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
                         android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
+                //adapter.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
                 int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
                 spDefaultExtractUnit.setSelection(spinnerUnitPosition);
 
                 ArrayAdapter<String> adapterLang = DictLanguages.getLanguageArrayAdapter(this);
-                adapterLang.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
+                //adapterLang.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
                 int spinnetLanguagePosition = adapterLang.getPosition(AppConfiguration.getInstance().defaultLanguage.toString());
                 spDefaultLanguage.setSelection(spinnetLanguagePosition);
 
@@ -110,11 +111,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
-                        FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
+                        //FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
                         AppConfiguration.getInstance().defaultExtractUnit = selectedUnit;
 
                         Language selectedLang = DictLanguages.getLanguageByName(spDefaultLanguage.getSelectedItem().toString());
-                        FileDB.saveDefaultLanguage(selectedLang, getApplicationContext());
+                        //FileDB.saveDefaultLanguage(selectedLang, getApplicationContext());
+
+                        FileDB.saveConfiguration(selectedUnit, selectedLang, getApplicationContext());
+
                         AppConfiguration.getInstance().defaultLanguage = selectedLang;
                         alertDialog.hide();
                         alertDialog.dismiss();
@@ -187,13 +191,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d("LANG", "setLanguage in MainActivity");
         Locale locale = new Locale(language.getLocale());
 
-        Log.d("LANG", "NEW: " +  locale.getLanguage());
-        Log.d("LANG", "OLD: " + getResources().getConfiguration().locale.getLanguage());
 
-        if (!locale.getLanguage().equals(getResources().getConfiguration().locale.getLanguage())) {
+        String newLang = locale.getLanguage();
+        String oldLang = getResources().getConfiguration().locale.getLanguage();
+
+        Log.d("LANG", "NEW: " +  newLang);
+        Log.d("LANG", "OLD: " + oldLang);
+
+        if (!newLang.equals(oldLang)) {
             //BrewingCalculatorApplication app = (BrewingCalculatorApplication) getApplication();
             //app.setLanguage(language);
-
+            Log.d("LANG", "I change language");
 
             Locale.setDefault(locale);
             Configuration config = new Configuration();
@@ -202,6 +210,9 @@ public class MainActivity extends AppCompatActivity {
             getResources().updateConfiguration(config,dm);
 
             recreate();
+        }
+        else {
+            Log.d("LANG", "Languages are identical");
         }
     }
 

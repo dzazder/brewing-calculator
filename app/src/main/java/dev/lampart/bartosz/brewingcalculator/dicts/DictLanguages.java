@@ -22,17 +22,18 @@ public class DictLanguages {
 
     public static ArrayAdapter<String> getLanguageArrayAdapter(Context context) {
         String[] languages = { LANGUAGE_EN.getLangName(), LANGUAGE_PL.getLangName() };
-        ArrayAdapter<String> retArray = new ArrayAdapter<String>(context, R.layout.bcalc_spinner_item, languages);
-        retArray.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
+        //ArrayAdapter<String> retArray = new ArrayAdapter<String>(context, R.layout.bcalc_spinner_item, languages);
+        ArrayAdapter<String> retArray = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, languages);
+        retArray.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         return retArray;
     }
 
     public static Language getLanguageByName(String langName) {
-        if (langName == LANGUAGE_PL.getLangName()) {
+        if (langName.equals(LANGUAGE_PL.getLangName())) {
             return LANGUAGE_PL;
         }
-        if (langName == LANGUAGE_EN.getLangName()) {
+        if (langName.equals(LANGUAGE_EN.getLangName())) {
             return LANGUAGE_EN;
         }
 
@@ -40,10 +41,10 @@ public class DictLanguages {
     }
 
     public static Language getLanguageByLocale(String langLoc) {
-        if (langLoc == LANGUAGE_PL.getLocale()) {
+        if (langLoc.equals(LANGUAGE_PL.getLocale())) {
             return LANGUAGE_PL;
         }
-        if (langLoc == LANGUAGE_EN.getLocale()) {
+        if (langLoc.equals(LANGUAGE_EN.getLocale())) {
             return LANGUAGE_EN;
         }
 

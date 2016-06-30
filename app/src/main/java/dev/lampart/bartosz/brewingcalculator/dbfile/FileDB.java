@@ -27,27 +27,34 @@ public class FileDB {
     private static String cfgSep = ";";
     private static String cfgValStart = "=";
 
-    // todo: wykorzystanie setCfgValue
+    public static void saveConfiguration(ExtractUnit extUnit, Language language, Context context) {
+        String unit = setCfgValue(strUnit, extUnit.toString(), context);
+        String lang = setCfgValue(strLang, language.getLocale(), context);
+
+        String confString = unit + cfgSep + lang;
+        SaveDBFileContent(context, confString);
+    }
+
     public static void saveDefaultUnit(ExtractUnit extUnit, Context context) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
-            outputStreamWriter.write(extUnit.toString());
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed" + e.toString());
-        }
+        setCfgValue(strUnit, extUnit.toString(), context);
     }
 
     public static void saveDefaultLanguage(Language language, Context context) {
         setCfgValue(strLang, language.getLocale(), context);
     }
 
+    /**
+     * Save content to the file
+     * @param context application context
+     * @param content text to save
+     */
     private static void SaveDBFileContent(Context context, String content) {
         try {
+            Log.d("FileDB", "Try to save configuration: " + content);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
             outputStreamWriter.write(content);
             outputStreamWriter.close();
+            Log.d("FileDB", "Configuration file saved successfully");
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed" + e.toString());
@@ -56,13 +63,14 @@ public class FileDB {
 
     /**
      * File format: unit=Brix;lang=pl
-     * @param context
-     * @return
+     * @param context application context
+     * @return configuration file content
      */
     private static String ReadDBFileContent(Context context) {
         String result = "";
 
         try {
+            Log.d("FileDB", "Try to read configuration from file");
             InputStream inputStream = context.openFileInput(filename);
 
             if (inputStream != null) {
@@ -71,6 +79,7 @@ public class FileDB {
                 result = bufferedReader.readLine().trim();
                 inputStream.close();
             }
+            Log.d("FileDB", "Configuration read successfully: " + result);
         }
         catch (FileNotFoundException e) {
             Log.e("Read db", "Configuration file not found" + e.toString());
@@ -83,7 +92,7 @@ public class FileDB {
     }
 
     public static ExtractUnit getDefaultExtractUnit(Context context) {
-        Log.d("CFG", "Read configuration default extract unit");
+        Log.d("FileDB", "Read configuration default extract unit");
         ExtractUnit defUnit = ExtractUnit.Plato;
 
         String content = ReadDBFileContent(context);
@@ -92,48 +101,61 @@ public class FileDB {
             defUnit = ExtractUnit.valueOf(readUnit);
         }
 
-        Log.d("CFG", "Default unit is: " + defUnit.toString());
+        Log.d("FileDB", "Default unit is: " + defUnit.toString());
         return defUnit;
     }
 
     public static Language getDefaultLanguage(Context context) {
-        Log.d("CFG", "Read configuration default language");
+        Log.d("FileDB", "Read configuration default language");
         String defLang = "en";
 
         String content = ReadDBFileContent(context);
+        Log.d("FileDB", "Content of cfg: " + content);
         String readLang = getCfgValue(strLang, content);
+        Log.d("FileDB", "Read language from cfg: " + readLang);
         if (readLang.length() > 0) {
             defLang = readLang;
         }
 
-        Log.d("CFG", "Default language is: " + defLang);
+
+
+        Log.d("FileDB", "Default language is: " + defLang);
         return DictLanguages.getLanguageByLocale(defLang);
     }
 
     private static String getCfgValue(String type, String content) {
+        Log.d("FileDB", "Split cfg: " + content + " with sep: " + cfgSep);
         String[] cfgValues = content.split(cfgSep);
+        Log.d("FileDB", "After split have items: " + cfgValues.length);
         for (String s: cfgValues) {
+            Log.d("FileDB", "Item in splitted: " + s);
             if (s.length() > 0 && s.contains(cfgValStart)) {
                 String keyVal[] = s.split(cfgValStart);
                 if (keyVal.length == 2) {
-                    if (keyVal[0] == type) {
+                    if (keyVal[0].equals(type)) {
+                        Log.d("FileDB", "Return cfg value: " + keyVal[1]);
                         return keyVal[1];
+                    }
+                    else {
+                        Log.d("FileDB", "First val is not a key: " + keyVal[0]);
                     }
                 }
                 else {
-                    Log.d("CFG", "After split has no 2 values: " + s);
+                    Log.d("FileDB", "After split has no 2 values: " + s);
                 }
             }
             else {
-                Log.d("CFG", "Read value has is not cfg pair: " + s);
+                Log.d("FileDB", "Read value has is not cfg pair: " + s);
             }
         }
+
 
         return "";
     }
 
-    private static void setCfgValue(String type, String value, Context context) {
-        String cfgContent = ReadDBFileContent(context);
+    private static String setCfgValue(String type, String value, Context context) {
+        return type + cfgValStart + value;
+        /*String cfgContent = ReadDBFileContent(context);
         boolean changed = false;
 
         String newCfgContent = "";
@@ -155,9 +177,11 @@ public class FileDB {
         }
 
         if (newCfgContent.length() > 1 && newCfgContent.endsWith(cfgSep)) {
-            newCfgContent = newCfgContent.substring(0, newCfgContent.length() - 2);
+            newCfgContent = newCfgContent.substring(0, newCfgContent.length() - 1);
         }
 
-        SaveDBFileContent(context, newCfgContent);
+        SaveDBFileContent(context, newCfgContent);*/
+
     }
+
 }

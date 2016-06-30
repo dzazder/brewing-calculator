@@ -35,12 +35,33 @@ public class BrewingCalculatorApplication extends Application {
         Log.d("LANG", "NEW: " +  locale.getLanguage());
         Log.d("LANG", "OLD: " + getResources().getConfiguration().locale.getLanguage());
 
-        //if (!locale.getLanguage().equals(getResources().getConfiguration().locale.getLanguage())) {
+        String newLang = locale.getLanguage();
+        String oldLang = getResources().getConfiguration().locale.getLanguage();
+
+        Log.d("LANG", "NEW: " +  newLang);
+        Log.d("LANG", "OLD: " + oldLang);
+
+        if (!newLang.equals(oldLang)) {
+            //BrewingCalculatorApplication app = (BrewingCalculatorApplication) getApplication();
+            //app.setLanguage(language);
+            Log.d("LANG", "I change language");
+
             Locale.setDefault(locale);
             Configuration config = new Configuration();
             config.locale = locale;
             DisplayMetrics dm = getResources().getDisplayMetrics();
-            this.getApplicationContext().getResources().updateConfiguration(config, dm);
+            getResources().updateConfiguration(config,dm);
+        }
+        else {
+            Log.d("LANG", "Languages are identical");
+        }
+
+        //if (!locale.getLanguage().equals(getResources().getConfiguration().locale.getLanguage())) {
+        //    Locale.setDefault(locale);
+        //    Configuration config = new Configuration();
+        //    config.locale = locale;
+        //    DisplayMetrics dm = getResources().getDisplayMetrics();
+        //    this.getApplicationContext().getResources().updateConfiguration(config, dm);
         //}
 
     }
