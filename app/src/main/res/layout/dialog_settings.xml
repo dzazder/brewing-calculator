@@ -24,7 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_normal">
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,18 +44,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_normal">
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/choose_default_language" />
+                    android:text="@string/lbl_always_use_refractometer" />
 
-                <Spinner
-                    android:id="@+id/spinner_choose_default_language"
+                <CheckBox
+                    android:id="@+id/chb_always_use_refractometer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></Spinner>
+                    android:layout_height="wrap_content"></CheckBox>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_wort_correction_factor" />
+
+                <EditText
+                    android:id="@+id/txt_default_wort_correction_factor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

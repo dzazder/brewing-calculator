@@ -12,8 +12,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.security.AccessController;
 
+import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictLanguages;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.entities.BCalcConf;
 import dev.lampart.bartosz.brewingcalculator.entities.Language;
 
 /**
@@ -24,14 +26,17 @@ public class FileDB {
 
     private static String strUnit = "unit";
     private static String strLang = "lang";
+    private static String strRefr = "refr";
+    private static String strWortFactor = "wort";
     private static String cfgSep = ";";
     private static String cfgValStart = "=";
 
-    public static void saveConfiguration(ExtractUnit extUnit, Language language, Context context) {
-        String unit = setCfgValue(strUnit, extUnit.toString(), context);
-        String lang = setCfgValue(strLang, language.getLocale(), context);
+    public static void saveConfiguration(BCalcConf conf, Context context) {
+        String unit = setCfgValue(strUnit, conf.getDefExtractUnit().toString(), context);
+        String useRefr = setCfgValue(strRefr, conf.isDefUseRefractometer() ? "1" : "0", context);
+        String wort = setCfgValue(strWortFactor, Double.toString(conf.getDefWortCorrectionFactor()), context);
 
-        String confString = unit + cfgSep + lang;
+        String confString = unit + cfgSep + useRefr + cfgSep + wort + cfgSep;
         SaveDBFileContent(context, confString);
     }
 
@@ -103,6 +108,40 @@ public class FileDB {
 
         Log.d("FileDB", "Default unit is: " + defUnit.toString());
         return defUnit;
+    }
+
+    public static boolean getDefaultUsingRefractometer(Context context) {
+        Log.d("FileDB", "Read configuration default using refractometer");
+        boolean useRefr = false;
+
+        String content = ReadDBFileContent(context);
+        String readRefr = getCfgValue(strRefr, content);
+        if (readRefr.length() > 0 && readRefr.equals("1")) {
+            useRefr = true;
+        }
+
+        Log.d("FileDB", "Default using refractometer is: " + Boolean.toString(useRefr));
+        return useRefr;
+    }
+
+    public static double getDefaultWortCorrectionFactor(Context context) {
+        Log.d("FileDB", "Read configuration default wort correction factor");
+        String defWort = context.getResources().getString(R.string.lbl_wort_correction_factor_default_value);
+        double defWortFactor = Double.parseDouble(defWort);
+
+        String content = ReadDBFileContent(context);
+        String readWort = getCfgValue(strWortFactor, content);
+        if (readWort.length() > 0) {
+            try {
+                defWortFactor = Double.parseDouble(readWort);
+            }
+            catch (NumberFormatException e) {
+                Log.e("FileDB", "Cannot convert read wort to double: " + readWort);
+            }
+        }
+
+        Log.d("FileDB", "Default wort correction factor is: " + Double.toString(defWortFactor));
+        return defWortFactor;
     }
 
     public static Language getDefaultLanguage(Context context) {

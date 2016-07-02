@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Locale;
@@ -26,6 +28,7 @@ import dev.lampart.bartosz.brewingcalculator.dbfile.FileDB;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictLanguages;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.entities.BCalcConf;
 import dev.lampart.bartosz.brewingcalculator.entities.Language;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
@@ -77,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         View dialogview = getLayoutInflater().inflate(R.layout.dialog_settings, null);
         final Spinner spDefaultExtractUnit = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
-        final Spinner spDefaultLanguage = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_language);
-
-        DictLanguages.setSpinner(spDefaultLanguage, this);
+        final CheckBox chbUseRefractometer = (CheckBox) dialogview.findViewById(R.id.chb_always_use_refractometer);
+        final EditText txtWortCorrectFactor = (EditText) dialogview.findViewById(R.id.txt_default_wort_correction_factor);
 
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
@@ -90,13 +92,11 @@ public class MainActivity extends AppCompatActivity {
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
                         android.R.layout.simple_spinner_item);
                 //adapter.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
-                int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
+                int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
                 spDefaultExtractUnit.setSelection(spinnerUnitPosition);
 
-                ArrayAdapter<String> adapterLang = DictLanguages.getLanguageArrayAdapter(this);
-                //adapterLang.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
-                int spinnetLanguagePosition = adapterLang.getPosition(AppConfiguration.getInstance().defaultLanguage.toString());
-                spDefaultLanguage.setSelection(spinnetLanguagePosition);
+                chbUseRefractometer.setChecked(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer());
+                txtWortCorrectFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
 
                 Button btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);
                 btnSettingsCancel.setOnClickListener(new View.OnClickListener() {
@@ -111,18 +111,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
+                        boolean useRefractometer = chbUseRefractometer.isChecked();
+                        double wortCorrectFactor = Double.parseDouble(txtWortCorrectFactor.getText().toString());
+
                         //FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
-                        AppConfiguration.getInstance().defaultExtractUnit = selectedUnit;
+                        AppConfiguration.getInstance().defaultSettings.setDefExtractUnit(selectedUnit);
+                        AppConfiguration.getInstance().defaultSettings.setDefUseRefractometer(useRefractometer);
+                        AppConfiguration.getInstance().defaultSettings.setDefWortCorrectionFactor(wortCorrectFactor);
 
-                        Language selectedLang = DictLanguages.getLanguageByName(spDefaultLanguage.getSelectedItem().toString());
-                        //FileDB.saveDefaultLanguage(selectedLang, getApplicationContext());
+                        BCalcConf conf = new BCalcConf();
+                        conf.setDefExtractUnit(selectedUnit);
+                        conf.setDefUseRefractometer(useRefractometer);
+                        conf.setDefWortCorrectionFactor(wortCorrectFactor);
+                        FileDB.saveConfiguration(conf, getApplicationContext());
 
-                        FileDB.saveConfiguration(selectedUnit, selectedLang, getApplicationContext());
-
-                        AppConfiguration.getInstance().defaultLanguage = selectedLang;
                         alertDialog.hide();
                         alertDialog.dismiss();
-                        setLanguage(selectedLang);
                     }
                 });
 

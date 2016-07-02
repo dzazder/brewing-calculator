@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
+import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
@@ -59,8 +60,13 @@ public class FragmentAlcohol extends Fragment {
         final TextView lblAtt = (TextView)rootView.findViewById(R.id.txt_calc_att);
 
         final CheckBox chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
+        chbUseRefractometer.setChecked(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer());
+
+        EditText txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
+        txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
 
         final LinearLayout layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
+        layWortCorrectionFactor.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.VISIBLE : View.GONE);
 
         spAfter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -73,7 +79,7 @@ public class FragmentAlcohol extends Fragment {
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
 
-                    Tuple<Double, Double> alcatt = calculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
                             ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
@@ -96,7 +102,7 @@ public class FragmentAlcohol extends Fragment {
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
 
-                    Tuple<Double, Double> alcatt = calculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
                             ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
@@ -130,7 +136,7 @@ public class FragmentAlcohol extends Fragment {
                     double dBefore = Double.parseDouble(s.toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
 
-                    Tuple<Double, Double> alcatt = calculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
                             ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
@@ -160,7 +166,7 @@ public class FragmentAlcohol extends Fragment {
                     double dAfter = Double.parseDouble(s.toString());
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
 
-                    Tuple<Double, Double> alcatt = calculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
                             ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
@@ -181,7 +187,7 @@ public class FragmentAlcohol extends Fragment {
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
 
-                    Tuple<Double, Double> alcatt = calculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
                             ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
@@ -192,7 +198,7 @@ public class FragmentAlcohol extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
                 android.R.layout.simple_spinner_item);
 
-        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultExtractUnit.toString());
+        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
 
         spAfter.setSelection(spinnerPosition);
         spBefore.setSelection(spinnerPosition);
@@ -200,58 +206,7 @@ public class FragmentAlcohol extends Fragment {
         return rootView;
     }
 
-    public Tuple<Double, Double> calculateAlcohol(double extBefore, double extAfter,
-                                                  ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
-                                                  boolean useRefractometer) {
-        double alc = 0;
-        double att = 0;
 
-        if (useRefractometer) {
-            switch (extBeforeUnit) {
-                case Brix:
-                    extBefore = ExtractCalc.calcBrixToSG(extBefore);
-                    break;
-                case Plato:
-                    extBefore = ExtractCalc.calcPlatoToSG(extBefore);
-                    break;
-            }
-            switch (extAfterUnit) {
-                case Brix:
-                    extAfter = ExtractCalc.calcBrixToSG(extAfter);
-                    break;
-                case Plato:
-                    extAfter = ExtractCalc.calcPlatoToSG(extAfter);
-                    break;
-            }
-
-            alc = 100 * ((extBefore - extAfter) / 0.75);
-            att = ((extBefore - 1) - (extAfter - 1)) / (extBefore - 1) * 100;
-        }
-        else {
-            switch (extBeforeUnit) {
-                case Brix:
-                    extBefore = ExtractCalc.calcBrixToPlato(extBefore);
-                    break;
-                case SG:
-                    extBefore = ExtractCalc.calcSGToPlato(extBefore);
-                    break;
-            }
-
-            switch (extAfterUnit) {
-                case Brix:
-                    extAfter = ExtractCalc.calcBrixToPlato(extAfter);
-                    break;
-                case SG:
-                    extAfter = ExtractCalc.calcSGToPlato(extAfter);
-                    break;
-            }
-
-            alc = (extBefore - extAfter) / 1.938;
-            att = (extBefore - extAfter) / (extBefore) * 100;
-        }
-
-        return new Tuple<>(alc, att);
-    }
 
     private void setValues(double alco, double att, TextView txtAlco, TextView txtAtt) {
         if (alco <0 || alco > 100) {

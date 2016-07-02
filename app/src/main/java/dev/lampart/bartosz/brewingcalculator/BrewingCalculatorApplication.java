@@ -24,9 +24,17 @@ public class BrewingCalculatorApplication extends Application {
         // are bound to the application process.
         //initSingletons();
 
-        AppConfiguration.getInstance().defaultExtractUnit = FileDB.getDefaultExtractUnit(this);
-        AppConfiguration.getInstance().defaultLanguage = FileDB.getDefaultLanguage(this);
-        setLanguage(AppConfiguration.getInstance().defaultLanguage);
+        if (AppConfiguration.getInstance().defaultSettings == null) {
+            Log.d("CONF", "default settings is null");
+        }
+        else {
+            Log.d("CONF", "default settings is NOT null");
+        }
+        AppConfiguration.getInstance().defaultSettings.setDefExtractUnit(FileDB.getDefaultExtractUnit(this));
+        AppConfiguration.getInstance().defaultSettings.setDefUseRefractometer(FileDB.getDefaultUsingRefractometer(this));
+        AppConfiguration.getInstance().defaultSettings.setDefWortCorrectionFactor(FileDB.getDefaultWortCorrectionFactor(this));
+        //AppConfiguration.getInstance().defaultLanguage = FileDB.getDefaultLanguage(this);
+        //setLanguage(AppConfiguration.getInstance().defaultLanguage);
     }
 
     public void setLanguage(Language language) {

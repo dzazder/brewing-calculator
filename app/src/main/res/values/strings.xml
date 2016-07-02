@@ -22,6 +22,7 @@
     <string name="lbl_after_fermentation">After fermentation</string>
     <string name="lbl_before_fermentation">Before fermentation</string>
     <string name="lbl_use_refractometer">Use refractometer</string>
+    <string name="lbl_always_use_refractometer">Always use refractometer</string>
     <string name="lbl_wort_correction_factor">Wort correction factor</string>
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
 
