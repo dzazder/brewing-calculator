@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.lampart.bartosz.brewingcalculator.BrewingCalculatorApplication;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
 
@@ -55,9 +57,11 @@ public class HomeMenuItemAdapter extends BaseAdapter {
 
         TextView txtFirst = (TextView)convertView.findViewById(R.id.txt_main_menu_firstline);
         TextView txtSecond = (TextView)convertView.findViewById(R.id.txt_main_menu_secondline);
+        ImageView imgIcon = (ImageView)convertView.findViewById(R.id.main_menu_icon);
 
         txtFirst.setText(items.get(position).getTitle());
         txtSecond.setText(items.get(position).getDescription());
+        imgIcon.setBackgroundResource(items.get(position).getIcon());
 
         return convertView;
     }

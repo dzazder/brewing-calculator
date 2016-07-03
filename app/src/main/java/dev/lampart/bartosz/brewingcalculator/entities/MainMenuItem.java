@@ -9,13 +9,13 @@ public class MainMenuItem {
     private int id;
     private String title;
     private String description;
-    private String icon;
+    private int icon;
     private int fragment;
 
     public MainMenuItem() {
     }
 
-    public MainMenuItem(int id, String title, String description, String icon, int fragment) {
+    public MainMenuItem(int id, String title, String description, int icon, int fragment) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -47,11 +47,11 @@ public class MainMenuItem {
         this.description = description;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(int icon) {
         this.icon = icon;
     }
 

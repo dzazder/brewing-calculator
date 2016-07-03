@@ -8,7 +8,10 @@
     <ListView
         android:id="@+id/view_home_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_large"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/padding_large">
     </ListView>
 
     <LinearLayout

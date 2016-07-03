@@ -23,11 +23,11 @@ public class MainMenu {
         MainMenuItem calcExtract = new MainMenuItem(1,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_extract_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_extract_calculator),
-                "ic_calcextract", DictFragment.FRAGMENT_OG_PLATO);
+                R.drawable.ic_extract_fragment, DictFragment.FRAGMENT_OG_PLATO);
         MainMenuItem calcAlcohol = new MainMenuItem(2,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_alcohol_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_alcohol_calculator),
-                "ic_calcalcohol", DictFragment.FRAGMENT_ALCOHOL);
+                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_ALCOHOL);
 
         items.add(calcExtract);
         items.add(calcAlcohol);

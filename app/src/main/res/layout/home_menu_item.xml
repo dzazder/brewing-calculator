@@ -3,8 +3,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/colorPrimaryLight"
-    android:padding="6dp"
-    android:layout_margin="20dp">
+    android:padding="@dimen/padding_normal"
+    android:layout_margin="@dimen/padding_large">
 
     <ImageView
         android:id="@+id/main_menu_icon"
@@ -12,10 +12,9 @@
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dp"
+        android:layout_marginRight="@dimen/padding_normal"
         android:contentDescription="TODO"
-        android:background="@color/colorPrimary"
-        android:src="@drawable/ic_overflow_menu" />
+        android:background="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,17 +28,15 @@
             android:gravity="center_vertical"
             android:text="Example application"
             android:textColor="@color/colorAccentDark"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_large" />
 
         <TextView
             android:id="@+id/txt_main_menu_secondline"
             android:layout_width="match_parent"
-            android:layout_height="26dip"
-            android:ellipsize="marquee"
-            android:singleLine="true"
+            android:layout_height="wrap_content"
             android:text="Description"
             android:textColor="@color/colorAccent"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_normal" />
 
     </LinearLayout>
 
