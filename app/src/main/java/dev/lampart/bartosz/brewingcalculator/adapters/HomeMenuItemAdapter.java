@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dev.lampart.bartosz.brewingcalculator.R;
+import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
 
 /**
  * Created by bartek on 02.07.2016.
@@ -21,9 +22,9 @@ import dev.lampart.bartosz.brewingcalculator.R;
 public class HomeMenuItemAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> items;
+    private List<MainMenuItem> items;
 
-    public HomeMenuItemAdapter(Context context, List<String> objects) {
+    public HomeMenuItemAdapter(Context context, List<MainMenuItem> objects) {
 
         this.context = context;
         this.items = objects;
@@ -50,10 +51,13 @@ public class HomeMenuItemAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.home_menu_item, null);
-
-            TextView txtSecond = (TextView)convertView.findViewById(R.id.secondLine);
-            txtSecond.setText(items.get(position));
         }
+
+        TextView txtFirst = (TextView)convertView.findViewById(R.id.txt_main_menu_firstline);
+        TextView txtSecond = (TextView)convertView.findViewById(R.id.txt_main_menu_secondline);
+
+        txtFirst.setText(items.get(position).getTitle());
+        txtSecond.setText(items.get(position).getDescription());
 
         return convertView;
     }

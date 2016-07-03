@@ -5,7 +5,7 @@ import android.util.Log;
 /**
  * Created by bartek on 27.04.2016.
  */
-public class ExtractCalc {
+public class ExtractCalc extends Calc {
     public static double calcBrixToPlato(double brix) {
         double plato = brix / 1.04;
         return plato;

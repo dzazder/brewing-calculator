@@ -6,7 +6,7 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 /**
  * Created by bartek on 01.07.2016.
  */
-public class AlcoholCalc {
+public class AlcoholCalc extends Calc {
 
     /**
      * Calculates Alcohol by volume and Attenuation

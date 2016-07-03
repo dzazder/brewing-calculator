@@ -19,7 +19,6 @@ public class AppConfiguration {
     public static synchronized AppConfiguration getInstance() {
         if (null == mInstance) {
             mInstance = new AppConfiguration();
-
         }
         return mInstance;
     }

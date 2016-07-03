@@ -26,6 +26,9 @@
     <string name="lbl_wort_correction_factor">Wort correction factor</string>
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
 
-    <string name="title_extract_calculator">Plato/Brix/SG Calculator</string>
+    <string name="title_extract_calculator">Extract Units Calculator</string>
     <string name="title_alcohol_calculator">Alcohol Calculator</string>
+
+    <string name="description_extract_calculator">Calculate extract unit values - SG,Brix,Plato converter</string>
+    <string name="description_alcohol_calculator">Calculate alcohol by value within a beer</string>
 </resources>

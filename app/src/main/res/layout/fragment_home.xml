@@ -5,21 +5,11 @@
     android:background="@color/colorPrimaryMedium"
     tools:context="dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome">
 
-
-    <ScrollView
+    <ListView
+        android:id="@+id/view_home_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ListView
-            android:id="@+id/view_home_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
-        </ListView>
-
-    </ScrollView>
+        android:layout_height="match_parent">
+    </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"

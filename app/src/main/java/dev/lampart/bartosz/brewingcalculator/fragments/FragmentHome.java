@@ -21,6 +21,8 @@ import dev.lampart.bartosz.brewingcalculator.MainActivity;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.HomeMenuItemAdapter;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
+import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
+import dev.lampart.bartosz.brewingcalculator.global.MainMenu;
 
 public class FragmentHome extends Fragment implements View.OnClickListener {
 
@@ -36,30 +38,17 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         ListView menuList = (ListView)view.findViewById(R.id.view_home_menu);
 
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
-
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }
-        final HomeMenuItemAdapter adapter = new HomeMenuItemAdapter(getActivity(),  list);
+        final HomeMenuItemAdapter adapter = new HomeMenuItemAdapter(getActivity(), MainMenu.getInstance().items);
         menuList.setAdapter(adapter);
 
-        Log.d("Home", "Menu list count: " + menuList.getCount());
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                Toast t = Toast.makeText(getActivity(), item, Toast.LENGTH_LONG);
-                t.show();
+                final MainMenuItem item = (MainMenuItem) parent.getItemAtPosition(position);
+                ((MainActivity)getActivity()).switchFragment(item.getFragment());
             }
-
         });
 
         Button btn_fragment_ogplato = (Button)view.findViewById(R.id.btn_fragment_og_plato);

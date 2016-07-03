@@ -1,6 +1,7 @@
 package dev.lampart.bartosz.brewingcalculator;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,6 +16,17 @@ import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
  * Created by bartek on 09.06.2016.
  */
 public class BrewingCalculatorApplication extends Application {
+
+    private static Context mContext = null;
+
+    public static Context getContext() {
+        return mContext;
+    }
+
+    public static void setContext(Context context) {
+        mContext = context;
+    }
+
     @Override
     public void onCreate()
     {
