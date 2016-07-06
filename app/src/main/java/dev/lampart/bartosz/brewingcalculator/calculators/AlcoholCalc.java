@@ -47,7 +47,7 @@ public class AlcoholCalc extends Calc {
         else {
             switch (extBeforeUnit) {
                 case Brix:
-                    extBefore = ExtractCalc.calcBrixToPlato(extBefore);
+                    extBefore = ExtractCalc.calcBrixToSG(extBefore);
                     break;
                 case Plato:
                     extBefore = ExtractCalc.calcPlatoToSG(extBefore);
@@ -56,7 +56,7 @@ public class AlcoholCalc extends Calc {
 
             switch (extAfterUnit) {
                 case Brix:
-                    extAfter = ExtractCalc.calcBrixToPlato(extAfter);
+                    extAfter = ExtractCalc.calcBrixToSG(extAfter);
                     break;
                 case Plato:
                     extAfter = ExtractCalc.calcPlatoToSG(extAfter);

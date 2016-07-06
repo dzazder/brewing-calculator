@@ -14,32 +14,4 @@
         android:dividerHeight="@dimen/padding_large">
     </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/btn_fragment_og_plato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/extract_conversion_calculator"
-            android:clickable="true"
-            style="@style/StyleButton" />
-
-        <View android:layout_height="@dimen/stroke_width"
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimaryLight"></View>
-
-        <Button
-            android:id="@+id/btn_fragment_alcohol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/alcohol_calculator"
-            android:clickable="true"
-            style="@style/StyleButton" />
-
-    </LinearLayout>
-
 </RelativeLayout>

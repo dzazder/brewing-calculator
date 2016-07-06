@@ -24,7 +24,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
 import dev.lampart.bartosz.brewingcalculator.global.MainMenu;
 
-public class FragmentHome extends Fragment implements View.OnClickListener {
+public class FragmentHome extends Fragment {
 
     public FragmentHome() {
         // Required empty public constructor
@@ -51,27 +51,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             }
         });
 
-        Button btn_fragment_ogplato = (Button)view.findViewById(R.id.btn_fragment_og_plato);
-        btn_fragment_ogplato.setOnClickListener(this);
-
-        Button btn_fragment_alcohol = (Button)view.findViewById(R.id.btn_fragment_alcohol);
-        btn_fragment_alcohol.setOnClickListener(this);
 
         return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        Log.d("CLICK", "onClickMethod");
-        switch (view.getId()) {
-            case R.id.btn_fragment_og_plato:
-                Log.d("CLICK", "switch fragment to ogplato CLICK");
-                ((MainActivity)getActivity()).switchFragment(DictFragment.FRAGMENT_OG_PLATO);
-                break;
-            case R.id.btn_fragment_alcohol:
-                Log.d("CLICK", "switch fragment to alcohol CLICK");
-                ((MainActivity)getActivity()).switchFragment(DictFragment.FRAGMENT_ALCOHOL);
-                break;
-        }
     }
 }

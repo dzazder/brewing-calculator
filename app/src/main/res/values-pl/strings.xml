@@ -18,4 +18,8 @@
     <string name="settings">Ustawienia</string>
     <string name="title_extract_calculator">Kalkulator Plato/Brix/SG</string>
     <string name="title_alcohol_calculator">Kalkulator zawartości alkoholou</string>
+    <string name="about">O aplikacji</string>
+    <string name="description_alcohol_calculator">Oblicz zawartość alkoholu w piwie</string>
+    <string name="description_extract_calculator">Konwerter jednostek wartości ekstraktu - SG, Brix, Plato</string>
+    <string name="lbl_always_use_refractometer">Zawsze używaj refraktometru</string>
 </resources>

@@ -34,11 +34,13 @@ import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
+import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
     private AlertDialog alertDialog = null;
+    private boolean showBackStackButton;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,25 +58,37 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             switchFragment(DictFragment.FRAGMENT_HOME);
         }
+        else {
+            showBackStackButton = savedInstanceState.getBoolean(ConstStrings.BACK_BUTTON_VISIBILITY);
+        }
 
         fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Log.d("MainActivity", "StackBackEntryCount: " + fragmentManager.getBackStackEntryCount());
-                if (fragmentManager.findFragmentByTag("FRAGMENT_DISPLAYED") instanceof FragmentHome) {
+                if (fragmentManager.findFragmentByTag(ConstStrings.CURRENT_FRAGMENT) instanceof FragmentHome) {
+                    showBackStackButton = false;
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 } else {
+                    showBackStackButton = true;
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 }
             }
         });
+
+
         final Drawable upArrow = ContextCompat.getDrawable(getApplicationContext(), R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showBackStackButton);
 
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(ConstStrings.BACK_BUTTON_VISIBILITY, showBackStackButton);
     }
 
     @Override
@@ -166,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.layout_fragment_area, newFragment, "FRAGMENT_DISPLAYED");
+        transaction.replace(R.id.layout_fragment_area, newFragment, ConstStrings.CURRENT_FRAGMENT);
         transaction.addToBackStack(null);
 
         transaction.commit();
@@ -174,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("FRAGMENT_DISPLAYED");
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(ConstStrings.CURRENT_FRAGMENT);
         Log.d("BACK", "Back pressed");
         if (currentFragment != null) {
             if (currentFragment instanceof FragmentHome) {
