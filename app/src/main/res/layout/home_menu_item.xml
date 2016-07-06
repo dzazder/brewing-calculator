@@ -9,9 +9,8 @@
     <ImageView
         android:id="@+id/main_menu_icon"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginRight="@dimen/padding_normal"
         android:contentDescription="TODO"
         android:background="@color/colorPrimary"/>
