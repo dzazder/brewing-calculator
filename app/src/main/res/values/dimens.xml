@@ -20,5 +20,6 @@
     <dimen name="calc_field_min_width">140dp</dimen>
     <dimen name="calc_field_small_min_height">40dp</dimen>
     <dimen name="calc_field_small_min_width">75dp</dimen>
+    <dimen name="btn_min_height">40dp</dimen>
     <dimen name="label_width_large">70dp</dimen>
 </resources>

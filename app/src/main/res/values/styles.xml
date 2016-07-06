@@ -42,6 +42,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/text_button</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">@dimen/btn_min_height</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">@dimen/size_zero</item>
     </style>
