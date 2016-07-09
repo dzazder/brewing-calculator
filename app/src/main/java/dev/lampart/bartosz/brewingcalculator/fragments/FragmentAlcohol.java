@@ -62,7 +62,7 @@ public class FragmentAlcohol extends Fragment {
         final CheckBox chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
         chbUseRefractometer.setChecked(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer());
 
-        EditText txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
+        final EditText txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
         txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
 
         final LinearLayout layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
@@ -73,14 +73,16 @@ public class FragmentAlcohol extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("SPINNER", "change value");
                 if (NumberFormatter.isNumeric(txtExtAfter.getText().toString()) &&
-                        NumberFormatter.isNumeric(txtExtBefore.getText().toString())) {
+                        NumberFormatter.isNumeric(txtExtBefore.getText().toString()) &&
+                        NumberFormatter.isNumeric(txtWortCorrectionFactor.getText().toString())) {
 
                     Log.d("SPINNER", "isnumeric true");
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
+                    double dWortFactor = Double.parseDouble(txtWortCorrectionFactor.getText().toString());
 
                     Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
-                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
 
@@ -97,13 +99,15 @@ public class FragmentAlcohol extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (NumberFormatter.isNumeric(txtExtAfter.getText().toString()) &&
-                        NumberFormatter.isNumeric(txtExtBefore.getText().toString())) {
+                        NumberFormatter.isNumeric(txtExtBefore.getText().toString()) &&
+                        NumberFormatter.isNumeric(txtWortCorrectionFactor.getText().toString())) {
 
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
+                    double dWortFactor = Double.parseDouble(txtWortCorrectionFactor.getText().toString());
 
                     Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
-                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
 
@@ -130,14 +134,48 @@ public class FragmentAlcohol extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!editedByProgram && NumberFormatter.isNumeric(s.toString())
-                        && NumberFormatter.isNumeric(txtExtAfter.getText().toString())) {
+                        && NumberFormatter.isNumeric(txtExtAfter.getText().toString()) &&
+                        NumberFormatter.isNumeric(txtWortCorrectionFactor.getText().toString())) {
                     editedByProgram = true;
 
                     double dBefore = Double.parseDouble(s.toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
+                    double dWortFactor = Double.parseDouble(txtWortCorrectionFactor.getText().toString());
 
                     Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
-                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
+
+                    setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
+
+                    editedByProgram = false;
+                }
+            }
+        });
+
+        txtWortCorrectionFactor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!editedByProgram && NumberFormatter.isNumeric(s.toString())
+                        && NumberFormatter.isNumeric(txtExtAfter.getText().toString())
+                        && NumberFormatter.isNumeric(txtExtBefore.getText().toString())) {
+                    editedByProgram = true;
+
+                    double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
+                    double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
+                    double dWortFactor = Double.parseDouble(s.toString());
+
+                    Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
 
@@ -160,14 +198,16 @@ public class FragmentAlcohol extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!editedByProgram && NumberFormatter.isNumeric(s.toString())
-                        && NumberFormatter.isNumeric(txtExtBefore.getText().toString())) {
+                        && NumberFormatter.isNumeric(txtExtBefore.getText().toString()) &&
+                        NumberFormatter.isNumeric(txtWortCorrectionFactor.getText().toString())) {
                     editedByProgram = true;
 
                     double dAfter = Double.parseDouble(s.toString());
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
+                    double dWortFactor = Double.parseDouble(txtWortCorrectionFactor.getText().toString());
 
                     Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
-                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
 
@@ -182,13 +222,15 @@ public class FragmentAlcohol extends Fragment {
                 layWortCorrectionFactor.setVisibility(b ? View.VISIBLE : View.GONE);
 
                 if (NumberFormatter.isNumeric(txtExtAfter.getText().toString()) &&
-                        NumberFormatter.isNumeric(txtExtBefore.getText().toString())) {
+                        NumberFormatter.isNumeric(txtExtBefore.getText().toString()) &&
+                        NumberFormatter.isNumeric(txtWortCorrectionFactor.getText().toString())) {
 
                     double dBefore = Double.parseDouble(txtExtBefore.getText().toString());
                     double dAfter = Double.parseDouble(txtExtAfter.getText().toString());
+                    double dWortFactor = Double.parseDouble(txtWortCorrectionFactor.getText().toString());
 
                     Tuple<Double, Double> alcatt = AlcoholCalc.CalculateAlcohol(dBefore, dAfter, ExtractUnit.valueOf(spBefore.getSelectedItem().toString()),
-                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked());
+                            ExtractUnit.valueOf(spAfter.getSelectedItem().toString()), chbUseRefractometer.isChecked(), dWortFactor);
 
                     setValues(alcatt.x, alcatt.y, lblAlco, lblAtt);
                 }

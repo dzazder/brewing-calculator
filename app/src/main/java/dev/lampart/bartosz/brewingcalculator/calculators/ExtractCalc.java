@@ -53,4 +53,6 @@ public class ExtractCalc extends Calc {
         return brix;
     }
 
+
+
 }

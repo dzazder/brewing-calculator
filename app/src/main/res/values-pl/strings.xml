@@ -7,10 +7,10 @@
     <string name="choose_default_extract_unit">Wybierz domyślną jednostkę ekstraktu</string>
     <string name="extract_conversion_calculator">Kalkulator konwersji Plato/Brix/SG</string>
     <string name="incorrect_value">Nieprawidłowa wartość</string>
-    <string name="lbl_after_fermentation">Po fermentacji</string>
+    <string name="lbl_after_fermentation">Gęstość końcowa</string>
     <string name="lbl_alcohol">Alkohol</string>
     <string name="lbl_attenuation">Odfermentowanie</string>
-    <string name="lbl_before_fermentation">Przed fermentacją</string>
+    <string name="lbl_before_fermentation">Gęstość początkowa</string>
     <string name="lbl_use_refractometer">Użyto refraktometru</string>
     <string name="lbl_wort_correction_factor">Współczynnik korekcji brzeczki</string>
     <string name="save">Zapisz</string>
