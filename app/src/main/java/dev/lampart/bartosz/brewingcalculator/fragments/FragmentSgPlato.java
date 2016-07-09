@@ -117,6 +117,8 @@ public class FragmentSgPlato extends Fragment {
     }
 
     private void setValues(double v1, double v2, EditText t1, EditText t2) {
+        v1 = v1 < 0 ? 0 : v1;
+        v2 = v2 < 0 ? 0 : v2;
         t1.setText(String.format(Locale.US, t1.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v1));
         t2.setText(String.format(Locale.US, t2.getId() == R.id.txt_calc_og ? "%.3f" : "%.2f", v2));
     }

@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryLight">
 
+    <!-- Dummy item to prevent EditText from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
     <TextView
         style="@style/StyleTextView_DialogTitle"
         android:layout_width="match_parent"
