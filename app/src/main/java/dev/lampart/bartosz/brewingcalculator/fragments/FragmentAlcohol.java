@@ -219,6 +219,7 @@ public class FragmentAlcohol extends Fragment {
         chbUseRefractometer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
                 layWortCorrectionFactor.setVisibility(b ? View.VISIBLE : View.GONE);
 
                 if (NumberFormatter.isNumeric(txtExtAfter.getText().toString()) &&
