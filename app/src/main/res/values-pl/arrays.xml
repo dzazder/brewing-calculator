@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="extract_units">
+        <item>Plato</item>
+        <item>Brix</item>
+        <item>SG</item>
+    </string-array>
+</resources>

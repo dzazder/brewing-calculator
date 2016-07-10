@@ -65,7 +65,8 @@ public class AlcoholCalc extends Calc {
                     break;
             }
 
-            alc = (76.08 * (extBefore - extAfter) / (1.775 - extBefore)) * (extAfter / 0.794);
+            //alc = (76.08 * (extBefore - extAfter) / (1.775 - extBefore)) * (extAfter / 0.794);
+            alc = (extBefore - extAfter) * 131.25;
             att = ((extBefore - 1) - (extAfter - 1)) / (extBefore - 1) * 100;
         }
 

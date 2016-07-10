@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KalkulatorPiwowarski</string>
+    <string name="app_name">Kalkulator Piwowarski</string>
     <string name="alcohol_calculator">Kalkulator zawartości alkoholu</string>
     <string name="app_name_formatted">Kalkulator Piwowarski</string>
     <string name="cancel">Anuluj</string>
