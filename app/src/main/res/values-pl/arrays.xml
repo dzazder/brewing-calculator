@@ -5,4 +5,15 @@
         <item>Brix</item>
         <item>SG</item>
     </string-array>
+
+    <string-array name="volume_units">
+        <item>Galony</item>
+        <item>Litry</item>
+    </string-array>
+
+    <string-array name="sugar_types">
+        <item>Glukoza</item>
+        <item>Cukier biały</item>
+        <item>Suchy ekstrakt słodowy</item>
+    </string-array>
 </resources>

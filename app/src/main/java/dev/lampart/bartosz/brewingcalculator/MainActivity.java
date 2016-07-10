@@ -32,6 +32,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.BCalcConf;
 import dev.lampart.bartosz.brewingcalculator.entities.Language;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentCarbonation;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
@@ -175,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
             case DictFragment.FRAGMENT_ALCOHOL:
                 newFragment = new FragmentAlcohol();
                 break;
+            case DictFragment.FRAGMENT_CARBONATION:
+                newFragment = new FragmentCarbonation();
+                break;
             default:
                 newFragment = new FragmentHome();
                 break;
@@ -202,6 +206,9 @@ public class MainActivity extends AppCompatActivity {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
             if (currentFragment instanceof  FragmentAlcohol) {
+                switchFragment(DictFragment.FRAGMENT_HOME);
+            }
+            if (currentFragment instanceof  FragmentCarbonation) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
         } else {

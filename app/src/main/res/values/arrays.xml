@@ -5,4 +5,15 @@
         <item>Brix</item>
         <item>SG</item>
     </string-array>
+
+    <string-array name="volume_units">
+        <item>Gallons</item>
+        <item>Liters</item>
+    </string-array>
+
+    <string-array name="sugar_types">
+        <item>Corn sugar</item>
+        <item>Table sugar</item>
+        <item>DME</item>
+    </string-array>
 </resources>
