@@ -28,6 +28,10 @@ public class FileDB {
     private static String strLang = "lang";
     private static String strRefr = "refr";
     private static String strWortFactor = "wort";
+    private static String strPrimingSize = "prsize";
+    private static String strVolumeUnit = "volunit";
+    private static String strTemperature = "temp";
+    private static String strTempUnit = "tempunit";
     private static String cfgSep = ";";
     private static String cfgValStart = "=";
 
@@ -35,8 +39,14 @@ public class FileDB {
         String unit = setCfgValue(strUnit, conf.getDefExtractUnit().toString(), context);
         String useRefr = setCfgValue(strRefr, conf.isDefUseRefractometer() ? "1" : "0", context);
         String wort = setCfgValue(strWortFactor, Double.toString(conf.getDefWortCorrectionFactor()), context);
+        String primingSize = setCfgValue(strPrimingSize, Double.toString(conf.getDefPrimingSize()), context);
+        String volUnit = setCfgValue(strVolumeUnit, conf.getDefVolumeUnit().toString(), context);
+        String temperature = setCfgValue(strTemperature, Double.toString(conf.getDefTemperature()), context);
+        String tempUnit = setCfgValue(strTempUnit, conf.getDefTempUnit().toString(), context);
 
-        String confString = unit + cfgSep + useRefr + cfgSep + wort + cfgSep;
+        String confString = unit + cfgSep + useRefr + cfgSep + wort + cfgSep + primingSize +
+                cfgSep + volUnit + cfgSep + temperature + cfgSep + tempUnit + cfgSep;
+
         SaveDBFileContent(context, confString);
     }
 
@@ -142,6 +152,12 @@ public class FileDB {
 
         Log.d("FileDB", "Default wort correction factor is: " + Double.toString(defWortFactor));
         return defWortFactor;
+    }
+
+    public static double getDefaultPrimingSize(Context context) {
+        Log.d("FileDB", "Read configuration default priming size");
+        // todo
+        return 0;
     }
 
     public static Language getDefaultLanguage(Context context) {
