@@ -86,28 +86,6 @@
                 android:divider="@drawable/empty_divider_vertical">
 
                 <TextView
-                    android:text="@string/lbl_priming_sugar_type"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sp_sugar_type"
-                    android:gravity="right"
-                    android:entries="@array/sugar_types"></Spinner>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:showDividers="middle"
-                android:gravity="center_vertical"
-                android:divider="@drawable/empty_divider_vertical">
-
-                <TextView
                     android:text="@string/lbl_beer_temp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
@@ -128,6 +106,18 @@
                     android:entries="@array/temp_scale"></Spinner>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:text="@string/lbl_priming_sugar_amount"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,15 +127,59 @@
                 android:divider="@drawable/empty_divider_vertical">
 
                 <TextView
-                    android:text="@string/lbl_priming_sugar_amount"
+                    android:text="@string/sugar_type_table_sugar"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/txt_priming_sugar_amount_value"
+                    android:id="@+id/txt_priming_sugar_amount_value_table_sugar"
                     android:textColor="@color/colorAccentDark"
                     android:textStyle="bold"
-                    android:text="-- g"
+                    android:text="--"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/sugar_type_corn_sugar"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txt_priming_sugar_amount_value_corn_sugar"
+                    android:textColor="@color/colorAccentDark"
+                    android:textStyle="bold"
+                    android:text="--"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/sugar_type_dme"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txt_priming_sugar_amount_value_dme"
+                    android:textColor="@color/colorAccentDark"
+                    android:textStyle="bold"
+                    android:text="--"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
             </LinearLayout>
