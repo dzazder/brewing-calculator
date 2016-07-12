@@ -6,14 +6,24 @@
         <item>SG</item>
     </string-array>
 
+    <string name="volume_unit_gallons">Galony</string>
+    <string name="volume_unit_liters">Litry</string>
     <string-array name="volume_units">
-        <item>Galony</item>
-        <item>Litry</item>
+        <item>@string/volume_unit_gallons</item>
+        <item>@string/volume_unit_liters</item>
     </string-array>
 
+    <string name="sugar_type_corn_sugar">Glukoza</string>
+    <string name="sugar_type_table_sugar">Cukier biały</string>
+    <string name="sugar_type_dme">Suchy ekstrakt słodowy</string>
     <string-array name="sugar_types">
-        <item>Glukoza</item>
-        <item>Cukier biały</item>
-        <item>Suchy ekstrakt słodowy</item>
+        <item>@string/sugar_type_corn_sugar</item>
+        <item>@string/sugar_type_table_sugar</item>
+        <item>@string/sugar_type_dme</item>
+    </string-array>
+
+    <string-array name="temp_scale">
+        <item>°C</item>
+        <item>°F</item>
     </string-array>
 </resources>

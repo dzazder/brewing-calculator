@@ -28,6 +28,7 @@ public class MainMenu {
                 BrewingCalculatorApplication.getContext().getString(R.string.title_alcohol_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_alcohol_calculator),
                 R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_ALCOHOL);
+
         MainMenuItem calcCarbonation = new MainMenuItem(3,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_carbonation_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_carbonation_calculator),

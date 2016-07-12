@@ -27,10 +27,29 @@
     <string name="lbl_co2_volumes">Volumes of CO2</string>
     <string name="lbl_priming_size">Priming size</string>
     <string name="lbl_priming_sugar">Priming sugar</string>
+    <string name="lbl_priming_sugar_type">Priming sugar type</string>
     <string name="lbl_priming_sugar_amount">Priming sugar amount</string>
     <string name="lbl_use_refractometer">Use refractometer</string>
     <string name="lbl_wort_correction_factor">Wort correction factor</string>
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
+    <string name="lbl_carbonation_guidelines">Carbonation guidelines</string>
+    <string name="lbl_style_british_ales">British Style Ales</string>
+    <string name="lbl_style_belgian_ales">Belgian Ales</string>
+    <string name="lbl_style_american_styles">American Ales and Lagers</string>
+    <string name="lbl_style_fruit_lambic">Fruit Lambic</string>
+    <string name="lbl_style_porter_stout">Porter, Stout</string>
+    <string name="lbl_style_european_lagers">European Lagers</string>
+    <string name="lbl_style_lambic">Lambic</string>
+    <string name="lbl_style_german_wheat_beer">German Wheat Beer</string>
+    <string name="lbl_style_british_ales_val">1.5 - 2.0 volumes</string>
+    <string name="lbl_style_belgian_ales_val">1.9 - 2.4 volumes</string>
+    <string name="lbl_style_american_styles_val">2.2 - 2.7 volumes</string>
+    <string name="lbl_style_fruit_lambic_val">3.0 - 4.5 volumes</string>
+    <string name="lbl_style_porter_stout_val">1.7 - 2.3 volumes</string>
+    <string name="lbl_style_european_lagers_val">2.2 - 2.7 volumes</string>
+    <string name="lbl_style_lambic_val">2.4 - 2.8 volumes</string>
+    <string name="lbl_style_german_wheat_beer_val">3.3 - 4.5 volumes</string>
+
 
     <string name="title_extract_calculator">Extract Units Calculator</string>
     <string name="title_alcohol_calculator">Alcohol Calculator</string>

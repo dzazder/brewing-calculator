@@ -6,14 +6,24 @@
         <item>SG</item>
     </string-array>
 
+    <string name="volume_unit_gallons">Gallons</string>
+    <string name="volume_unit_liters">Liters</string>
     <string-array name="volume_units">
-        <item>Gallons</item>
-        <item>Liters</item>
+        <item>@string/volume_unit_gallons</item>
+        <item>@string/volume_unit_liters</item>
     </string-array>
 
+    <string name="sugar_type_corn_sugar">Corn sugar</string>
+    <string name="sugar_type_table_sugar">Table sugar</string>
+    <string name="sugar_type_dme">DME</string>
     <string-array name="sugar_types">
-        <item>Corn sugar</item>
-        <item>Table sugar</item>
-        <item>DME</item>
+        <item>@string/sugar_type_corn_sugar</item>
+        <item>@string/sugar_type_table_sugar</item>
+        <item>@string/sugar_type_dme</item>
+    </string-array>
+
+    <string-array name="temp_scale">
+        <item>°C</item>
+        <item>°F</item>
     </string-array>
 </resources>
