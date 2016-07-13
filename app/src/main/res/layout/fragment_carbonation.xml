@@ -189,6 +189,64 @@
                 android:layout_height="1dp"
                 android:background="@color/colorAccent"/>
 
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="7"
+                android:alignmentMode="alignBounds"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="@string/lbl_style_british_ales"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_british_ales_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_porter_stout"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_porter_stout_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_belgian_ales"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_belgian_ales_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_american_styles"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_american_styles_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_lambic"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_lambic_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_fruit_lambic"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_fruit_lambic_val"/>
+
+                <TextView
+                    android:text="@string/lbl_style_german_wheat_beer"/>
+                <View android:layout_height="match_parent"
+                    android:layout_width="10dp"></View>
+                <TextView
+                    android:text="@string/lbl_style_german_wheat_beer_val"/>
+
+            </GridLayout>
         </LinearLayout>
 
     </ScrollView>
