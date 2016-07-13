@@ -34,21 +34,21 @@
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
     <string name="lbl_carbonation_guidelines">Carbonation guidelines</string>
     <string name="lbl_style_british_ales">British Ale</string>
-    <string name="lbl_style_belgian_ales">Belgian Ales</string>
-    <string name="lbl_style_american_styles">Lager/American Ale</string>
+    <string name="lbl_style_belgian_ales" translatable="false">Belgian Ales</string>
+    <string name="lbl_style_american_styles" translatable="false">Lager/American Ale</string>
     <string name="lbl_style_fruit_lambic">Fruit Lambic</string>
-    <string name="lbl_style_porter_stout">Porter, Stout</string>
-    <string name="lbl_style_european_lagers">European Lagers</string>
+    <string name="lbl_style_porter_stout" translatable="false">Porter, Stout</string>
+    <string name="lbl_style_european_lagers" translatable="false">European Lagers</string>
     <string name="lbl_style_lambic">Lambic</string>
     <string name="lbl_style_german_wheat_beer">German Wheat</string>
-    <string name="lbl_style_british_ales_val">1.5 - 2.0 volumes</string>
-    <string name="lbl_style_belgian_ales_val">1.9 - 2.4 volumes</string>
-    <string name="lbl_style_american_styles_val">2.2 - 2.7 volumes</string>
-    <string name="lbl_style_fruit_lambic_val">3.0 - 4.5 volumes</string>
-    <string name="lbl_style_porter_stout_val">1.7 - 2.3 volumes</string>
-    <string name="lbl_style_european_lagers_val">2.2 - 2.7 volumes</string>
-    <string name="lbl_style_lambic_val">2.4 - 2.8 volumes</string>
-    <string name="lbl_style_german_wheat_beer_val">3.3 - 4.5 volumes</string>
+    <string name="lbl_style_british_ales_val" translatable="false">1.5 - 2.0 volumes</string>
+    <string name="lbl_style_belgian_ales_val" translatable="false">1.9 - 2.4 volumes</string>
+    <string name="lbl_style_american_styles_val" translatable="false">2.2 - 2.7 volumes</string>
+    <string name="lbl_style_fruit_lambic_val" translatable="false">3.0 - 4.5 volumes</string>
+    <string name="lbl_style_porter_stout_val" translatable="false">1.7 - 2.3 volumes</string>
+    <string name="lbl_style_european_lagers_val" translatable="false">2.2 - 2.7 volumes</string>
+    <string name="lbl_style_lambic_val" translatable="false">2.4 - 2.8 volumes</string>
+    <string name="lbl_style_german_wheat_beer_val" translatable="false">3.3 - 4.5 volumes</string>
 
 
     <string name="title_extract_calculator">Extract Units Calculator</string>
@@ -60,5 +60,5 @@
     <string name="description_carbonation_calculator">Calculate sugar amonut to the carbonation</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 </resources>

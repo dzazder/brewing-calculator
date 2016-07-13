@@ -22,4 +22,17 @@
     <string name="description_alcohol_calculator">Oblicz zawartość alkoholu w piwie</string>
     <string name="description_extract_calculator">Konwerter jednostek wartości ekstraktu - SG, Brix, Plato</string>
     <string name="lbl_always_use_refractometer">Zawsze używaj refraktometru</string>
+    <string name="description_carbonation_calculator">Oblicz ilość cukru do refermentacji</string>
+    <string name="lbl_beer_temp">Temperatura piwa</string>
+    <string name="lbl_carbonation_guidelines">Tabela nagazowania</string>
+    <string name="lbl_co2_volumes">Poziom nagazowania</string>
+    <string name="lbl_priming_size">Wielkość warki</string>
+    <string name="lbl_priming_sugar">Rodzaj cukru</string>
+    <string name="lbl_priming_sugar_amount">Ilość cukru</string>
+    <string name="lbl_priming_sugar_type">Rodzaj cukru</string>
+    <string name="lbl_style_american_styles">Lager/American Ale</string>
+    <string name="lbl_style_fruit_lambic">Owocowy lambik</string>
+    <string name="lbl_style_british_ales" translatable="false">Brytyjskie Ale</string>
+    <string name="lbl_style_german_wheat_beer">Pszeniczne</string>
+    <string name="lbl_style_lambic">Lambik</string>
 </resources>
