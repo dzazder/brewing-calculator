@@ -34,6 +34,7 @@ import dev.lampart.bartosz.brewingcalculator.entities.Language;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentCarbonation;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSettings;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
@@ -41,7 +42,6 @@ import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
-    private AlertDialog alertDialog = null;
     private boolean showBackStackButton;
 
     @Override
@@ -97,60 +97,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
-        View dialogview = getLayoutInflater().inflate(R.layout.dialog_settings, null);
-        final Spinner spDefaultExtractUnit = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
-        final CheckBox chbUseRefractometer = (CheckBox) dialogview.findViewById(R.id.chb_always_use_refractometer);
-        final EditText txtWortCorrectFactor = (EditText) dialogview.findViewById(R.id.txt_default_wort_correction_factor);
+
 
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
 
-                //if (alertDialog == null || !alertDialog.isShowing()) {
-                alertDialog = new AlertDialog.Builder(this).create(); //Read Update
-                alertDialog.setView(dialogview);
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.extract_units,
-                        android.R.layout.simple_spinner_item);
-                //adapter.setDropDownViewResource(R.layout.bcalc_spinner_dropdown_item);
-                int spinnerUnitPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
-                spDefaultExtractUnit.setSelection(spinnerUnitPosition);
-
-                chbUseRefractometer.setChecked(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer());
-                txtWortCorrectFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
-
-                Button btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);
-                btnSettingsCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.hide();
-                    }
-                });
-
-                Button btnSettingsSave = (Button) dialogview.findViewById(R.id.btn_settings_save);
-                btnSettingsSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ExtractUnit selectedUnit = ExtractUnit.valueOf(spDefaultExtractUnit.getSelectedItem().toString());
-                        boolean useRefractometer = chbUseRefractometer.isChecked();
-                        double wortCorrectFactor = Double.parseDouble(txtWortCorrectFactor.getText().toString());
-
-                        //FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
-                        AppConfiguration.getInstance().defaultSettings.setDefExtractUnit(selectedUnit);
-                        AppConfiguration.getInstance().defaultSettings.setDefUseRefractometer(useRefractometer);
-                        AppConfiguration.getInstance().defaultSettings.setDefWortCorrectionFactor(wortCorrectFactor);
-
-                        BCalcConf conf = new BCalcConf();
-                        conf.setDefExtractUnit(selectedUnit);
-                        conf.setDefUseRefractometer(useRefractometer);
-                        conf.setDefWortCorrectionFactor(wortCorrectFactor);
-                        FileDB.saveConfiguration(conf, getApplicationContext());
-
-                        alertDialog.hide();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.show();
-                //}
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentSettings fs = new FragmentSettings();
+                fs.show(getFragmentManager(), "fragment_settings");
                 break;
             default:
                 onBackPressed();
