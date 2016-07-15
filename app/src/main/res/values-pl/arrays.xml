@@ -22,8 +22,10 @@
         <item>@string/sugar_type_dme</item>
     </string-array>
 
+    <string name="temp_unit_C" translatable="false">°C</string>
+    <string name="temp_unit_F" translatable="false">°F</string>
     <string-array name="temp_scale">
-        <item>°C</item>
-        <item>°F</item>
+        <item>@string/temp_unit_C</item>
+        <item>@string/temp_unit_F</item>
     </string-array>
 </resources>

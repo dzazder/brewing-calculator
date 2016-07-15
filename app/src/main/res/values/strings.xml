@@ -26,6 +26,7 @@
     <string name="lbl_before_fermentation">Original gravity</string>
     <string name="lbl_co2_volumes">Volumes of CO2</string>
     <string name="lbl_priming_size">Priming size</string>
+    <string name="lbl_default_priming_size">Default priming size</string>
     <string name="lbl_priming_sugar">Priming sugar</string>
     <string name="lbl_priming_sugar_type">Priming sugar type</string>
     <string name="lbl_priming_sugar_amount">Priming sugar amount</string>

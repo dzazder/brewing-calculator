@@ -18,9 +18,7 @@ public class CarbonationCalculator extends Calc {
                                                                       VolumeUnit primingUnit, TemperatureUnit tempUnit) {
 
         if (tempUnit == TemperatureUnit.C) {
-            Log.d("Carbonation", "Temp in C: "+ beerTemp);
             beerTemp = UnitCalc.calcCelsiusToFahrenheit(beerTemp);
-            Log.d("Carbonation", "Temp in F: "+ beerTemp);
         }
         if (primingUnit == VolumeUnit.Liter) {
             primingSize = UnitCalc.calcLitresToGallons(primingSize);

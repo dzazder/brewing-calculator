@@ -20,6 +20,10 @@ public class BCalcConf {
         this.defExtractUnit = ExtractUnit.Plato;
         this.defUseRefractometer = false;
         this.defWortCorrectionFactor = 1.04;
+        this.defPrimingSize = 20;
+        this.defVolumeUnit = VolumeUnit.Liter;
+        this.defTemperature = 20;
+        this.defTempUnit = TemperatureUnit.C;
     }
 
     public BCalcConf(ExtractUnit defExtractUnit, boolean defUseRefractometer, double defWortCorrectionFactor,
