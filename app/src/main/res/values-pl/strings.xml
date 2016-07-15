@@ -36,4 +36,5 @@
     <string name="lbl_style_german_wheat_beer">Pszeniczne</string>
     <string name="lbl_style_lambic">Lambik</string>
     <string name="title_carbonation_calculator">Kalkulator nagazowania</string>
+    <string name="lbl_style_belgian_ales">Be</string>
 </resources>

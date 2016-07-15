@@ -1,5 +1,7 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.SugarType;
@@ -16,7 +18,9 @@ public class CarbonationCalculator extends Calc {
                                                                       VolumeUnit primingUnit, TemperatureUnit tempUnit) {
 
         if (tempUnit == TemperatureUnit.C) {
+            Log.d("Carbonation", "Temp in C: "+ beerTemp);
             beerTemp = UnitCalc.calcCelsiusToFahrenheit(beerTemp);
+            Log.d("Carbonation", "Temp in F: "+ beerTemp);
         }
         if (primingUnit == VolumeUnit.Liter) {
             primingSize = UnitCalc.calcLitresToGallons(primingSize);

@@ -33,14 +33,14 @@
     <string name="lbl_wort_correction_factor">Wort correction factor</string>
     <string name="lbl_wort_correction_factor_default_value" translatable="false">1.04</string>
     <string name="lbl_carbonation_guidelines">Carbonation guidelines</string>
-    <string name="lbl_style_british_ales">British Ale</string>
+    <string name="lbl_style_british_ales" translatable="false">British Ale</string>
     <string name="lbl_style_belgian_ales" translatable="false">Belgian Ales</string>
     <string name="lbl_style_american_styles" translatable="false">Lager/American Ale</string>
-    <string name="lbl_style_fruit_lambic">Fruit Lambic</string>
+    <string name="lbl_style_fruit_lambic" translatable="false">Fruit Lambic</string>
     <string name="lbl_style_porter_stout" translatable="false">Porter, Stout</string>
     <string name="lbl_style_european_lagers" translatable="false">European Lagers</string>
-    <string name="lbl_style_lambic">Lambic</string>
-    <string name="lbl_style_german_wheat_beer">German Wheat</string>
+    <string name="lbl_style_lambic" translatable="false">Lambic</string>
+    <string name="lbl_style_german_wheat_beer" translatable="false">German Wheat</string>
     <string name="lbl_style_british_ales_val" translatable="false">1.5 - 2.0 volumes</string>
     <string name="lbl_style_belgian_ales_val" translatable="false">1.9 - 2.4 volumes</string>
     <string name="lbl_style_american_styles_val" translatable="false">2.2 - 2.7 volumes</string>

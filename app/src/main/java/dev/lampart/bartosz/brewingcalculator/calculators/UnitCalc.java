@@ -13,10 +13,18 @@ public class UnitCalc extends Calc {
     }
 
     public static double calcCelsiusToFahrenheit(double c) {
-        return (c * (9 / 5)) + 32;
+        return (c * ((double)9 / 5)) + 32;
     }
 
     public static double calcFahrenheitToCelsius(double f) {
         return (f - 32) * (5 / 9);
+    }
+
+    public static double calcGramsToOunces(double g) {
+        return g / 28.3495231;
+    }
+
+    public static double calcOuncesToGrams(double o) {
+        return o * 28.3495231;
     }
 }
