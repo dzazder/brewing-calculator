@@ -2,6 +2,8 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,9 +40,14 @@ public class FragmentSettings extends DialogFragment {
     EditText txtBeerTemp;
     Spinner spDefaultTempScale;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View dialogview = inflater.inflate(R.layout.dialog_settings, container);
+        View dialogview = inflater.inflate(R.layout.dialog_settings, container, false);
+
+        //getDialog().setTitle(getActivity().getResources().getString(R.string.settings));
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         spDefaultExtractUnit = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
         chbUseRefractometer = (CheckBox) dialogview.findViewById(R.id.chb_always_use_refractometer);

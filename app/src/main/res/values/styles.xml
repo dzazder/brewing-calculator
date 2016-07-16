@@ -100,4 +100,11 @@
 
     </style>
 
+    <!-- DIALOG STYLE -->
+    <style name="BrewCalc.Dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>

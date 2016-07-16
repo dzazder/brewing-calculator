@@ -1,5 +1,6 @@
 package dev.lampart.bartosz.brewingcalculator;
 
+import android.app.DialogFragment;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -115,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * It runs selected fragment
-     *
      * @param fragment Id of fragment to run, ids are saved in MainActivity fields
      */
     public void switchFragment(int fragment) {

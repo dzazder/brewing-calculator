@@ -9,10 +9,12 @@
     <LinearLayout
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:layout_width="0px"
+        android:layout_width="match_parent"
         android:layout_height="0px"/>
 
     <TextView
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         style="@style/StyleTextView_DialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,7 +102,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/padding_normal"
