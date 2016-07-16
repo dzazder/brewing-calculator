@@ -8,7 +8,7 @@
     <string name="incorrect_value">Incorrect value</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
-    <string name="choose_default_extract_unit">Choose default extract unit: </string>
+    <string name="choose_default_extract_unit">Choose default gravity unit: </string>
     <string name="choose_default_language">Choose default language: </string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
@@ -52,13 +52,13 @@
     <string name="lbl_style_german_wheat_beer_val" translatable="false">3.3 - 4.5 volumes</string>
 
 
-    <string name="title_extract_calculator">Extract Units Calculator</string>
+    <string name="title_extract_calculator">Gravity Units Calculator</string>
     <string name="title_alcohol_calculator">Alcohol Calculator</string>
     <string name="title_carbonation_calculator">Carbonation Calculator</string>
 
-    <string name="description_extract_calculator">Calculate extract unit values - SG,Brix,Plato converter</string>
+    <string name="description_extract_calculator">Calculate gravity unit values - SG,Brix,Plato converter</string>
     <string name="description_alcohol_calculator">Calculate alcohol by value within a beer</string>
-    <string name="description_carbonation_calculator">Calculate sugar amonut to the carbonation</string>
+    <string name="description_carbonation_calculator">Calculate sugar amount to the carbonation</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
