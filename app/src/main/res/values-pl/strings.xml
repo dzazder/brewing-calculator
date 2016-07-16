@@ -30,11 +30,6 @@
     <string name="lbl_priming_sugar">Rodzaj cukru</string>
     <string name="lbl_priming_sugar_amount">Ilość cukru</string>
     <string name="lbl_priming_sugar_type">Rodzaj cukru</string>
-    <string name="lbl_style_american_styles">Lager/American Ale</string>
-    <string name="lbl_style_fruit_lambic">Owocowy lambik</string>
-    <string name="lbl_style_british_ales" translatable="false">Brytyjskie Ale</string>
-    <string name="lbl_style_german_wheat_beer">Pszeniczne</string>
-    <string name="lbl_style_lambic">Lambik</string>
     <string name="title_carbonation_calculator">Kalkulator nagazowania</string>
-    <string name="lbl_style_belgian_ales">Be</string>
+    <string name="lbl_default_priming_size">Domyślna wielkość warki</string>
 </resources>

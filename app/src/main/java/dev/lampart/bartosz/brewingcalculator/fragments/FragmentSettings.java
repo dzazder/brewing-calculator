@@ -86,15 +86,12 @@ public class FragmentSettings extends DialogFragment {
         ArrayAdapter<CharSequence> tempScale = ArrayAdapter.createFromResource(getActivity(), R.array.temp_scale,
                 android.R.layout.simple_spinner_item);
         TemperatureUnit tempDefUnit = TemperatureUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefTempUnit().toString());
-        Log.d("settings", "Def unit temp: " + tempDefUnit);
         String valSelectedInTempUnit = "";
         switch (tempDefUnit) {
             case C: valSelectedInTempUnit = getActivity().getResources().getString(R.string.temp_unit_C); break;
             case F: valSelectedInTempUnit = getActivity().getResources().getString(R.string.temp_unit_F); break;
         }
-        Log.d("settings", "val string should be selected: " + valSelectedInTempUnit);
         int spinnerTempPosition = tempScale.getPosition(valSelectedInTempUnit);
-        Log.d("settings", "temperature item position: " + spinnerTempPosition);
         spDefaultTempScale.setSelection(spinnerTempPosition);
 
         Button btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);

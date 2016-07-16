@@ -32,7 +32,7 @@ public class MainMenu {
         MainMenuItem calcCarbonation = new MainMenuItem(3,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_carbonation_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_carbonation_calculator),
-                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_CARBONATION);
+                R.drawable.ic_carbonation_fragment, DictFragment.FRAGMENT_CARBONATION);
 
         items.add(calcExtract);
         items.add(calcAlcohol);

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.SugarType;
 import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
+import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
@@ -56,6 +58,42 @@ public class FragmentCarbonation extends Fragment {
         final TextView txtAmountTableSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_table_sugar);
         final TextView txtAmountCornSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_corn_sugar);
         final TextView txtAmountDME = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_dme);
+
+        // set data from configuration
+        txtPrimingSize.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
+        txtBeerTemp.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefTemperature()));
+
+        ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
+                android.R.layout.simple_spinner_item);
+        VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
+        String valSelectedInSpinnerVol = "";
+        switch (selDefVolUnit) {
+            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
+            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+        }
+        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
+        spPrimingSize.setSelection(spinnerPrimingUnigPosition);
+
+        ArrayAdapter<CharSequence> tempScale = ArrayAdapter.createFromResource(getActivity(), R.array.temp_scale,
+                android.R.layout.simple_spinner_item);
+        TemperatureUnit tempDefUnit = TemperatureUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefTempUnit().toString());
+        String valSelectedInTempUnit = "";
+        switch (tempDefUnit) {
+            case C: valSelectedInTempUnit = getActivity().getResources().getString(R.string.temp_unit_C); break;
+            case F: valSelectedInTempUnit = getActivity().getResources().getString(R.string.temp_unit_F); break;
+        }
+        int spinnerTempPosition = tempScale.getPosition(valSelectedInTempUnit);
+        spBeerTemp.setSelection(spinnerTempPosition);
+        // end of set from configuration
+        /*
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
+                android.R.layout.simple_spinner_item);
+
+        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
+
+        spAfter.setSelection(spinnerPosition);
+        spBefore.setSelection(spinnerPosition);
+         */
 
         txtPrimingSize.addTextChangedListener(new TextWatcher() {
             @Override
