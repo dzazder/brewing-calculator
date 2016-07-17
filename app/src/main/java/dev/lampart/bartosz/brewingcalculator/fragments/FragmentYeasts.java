@@ -1,10 +1,12 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -22,6 +25,10 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
@@ -45,9 +52,17 @@ public class FragmentYeasts extends Fragment {
     private Spinner spGravityUnit;
     private Spinner spVolumeUnit;
     private RadioGroup rgBeerStyle;
+    private EditText txtHarvestDate;
 
     // dry
     private TextView txtDryYeastNeeded;
+
+    // slurry
+    private TextView txtSlurryYeastNeeded;
+
+
+    private DatePickerDialog harvestDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
 
     public FragmentYeasts() {
         // Required empty public constructor
@@ -94,6 +109,8 @@ public class FragmentYeasts extends Fragment {
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_yeast_extract_unit);
         spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
         rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
+        txtHarvestDate = (EditText)view.findViewById(R.id.txt_harvest_date);
+        txtSlurryYeastNeeded = (TextView) view.findViewById(R.id.txt_yeast_slurry_needed);
 
         txtBeerAmount.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
         ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
@@ -180,6 +197,26 @@ public class FragmentYeasts extends Fragment {
             }
         });
 
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        txtHarvestDate.setInputType(InputType.TYPE_NULL);
+        if (txtHarvestDate.getText().toString().length() == 0) {
+            txtHarvestDate.setText(dateFormatter.format(new Date()));
+        }
+        Calendar calendar = Calendar.getInstance();
+        harvestDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                txtHarvestDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        txtHarvestDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                harvestDatePickerDialog.show();
+            }
+        });
 
         return view;
     }
@@ -193,6 +230,12 @@ public class FragmentYeasts extends Fragment {
             double gravity = Double.parseDouble(txtGravity.getText().toString());
             String selectedVolUnit = spVolumeUnit.getSelectedItem().toString();
             String selectedGrUnit = spGravityUnit.getSelectedItem().toString();
+            Date harvestDate = new Date();
+            try {
+                harvestDate = dateFormatter.parse(txtHarvestDate.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             VolumeUnit volUnit = VolumeUnit.Liter;
             if (selectedVolUnit == getContext().getString(R.string.volume_unit_gallons)) {
@@ -213,10 +256,24 @@ public class FragmentYeasts extends Fragment {
                     setDryYeastNeeded(yeastNeeded);
                     break;
                 case 1: break;
-                case 2: break;
+                case 2:
+                    setSlurryNeeded(yeastNeeded, harvestDate);
+                    break;
             }
 
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
+        }
+    }
+
+    private void setSlurryNeeded(long yeastNeeded, Date harvestDate) {
+        if (yeastNeeded < 0) {
+            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtSlurryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
+        }
+        else {
+            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            double slurryYeastNeeded = YeastCalc.calcMililitersOfSlurry(yeastNeeded, harvestDate);
+            txtSlurryYeastNeeded.setText(String.format(Locale.US, "%.2f ml", slurryYeastNeeded));
         }
     }
 

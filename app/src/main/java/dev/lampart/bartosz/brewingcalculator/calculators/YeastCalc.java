@@ -1,5 +1,11 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
+import android.app.DatePickerDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import dev.lampart.bartosz.brewingcalculator.dicts.BeerStyle;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
@@ -9,6 +15,9 @@ import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
  */
 public class YeastCalc {
     private static double dryGramCells = 20000000000.;
+    private static double dayFlurryViabilityDecrease = 1.61857;
+    private static double flurryMililiterCells = 1500000000;
+
 
     /**
      * Calculates yeast needed to beer fermentation
@@ -33,6 +42,21 @@ public class YeastCalc {
 
     public static double calcGramsOfDryYeast(long yeastCells) {
         return (double)yeastCells / dryGramCells;
+    }
+
+    public static double calcMililitersOfSlurry(long yeastCells, Date harvestDate) {
+        double slurryViability = calcSlurryViability(harvestDate);
+        double mililiterCells = flurryMililiterCells * (slurryViability / 100.);
+
+        return (double)yeastCells / mililiterCells;
+    }
+
+    public static double calcSlurryViability(Date harvestDate) {
+        Date today = new Date();
+        long diff = today.getTime() - harvestDate.getTime();
+        long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        return 94 - (daysDiff * dayFlurryViabilityDecrease);
     }
 
     private static double getBeerStyleYeastRate(BeerStyle beerStyle) {

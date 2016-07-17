@@ -52,15 +52,17 @@
     <string name="lbl_style_german_wheat_beer_val" translatable="false">3.3 - 4.5 volumes</string>
     <string name="lbl_yeast_needed">Yeast amount needed</string>
     <string name="lbl_dry_yeast_needed">Grams dry yeast needed</string>
+    <string name="lbl_slurry_yeast_needed">Mililiters slurry needed</string>
     <string name="lbl_beer_style">Beer style</string>
     <string name="lbl_beer_style_ale">Ale</string>
     <string name="lbl_beer_style_lager">Lager</string>
+    <string name="lbl_harvest_date">Harvest date</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>
     <string name="title_alcohol_calculator">Alcohol Calculator</string>
     <string name="title_carbonation_calculator">Carbonation Calculator</string>
-    <string name="title_yeasts_amount_calculator">Yeast Cells Calculator</string>
+    <string name="title_yeasts_amount_calculator">Yeast Amount Calculator</string>
 
     <string name="title_yeasts_dry">Dry yeast</string>
     <string name="title_yeasts_liquid">Liquid yeast</string>
