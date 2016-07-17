@@ -8,6 +8,8 @@ import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
  * Created by bartek on 17.07.2016.
  */
 public class YeastCalc {
+    private static double dryGramCells = 20000000000.;
+
     /**
      * Calculates yeast needed to beer fermentation
      * @param beerAmount
@@ -27,6 +29,10 @@ public class YeastCalc {
         }
         beerAmount = beerAmount * 1000; // beer in ml
         return (long) (1000000 * beerAmount * gravity * getBeerStyleYeastRate(beerStyle));
+    }
+
+    public static double calcGramsOfDryYeast(long yeastCells) {
+        return (double)yeastCells / dryGramCells;
     }
 
     private static double getBeerStyleYeastRate(BeerStyle beerStyle) {

@@ -165,6 +165,11 @@
                     android:layout_weight="1"/>
             </LinearLayout>
 
+            <View
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"/>
 
             <TabHost
                 android:id="@+id/tabhost_yeasts"
@@ -192,14 +197,30 @@
                             android:id="@+id/tab_yeasts_dry"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#ffc916"
+                            android:padding="@dimen/padding_normal"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="This is tab 1" />
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2"
+                                    android:layout_height="match_parent"
+                                    android:text="@string/lbl_dry_yeast_needed" />
+
+                                <TextView
+                                    android:id="@+id/txt_yeast_dry_needed"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"
+                                    android:textColor="@color/colorAccent"
+                                    android:textStyle="bold"
+                                    android:text="--" />
+
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout

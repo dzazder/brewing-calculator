@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -29,6 +30,7 @@ import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.BeerStyle;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
+import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -44,6 +46,9 @@ public class FragmentYeasts extends Fragment {
     private Spinner spVolumeUnit;
     private RadioGroup rgBeerStyle;
 
+    // dry
+    private TextView txtDryYeastNeeded;
+
     public FragmentYeasts() {
         // Required empty public constructor
     }
@@ -53,8 +58,6 @@ public class FragmentYeasts extends Fragment {
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_main);
-
-
     }
 
     @Override
@@ -91,6 +94,26 @@ public class FragmentYeasts extends Fragment {
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_yeast_extract_unit);
         spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
         rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
+
+        txtBeerAmount.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
+        ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
+                android.R.layout.simple_spinner_item);
+        VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
+        String valSelectedInSpinnerVol = "";
+        switch (selDefVolUnit) {
+            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
+            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+        }
+        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
+        spVolumeUnit.setSelection(spinnerPrimingUnigPosition);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
+                android.R.layout.simple_spinner_item);
+        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
+        spGravityUnit.setSelection(spinnerPosition);
+
+        // dry
+        txtDryYeastNeeded = (TextView)view.findViewById(R.id.txt_yeast_dry_needed);
 
         txtBeerAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -185,8 +208,27 @@ public class FragmentYeasts extends Fragment {
             }
 
             long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
+            switch (mTabHost.getCurrentTab()) {
+                case 0:
+                    setDryYeastNeeded(yeastNeeded);
+                    break;
+                case 1: break;
+                case 2: break;
+            }
 
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
+        }
+    }
+
+    private void setDryYeastNeeded(long yeastNeeded) {
+        if (yeastNeeded < 0) {
+            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtDryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
+        }
+        else {
+            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded);
+            txtDryYeastNeeded.setText(String.format(Locale.US, "%.2f g", dryYeastNeeded));
         }
     }
 

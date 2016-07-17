@@ -50,7 +50,8 @@
     <string name="lbl_style_european_lagers_val" translatable="false">2.2 - 2.7 volumes</string>
     <string name="lbl_style_lambic_val" translatable="false">2.4 - 2.8 volumes</string>
     <string name="lbl_style_german_wheat_beer_val" translatable="false">3.3 - 4.5 volumes</string>
-    <string name="lbl_yeast_needed">Yeast cells needed</string>
+    <string name="lbl_yeast_needed">Yeast amount needed</string>
+    <string name="lbl_dry_yeast_needed">Grams dry yeast needed</string>
     <string name="lbl_beer_style">Beer style</string>
     <string name="lbl_beer_style_ale">Ale</string>
     <string name="lbl_beer_style_lager">Lager</string>
