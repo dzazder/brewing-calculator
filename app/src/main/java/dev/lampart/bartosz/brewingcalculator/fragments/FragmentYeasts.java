@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -40,7 +42,7 @@ public class FragmentYeasts extends Fragment {
     private TextView txtYeastNeeded;
     private Spinner spGravityUnit;
     private Spinner spVolumeUnit;
-    private boolean editedByProgram = false;
+    private RadioGroup rgBeerStyle;
 
     public FragmentYeasts() {
         // Required empty public constructor
@@ -88,6 +90,7 @@ public class FragmentYeasts extends Fragment {
         txtYeastNeeded = (TextView)view.findViewById(R.id.txt_yeast_needed);
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_yeast_extract_unit);
         spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
+        rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
 
         txtBeerAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,7 +105,55 @@ public class FragmentYeasts extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, txtYeastNeeded);
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+        });
+
+        txtGravity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+        });
+
+        spVolumeUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spGravityUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        rgBeerStyle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
             }
         });
 
@@ -111,7 +162,7 @@ public class FragmentYeasts extends Fragment {
     }
 
     private void calculateYeastCells(EditText txtBeerAmount, EditText txtGravity, Spinner spVolumeUnit,
-                                     Spinner spGravityUnit, TextView txtYeastNeeded) {
+                                     Spinner spGravityUnit, RadioGroup rgBeerStyle, TextView txtYeastNeeded) {
         if (NumberFormatter.isNumeric(txtBeerAmount.getText().toString()) &&
                 NumberFormatter.isNumeric(txtGravity.getText().toString())) {
 
@@ -126,21 +177,35 @@ public class FragmentYeasts extends Fragment {
             }
 
             ExtractUnit gravityUnit = ExtractUnit.valueOf(selectedGrUnit);
+            BeerStyle beerStyle = BeerStyle.Ale;
 
-            long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit, BeerStyle.Ale);
+            switch (rgBeerStyle.getCheckedRadioButtonId()) {
+                case R.id.toggle_option_yeast_ale: beerStyle = BeerStyle.Ale; break;
+                case R.id.toggle_option_yeast_lager: beerStyle = BeerStyle.Lager; break;
+            }
+
+            long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
 
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
         }
     }
 
     private void setYeastNeededValue(long yeast, TextView txtToSet) {
-        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        if (yeast < 0) {
+            txtToSet.setTextColor(getResources().getColor(R.color.colorError));
+            txtToSet.setText(getResources().getText(R.string.incorrect_value));
+        }
+        else {
+            txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
 
-        symbols.setGroupingSeparator(' ');
-        formatter.setDecimalFormatSymbols(symbols);
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
 
-        txtToSet.setText(formatter.format(yeast));
+            symbols.setGroupingSeparator(' ');
+            formatter.setDecimalFormatSymbols(symbols);
+
+            txtToSet.setText(formatter.format(yeast));
+        }
     }
 
 }
