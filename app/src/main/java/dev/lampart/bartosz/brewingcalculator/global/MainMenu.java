@@ -34,9 +34,16 @@ public class MainMenu {
                 BrewingCalculatorApplication.getContext().getString(R.string.description_carbonation_calculator),
                 R.drawable.ic_carbonation_fragment, DictFragment.FRAGMENT_CARBONATION);
 
+        MainMenuItem calcYeasts = new MainMenuItem(4,
+                BrewingCalculatorApplication.getContext().getString(R.string.title_yeasts_amount_calculator),
+                BrewingCalculatorApplication.getContext().getString(R.string.description_yeasts_amount_calculator),
+                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_YEASTS);
+
+
         items.add(calcExtract);
         items.add(calcAlcohol);
         items.add(calcCarbonation);
+        items.add(calcYeasts);
     }
 
     public static synchronized MainMenu getInstance() {

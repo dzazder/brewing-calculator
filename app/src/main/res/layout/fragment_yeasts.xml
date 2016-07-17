@@ -1,0 +1,236 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FragmentYeasts">
+
+    <!-- Dummy item to prevent EditText from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_priming_size"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <EditText android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_yeast_priming_size"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+
+                <Spinner android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:dropDownWidth="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/sp_yeast_priming_size"
+                    android:entries="@array/volume_units">
+
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_before_fermentation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <EditText android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_yeast_extract"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+
+                <Spinner android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:dropDownWidth="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/sp_yeast_extract_unit"
+                    android:entries="@array/extract_units">
+
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_beer_style"
+                    />
+
+                <RadioGroup
+                    android:checkedButton="@+id/offer"
+                    android:id="@+id/toggle_yeast_beer_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="@dimen/padding_normal"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:background="@drawable/toggle_outline"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:checked="true"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:id="@+id/toggle_option_yeast_ale"
+                        android:background="@drawable/toggle_background"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/lbl_beer_style_ale"
+                        android:textColor="@color/colorPrimaryLight" />
+
+                    <RadioButton
+                        android:layout_marginRight="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:id="@+id/toggle_option_yeast_lager"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/toggle_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/lbl_beer_style_lager"
+                        android:textColor="@color/colorPrimaryLight" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_yeast_needed"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:id="@+id/txt_yeast_needed"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:text="--"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+            <TabHost
+                android:id="@+id/tabhost_yeasts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TabWidget>
+
+                    <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/tab_yeasts_dry"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ffc916"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="This is tab 1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/tab_yeasts_liquid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#da8200"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="This is tab 2" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/tab_yeasts_slurry"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#5b89ff"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="This is tab 3" />
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+            </TabHost>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

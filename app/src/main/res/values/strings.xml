@@ -50,15 +50,25 @@
     <string name="lbl_style_european_lagers_val" translatable="false">2.2 - 2.7 volumes</string>
     <string name="lbl_style_lambic_val" translatable="false">2.4 - 2.8 volumes</string>
     <string name="lbl_style_german_wheat_beer_val" translatable="false">3.3 - 4.5 volumes</string>
+    <string name="lbl_yeast_needed">Yeast cells needed</string>
+    <string name="lbl_beer_style">Beer style</string>
+    <string name="lbl_beer_style_ale">Ale</string>
+    <string name="lbl_beer_style_lager">Lager</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>
     <string name="title_alcohol_calculator">Alcohol Calculator</string>
     <string name="title_carbonation_calculator">Carbonation Calculator</string>
+    <string name="title_yeasts_amount_calculator">Yeast Amount Calculator</string>
+
+    <string name="title_yeasts_dry">Dry yeast</string>
+    <string name="title_yeasts_liquid">Liquid yeast</string>
+    <string name="title_yeasts_slurry">Slurry</string>
 
     <string name="description_extract_calculator">Calculate gravity unit values - SG,Brix,Plato converter</string>
     <string name="description_alcohol_calculator">Calculate alcohol by value within a beer</string>
     <string name="description_carbonation_calculator">Calculate sugar amount to the carbonation</string>
+    <string name="description_yeasts_amount_calculator">Calculate amount of yeasts for your beer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

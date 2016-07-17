@@ -1,12 +1,10 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
-import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
-import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalculator;
-import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.SugarType;
 import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
@@ -179,7 +175,9 @@ public class FragmentCarbonation extends Fragment {
         return rootView;
     }
 
-    private void calculateCarbonation(EditText txtPrimingSize, EditText txtCO2, EditText txtBeerTemp, Spinner spPrimingSize, Spinner spBeerTemp, TextView txtAmountTableSugar, TextView txtAmountCornSugar, TextView txtAmountDME) {
+    private void calculateCarbonation(EditText txtPrimingSize, EditText txtCO2, EditText txtBeerTemp,
+                                      Spinner spPrimingSize, Spinner spBeerTemp, TextView txtAmountTableSugar,
+                                      TextView txtAmountCornSugar, TextView txtAmountDME) {
         if (NumberFormatter.isNumeric(txtPrimingSize.getText().toString()) &&
                 NumberFormatter.isNumeric(txtCO2.getText().toString()) &&
                 NumberFormatter.isNumeric(txtBeerTemp.getText().toString())) {
@@ -201,7 +199,7 @@ public class FragmentCarbonation extends Fragment {
             }
 
             ArrayList<Tuple<SugarType, Double>> sugarAmount =
-                    CarbonationCalculator.calcSugarAmount(dPrimingSize, dCO2, dBeerTemp, volUnit, tempUnit);
+                    CarbonationCalc.calcSugarAmount(dPrimingSize, dCO2, dBeerTemp, volUnit, tempUnit);
 
             for (Tuple<SugarType, Double> el: sugarAmount) {
                 switch (el.x) {

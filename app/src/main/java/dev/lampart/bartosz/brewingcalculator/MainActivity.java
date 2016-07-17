@@ -37,6 +37,7 @@ import dev.lampart.bartosz.brewingcalculator.fragments.FragmentCarbonation;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSettings;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentYeasts;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 
@@ -133,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
             case DictFragment.FRAGMENT_CARBONATION:
                 newFragment = new FragmentCarbonation();
                 break;
+            case DictFragment.FRAGMENT_YEASTS:
+                newFragment = new FragmentYeasts();
+                break;
             default:
                 newFragment = new FragmentHome();
                 break;
@@ -156,13 +160,15 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
             if (currentFragment instanceof FragmentSgPlato) {
-                Log.d("BACK", "Current fragment is SGPLATO");
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
             if (currentFragment instanceof  FragmentAlcohol) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
             if (currentFragment instanceof  FragmentCarbonation) {
+                switchFragment(DictFragment.FRAGMENT_HOME);
+            }
+            if (currentFragment instanceof  FragmentYeasts) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
         } else {

@@ -12,7 +12,7 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 /**
  * Created by bartek on 12.07.2016.
  */
-public class CarbonationCalculator extends Calc {
+public class CarbonationCalc extends Calc {
 
     public static ArrayList<Tuple<SugarType, Double>> calcSugarAmount(double primingSize, double co2, double beerTemp,
                                                                       VolumeUnit primingUnit, TemperatureUnit tempUnit) {
