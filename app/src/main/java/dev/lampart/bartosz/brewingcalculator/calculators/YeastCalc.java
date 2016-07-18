@@ -16,8 +16,9 @@ import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 public class YeastCalc {
     private static double dryGramCells = 20000000000.;
     private static double dayFlurryViabilityDecrease = 1.61857;
-    private static double flurryMililiterCells = 1500000000;
-
+    private static double flurryMililiterCells = 1500000000.;
+    private static double liquidPackCells = 100000000000.;
+    private static double starterMililiterCells = 240641711.;
 
     /**
      * Calculates yeast needed to beer fermentation
@@ -46,9 +47,31 @@ public class YeastCalc {
 
     public static double calcMililitersOfSlurry(long yeastCells, Date harvestDate) {
         double slurryViability = calcSlurryViability(harvestDate);
-        double mililiterCells = flurryMililiterCells * (slurryViability / 100.);
+        double mililiterCells = flurryMililiterCells * slurryViability;
 
         return (double)yeastCells / mililiterCells;
+    }
+
+    public static double calcLiquidPackwWithoutStarter(long yeastCells, Date prodDate) {
+        double yeastViability = calcLiquidViability(prodDate);
+
+        return yeastCells / (yeastViability * liquidPackCells);
+
+    }
+
+    public static double calcMililitersOfStarter(long yeastCells, Date prodDate) {
+        double yeastViability = calcLiquidViability(prodDate);
+        double growthFactor = 3.0;
+
+        return yeastCells / (yeastViability * starterMililiterCells);
+    }
+
+    public static double calcDryViability(Date productionDate) {
+        return 1;
+    }
+
+    public static double calcLiquidViability(Date productionDate) {
+        return 1;
     }
 
     public static double calcSlurryViability(Date harvestDate) {
@@ -56,7 +79,7 @@ public class YeastCalc {
         long diff = today.getTime() - harvestDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        return 94 - (daysDiff * dayFlurryViabilityDecrease);
+        return (double)(94 - (daysDiff * dayFlurryViabilityDecrease)) / 100.;
     }
 
     private static double getBeerStyleYeastRate(BeerStyle beerStyle) {

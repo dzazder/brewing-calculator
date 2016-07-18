@@ -57,6 +57,8 @@
     <string name="lbl_beer_style_ale">Ale</string>
     <string name="lbl_beer_style_lager">Lager</string>
     <string name="lbl_harvest_date">Harvest date</string>
+    <string name="lbl_liquid_yeast_needed">Mililiters liquid yeast needed</string>
+    <string name="lbl_starter_size">Starter size</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>

@@ -223,19 +223,55 @@
                             </LinearLayout>
                         </LinearLayout>
 
+                        <!-- liquid -->
                         <LinearLayout
                             android:id="@+id/tab_yeasts_liquid"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#da8200"
+                            android:padding="@dimen/padding_normal"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="This is tab 2" />
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="@string/lbl_liquid_yeast_needed"/>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="--"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/colorAccent"
+                                    android:id="@+id/txt_yeast_liquid_needed"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="@string/lbl_starter_size"/>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="--"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/colorAccent"
+                                    android:id="@+id/txt_starter_size"/>
+                            </LinearLayout>
+
                         </LinearLayout>
 
+                        <!-- slurry -->
                         <LinearLayout
                             android:id="@+id/tab_yeasts_slurry"
                             android:layout_width="match_parent"
@@ -244,6 +280,7 @@
                             android:orientation="vertical">
 
                             <LinearLayout
+                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
