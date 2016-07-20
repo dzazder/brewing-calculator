@@ -1,6 +1,7 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
 import android.app.DatePickerDialog;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +17,8 @@ import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 public class YeastCalc {
     private static double dryGramCells = 20000000000.;
     private static double dayFlurryViabilityDecrease = 1.61857;
+    private static double dayDryViabilityDecrease = 0.06;
+    private static double dayLiquidViabilityDecrease = 0.43;
     private static double flurryMililiterCells = 1500000000.;
     private static double liquidPackCells = 100000000000.;
     private static double starterMililiterCells = 240641711.;
@@ -41,8 +44,12 @@ public class YeastCalc {
         return (long) (1000000 * beerAmount * gravity * getBeerStyleYeastRate(beerStyle));
     }
 
-    public static double calcGramsOfDryYeast(long yeastCells) {
-        return (double)yeastCells / dryGramCells;
+    public static double calcGramsOfDryYeast(long yeastCells, Date productionDate) {
+        double dryViability = calcDryViability(productionDate);
+        Log.d("Yeast", "Dry viability: " + dryViability);
+        double dryGram = dryGramCells * dryViability;
+
+        return (double)yeastCells / dryGram;
     }
 
     public static double calcMililitersOfSlurry(long yeastCells, Date harvestDate) {
@@ -67,11 +74,20 @@ public class YeastCalc {
     }
 
     public static double calcDryViability(Date productionDate) {
-        return 1;
+        Date today = new Date();
+        long diff = today.getTime() - productionDate.getTime();
+        long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        Log.d("Yeast", "Dry day diff: " + daysDiff);
+        return (double)(90 - ((double)daysDiff * dayDryViabilityDecrease)) / 100.;
     }
 
     public static double calcLiquidViability(Date productionDate) {
-        return 1;
+        Date today = new Date();
+        long diff = today.getTime() - productionDate.getTime();
+        long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        return (double)(96 - ((double)daysDiff * dayLiquidViabilityDecrease)) / 100.;
     }
 
     public static double calcSlurryViability(Date harvestDate) {
@@ -79,7 +95,7 @@ public class YeastCalc {
         long diff = today.getTime() - harvestDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        return (double)(94 - (daysDiff * dayFlurryViabilityDecrease)) / 100.;
+        return (double)(94 - ((double)daysDiff * dayFlurryViabilityDecrease)) / 100.;
     }
 
     private static double getBeerStyleYeastRate(BeerStyle beerStyle) {

@@ -53,14 +53,21 @@ public class FragmentYeasts extends Fragment {
     private Spinner spVolumeUnit;
     private RadioGroup rgBeerStyle;
     private EditText txtHarvestDate;
+    private EditText txtDryProdDate;
+    private EditText txtLiquidProdDate;
 
     // dry
     private TextView txtDryYeastNeeded;
 
+    // liquid
+    private TextView txtLiquidPacksNeeded;
+    private TextView txtStarterSizeNeeded;
+
     // slurry
     private TextView txtSlurryYeastNeeded;
 
-
+    private DatePickerDialog dryDatePickerDialog;
+    private DatePickerDialog liquidDatePickerDialog;
     private DatePickerDialog harvestDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
@@ -110,7 +117,11 @@ public class FragmentYeasts extends Fragment {
         spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
         rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
         txtHarvestDate = (EditText)view.findViewById(R.id.txt_harvest_date);
+        txtDryProdDate = (EditText)view.findViewById(R.id.txt_dry_production_date);
+        txtLiquidProdDate = (EditText)view.findViewById(R.id.txt_liquid_production_date);
         txtSlurryYeastNeeded = (TextView) view.findViewById(R.id.txt_yeast_slurry_needed);
+        txtLiquidPacksNeeded = (TextView) view.findViewById(R.id.txt_yeast_liquid_needed);
+        txtStarterSizeNeeded = (TextView) view.findViewById(R.id.txt_starter_size);
 
         txtBeerAmount.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
         ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
@@ -197,6 +208,57 @@ public class FragmentYeasts extends Fragment {
             }
         });
 
+        txtHarvestDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+        });
+
+        txtDryProdDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+        });
+
+        txtLiquidProdDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
+            }
+        });
+
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         txtHarvestDate.setInputType(InputType.TYPE_NULL);
         if (txtHarvestDate.getText().toString().length() == 0) {
@@ -218,6 +280,46 @@ public class FragmentYeasts extends Fragment {
             }
         });
 
+        txtDryProdDate.setInputType(InputType.TYPE_NULL);
+        if (txtDryProdDate.getText().toString().length() == 0) {
+            txtDryProdDate.setText(dateFormatter.format(new Date()));
+        }
+        calendar = Calendar.getInstance();
+        dryDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                txtDryProdDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        txtDryProdDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dryDatePickerDialog.show();
+            }
+        });
+
+        txtLiquidProdDate.setInputType(InputType.TYPE_NULL);
+        if (txtLiquidProdDate.getText().toString().length() == 0) {
+            txtLiquidProdDate.setText(dateFormatter.format(new Date()));
+        }
+        calendar = Calendar.getInstance();
+        liquidDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                txtLiquidProdDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        txtLiquidProdDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                liquidDatePickerDialog.show();
+            }
+        });
+
         return view;
     }
 
@@ -236,6 +338,18 @@ public class FragmentYeasts extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            Date dryProdDate = new Date();
+            try {
+                dryProdDate = dateFormatter.parse(txtDryProdDate.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date liquidProdDate = new Date();
+            try {
+                liquidProdDate = dateFormatter.parse(txtLiquidProdDate.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             VolumeUnit volUnit = VolumeUnit.Liter;
             if (selectedVolUnit == getContext().getString(R.string.volume_unit_gallons)) {
@@ -251,17 +365,36 @@ public class FragmentYeasts extends Fragment {
             }
 
             long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
-            switch (mTabHost.getCurrentTab()) {
-                case 0:
-                    setDryYeastNeeded(yeastNeeded);
-                    break;
-                case 1: break;
-                case 2:
-                    setSlurryNeeded(yeastNeeded, harvestDate);
-                    break;
-            }
-
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
+
+            setDryYeastNeeded(yeastNeeded, dryProdDate);
+            setLiquidPacksNeeded(yeastNeeded, liquidProdDate);
+            setStarterSize(yeastNeeded, liquidProdDate);
+            setSlurryNeeded(yeastNeeded, harvestDate);
+        }
+    }
+
+    private void setLiquidPacksNeeded(long yeastNeeded, Date prodDate) {
+        if (yeastNeeded < 0) {
+            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtLiquidPacksNeeded.setText(getResources().getText(R.string.incorrect_value));
+        }
+        else {
+            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            double liquidYeastPacksNeeded = YeastCalc.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
+            txtLiquidPacksNeeded.setText(String.format(Locale.US, "%.2f", liquidYeastPacksNeeded));
+        }
+    }
+
+    private void setStarterSize(long yeastNeeded, Date prodDate) {
+        if (yeastNeeded < 0) {
+            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtStarterSizeNeeded.setText(getResources().getText(R.string.incorrect_value));
+        }
+        else {
+            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            double starterSizeNeeded = YeastCalc.calcMililitersOfStarter(yeastNeeded, prodDate);
+            txtStarterSizeNeeded.setText(String.format(Locale.US, "%.2f ml", starterSizeNeeded));
         }
     }
 
@@ -277,14 +410,14 @@ public class FragmentYeasts extends Fragment {
         }
     }
 
-    private void setDryYeastNeeded(long yeastNeeded) {
+    private void setDryYeastNeeded(long yeastNeeded, Date productionDate) {
         if (yeastNeeded < 0) {
             txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
             txtDryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
             txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
-            double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded);
+            double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded, productionDate);
             txtDryYeastNeeded.setText(String.format(Locale.US, "%.2f g", dryYeastNeeded));
         }
     }

@@ -32,4 +32,17 @@
     <string name="lbl_priming_sugar_type">Rodzaj cukru</string>
     <string name="title_carbonation_calculator">Kalkulator nagazowania</string>
     <string name="lbl_default_priming_size">Domyślna wielkość warki</string>
+    <string name="description_yeasts_amount_calculator">Oblicz ilość drożdży niezbędną do fermentacji</string>
+    <string name="lbl_beer_style">Styl piwa</string>
+    <string name="lbl_dry_yeast_needed">Suche drożdże (g)</string>
+    <string name="lbl_harvest_date">Data zbioru</string>
+    <string name="lbl_liquid_yeast_needed">Liczba opakowań płynnych drożdży</string>
+    <string name="lbl_production_date">Data produkcji</string>
+    <string name="lbl_slurry_yeast_needed">Ilość gęstwy</string>
+    <string name="lbl_starter_size">Rozmiar startera</string>
+    <string name="lbl_yeast_needed">Wymagana liczba drożdży</string>
+    <string name="title_yeasts_amount_calculator">Kalkulator ilości drożdży</string>
+    <string name="title_yeasts_dry">Suche drożdże</string>
+    <string name="title_yeasts_liquid">Płynne drożdże</string>
+    <string name="title_yeasts_slurry">Gęstwa</string>
 </resources>

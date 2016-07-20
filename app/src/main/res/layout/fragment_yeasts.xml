@@ -193,12 +193,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- dry yeast -->
                         <LinearLayout
                             android:id="@+id/tab_yeasts_dry"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="@dimen/padding_normal"
                             android:orientation="vertical">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/lbl_production_date"/>
+
+                                <EditText
+                                    android:gravity="center"
+                                    android:id="@+id/txt_dry_production_date"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textSize="@dimen/text_normal"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -230,6 +251,26 @@
                             android:layout_height="match_parent"
                             android:padding="@dimen/padding_normal"
                             android:orientation="vertical">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/lbl_production_date"/>
+
+                                <EditText
+                                    android:gravity="center"
+                                    android:id="@+id/txt_liquid_production_date"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textSize="@dimen/text_normal"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"

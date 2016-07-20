@@ -54,10 +54,11 @@
     <string name="lbl_dry_yeast_needed">Grams dry yeast needed</string>
     <string name="lbl_slurry_yeast_needed">Mililiters slurry needed</string>
     <string name="lbl_beer_style">Beer style</string>
-    <string name="lbl_beer_style_ale">Ale</string>
-    <string name="lbl_beer_style_lager">Lager</string>
+    <string name="lbl_beer_style_ale" translatable="false">Ale</string>
+    <string name="lbl_beer_style_lager" translatable="false">Lager</string>
     <string name="lbl_harvest_date">Harvest date</string>
-    <string name="lbl_liquid_yeast_needed">Mililiters liquid yeast needed</string>
+    <string name="lbl_production_date">Production date</string>
+    <string name="lbl_liquid_yeast_needed">Liquid yeast packs needed</string>
     <string name="lbl_starter_size">Starter size</string>
 
 
