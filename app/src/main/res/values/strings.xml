@@ -60,6 +60,9 @@
     <string name="lbl_production_date">Production date</string>
     <string name="lbl_liquid_yeast_needed">Liquid yeast packs needed</string>
     <string name="lbl_starter_size">Starter size</string>
+    <string name="lbl_choose_formula">Choose formula</string>
+    <string name="lbl_formula_normal">Standard</string>
+    <string name="lbl_formula_alternative">Alternative</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>

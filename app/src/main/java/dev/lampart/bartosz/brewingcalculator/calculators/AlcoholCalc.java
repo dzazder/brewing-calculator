@@ -2,6 +2,7 @@ package dev.lampart.bartosz.brewingcalculator.calculators;
 
 import android.util.Log;
 
+import dev.lampart.bartosz.brewingcalculator.dicts.AlcFormula;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
@@ -21,8 +22,8 @@ public class AlcoholCalc extends Calc {
      * @return
      */
     public static Tuple<Double, Double> CalculateAlcohol(double extBefore, double extAfter,
-                                                  ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
-                                                  boolean useRefractometer, double wortFactor) {
+                                                         ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
+                                                         boolean useRefractometer, double wortFactor, AlcFormula formula) {
         double alc = 0;
         double att = 0;
 
@@ -65,8 +66,11 @@ public class AlcoholCalc extends Calc {
                     break;
             }
 
-            //alc = (76.08 * (extBefore - extAfter) / (1.775 - extBefore)) * (extAfter / 0.794);
-            alc = (extBefore - extAfter) * 131.25;
+            switch (formula) {
+                case Standard: alc = (extBefore - extAfter) * 131.25; break;
+                case Alternative: alc = (76.08 * (extBefore - extAfter) / (1.775 - extBefore)) * (extAfter / 0.794); break;
+            }
+
             att = ((extBefore - 1) - (extAfter - 1)) / (extBefore - 1) * 100;
         }
 
