@@ -45,4 +45,7 @@
     <string name="title_yeasts_dry">Suche drożdże</string>
     <string name="title_yeasts_liquid">Płynne drożdże</string>
     <string name="title_yeasts_slurry">Gęstwa</string>
+    <string name="lbl_choose_formula">Wybierz wzór</string>
+    <string name="lbl_formula_alternative">Alternatywny</string>
+    <string name="lbl_formula_normal">Standardowy</string>
 </resources>

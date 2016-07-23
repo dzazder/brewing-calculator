@@ -75,6 +75,9 @@ public class FragmentAlcohol extends Fragment {
         final LinearLayout layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
         layWortCorrectionFactor.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.VISIBLE : View.GONE);
 
+        final LinearLayout layFormulaSelector = (LinearLayout)rootView.findViewById(R.id.layout_alcohol_formula);
+        layFormulaSelector.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.GONE : View.VISIBLE);
+
         final RadioGroup rgFormula = (RadioGroup)rootView.findViewById(R.id.alc_formula);
         
         spAfter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -164,6 +167,7 @@ public class FragmentAlcohol extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
                 layWortCorrectionFactor.setVisibility(b ? View.VISIBLE : View.GONE);
+                layFormulaSelector.setVisibility(b ? View.GONE : View.VISIBLE);
 
                 calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
             }

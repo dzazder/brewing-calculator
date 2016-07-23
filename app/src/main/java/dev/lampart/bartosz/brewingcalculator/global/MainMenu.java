@@ -37,7 +37,7 @@ public class MainMenu {
         MainMenuItem calcYeasts = new MainMenuItem(4,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_yeasts_amount_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_yeasts_amount_calculator),
-                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_YEASTS);
+                R.drawable.ic_yeast_fragment, DictFragment.FRAGMENT_YEASTS);
 
 
         items.add(calcExtract);
