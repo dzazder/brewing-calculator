@@ -93,7 +93,7 @@ public class FragmentYeasts extends Fragment {
         mTabHost = (TabHost)view.findViewById(R.id.tabhost_yeasts);
         mTabHost.setup();
         //Tab 1
-        TabHost.TabSpec spec = mTabHost.newTabSpec(getResources().getString(R.string.title_yeasts_dry));
+        /*TabHost.TabSpec spec = mTabHost.newTabSpec(getResources().getString(R.string.title_yeasts_dry));
         spec.setContent(R.id.tab_yeasts_dry);
         spec.setIndicator(getResources().getString(R.string.title_yeasts_dry));
         mTabHost.addTab(spec);
@@ -103,9 +103,9 @@ public class FragmentYeasts extends Fragment {
         spec.setContent(R.id.tab_yeasts_liquid);
         spec.setIndicator(getResources().getString(R.string.title_yeasts_liquid));
         mTabHost.addTab(spec);
-
+*/
         //Tab 3
-        spec = mTabHost.newTabSpec(getResources().getString(R.string.title_yeasts_slurry));
+        TabHost.TabSpec spec = mTabHost.newTabSpec(getResources().getString(R.string.title_yeasts_slurry));
         spec.setContent(R.id.tab_yeasts_slurry);
         spec.setIndicator(getResources().getString(R.string.title_yeasts_slurry));
         mTabHost.addTab(spec);
@@ -117,11 +117,11 @@ public class FragmentYeasts extends Fragment {
         spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
         rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
         txtHarvestDate = (EditText)view.findViewById(R.id.txt_harvest_date);
-        txtDryProdDate = (EditText)view.findViewById(R.id.txt_dry_production_date);
-        txtLiquidProdDate = (EditText)view.findViewById(R.id.txt_liquid_production_date);
+        //txtDryProdDate = (EditText)view.findViewById(R.id.txt_dry_production_date);
+        //txtLiquidProdDate = (EditText)view.findViewById(R.id.txt_liquid_production_date);
         txtSlurryYeastNeeded = (TextView) view.findViewById(R.id.txt_yeast_slurry_needed);
-        txtLiquidPacksNeeded = (TextView) view.findViewById(R.id.txt_yeast_liquid_needed);
-        txtStarterSizeNeeded = (TextView) view.findViewById(R.id.txt_starter_size);
+        //txtLiquidPacksNeeded = (TextView) view.findViewById(R.id.txt_yeast_liquid_needed);
+        //txtStarterSizeNeeded = (TextView) view.findViewById(R.id.txt_starter_size);
 
         txtBeerAmount.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
         ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
@@ -141,7 +141,7 @@ public class FragmentYeasts extends Fragment {
         spGravityUnit.setSelection(spinnerPosition);
 
         // dry
-        txtDryYeastNeeded = (TextView)view.findViewById(R.id.txt_yeast_dry_needed);
+        //txtDryYeastNeeded = (TextView)view.findViewById(R.id.txt_yeast_dry_needed);
 
         txtBeerAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -224,7 +224,7 @@ public class FragmentYeasts extends Fragment {
                 calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
             }
         });
-
+/*
         txtDryProdDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -258,7 +258,7 @@ public class FragmentYeasts extends Fragment {
                 calculateYeastCells(txtBeerAmount, txtGravity, spVolumeUnit, spGravityUnit, rgBeerStyle, txtYeastNeeded);
             }
         });
-
+*/
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         txtHarvestDate.setInputType(InputType.TYPE_NULL);
         if (txtHarvestDate.getText().toString().length() == 0) {
@@ -279,7 +279,7 @@ public class FragmentYeasts extends Fragment {
                 harvestDatePickerDialog.show();
             }
         });
-
+/*
         txtDryProdDate.setInputType(InputType.TYPE_NULL);
         if (txtDryProdDate.getText().toString().length() == 0) {
             txtDryProdDate.setText(dateFormatter.format(new Date()));
@@ -319,7 +319,7 @@ public class FragmentYeasts extends Fragment {
                 liquidDatePickerDialog.show();
             }
         });
-
+*/
         return view;
     }
 
@@ -338,6 +338,7 @@ public class FragmentYeasts extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            /*
             Date dryProdDate = new Date();
             try {
                 dryProdDate = dateFormatter.parse(txtDryProdDate.getText().toString());
@@ -350,7 +351,7 @@ public class FragmentYeasts extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+*/
             VolumeUnit volUnit = VolumeUnit.Liter;
             if (selectedVolUnit == getContext().getString(R.string.volume_unit_gallons)) {
                 volUnit = VolumeUnit.Gallon;
@@ -367,9 +368,9 @@ public class FragmentYeasts extends Fragment {
             long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
 
-            setDryYeastNeeded(yeastNeeded, dryProdDate);
-            setLiquidPacksNeeded(yeastNeeded, liquidProdDate);
-            setStarterSize(yeastNeeded, liquidProdDate);
+            //setDryYeastNeeded(yeastNeeded, dryProdDate);
+            //setLiquidPacksNeeded(yeastNeeded, liquidProdDate);
+            //setStarterSize(yeastNeeded, liquidProdDate);
             setSlurryNeeded(yeastNeeded, harvestDate);
         }
     }

@@ -19,7 +19,7 @@ public class YeastCalc {
     private static double dayFlurryViabilityDecrease = 1.61857;
     private static double dayDryViabilityDecrease = 0.06;
     private static double dayLiquidViabilityDecrease = 0.43;
-    private static double flurryMililiterCells = 1500000000.;
+    private static double flurryMililiterCells = 2000000000.;
     private static double liquidPackCells = 100000000000.;
     private static double starterMililiterCells = 240641711.;
 
@@ -46,7 +46,6 @@ public class YeastCalc {
 
     public static double calcGramsOfDryYeast(long yeastCells, Date productionDate) {
         double dryViability = calcDryViability(productionDate);
-        Log.d("Yeast", "Dry viability: " + dryViability);
         double dryGram = dryGramCells * dryViability;
 
         return (double)yeastCells / dryGram;
@@ -78,7 +77,6 @@ public class YeastCalc {
         long diff = today.getTime() - productionDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        Log.d("Yeast", "Dry day diff: " + daysDiff);
         return (double)(90 - ((double)daysDiff * dayDryViabilityDecrease)) / 100.;
     }
 
