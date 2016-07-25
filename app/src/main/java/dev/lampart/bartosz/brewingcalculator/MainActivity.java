@@ -35,6 +35,7 @@ import dev.lampart.bartosz.brewingcalculator.entities.Language;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentCarbonation;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHydrometer;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSettings;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentYeasts;
@@ -137,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
             case DictFragment.FRAGMENT_YEASTS:
                 newFragment = new FragmentYeasts();
                 break;
+            case DictFragment.FRAGMENT_HYDROMETER:
+                newFragment = new FragmentHydrometer();
+                break;
             default:
                 newFragment = new FragmentHome();
                 break;
@@ -169,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
             if (currentFragment instanceof  FragmentYeasts) {
+                switchFragment(DictFragment.FRAGMENT_HOME);
+            }
+            if (currentFragment instanceof FragmentHydrometer) {
                 switchFragment(DictFragment.FRAGMENT_HOME);
             }
         } else {

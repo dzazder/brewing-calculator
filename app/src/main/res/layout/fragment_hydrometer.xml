@@ -1,0 +1,176 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
+    android:padding="@dimen/padding_normal"
+    tools:context="dev.lampart.bartosz.brewingcalculator.fragments.FragmentHydrometer">
+
+    <!-- Dummy item to prevent EditText from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:showDividers="middle"
+            android:divider="@drawable/empty_divider_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_before_fermentation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <EditText android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_hydrometer_measured_gravity"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+
+                <Spinner android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:dropDownWidth="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/sp_hydrometer_gravity_unit"
+                    android:entries="@array/extract_units">
+
+                </Spinner>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_large">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_beer_temp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+
+                <EditText android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_adjustment_temperature"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+
+                <RadioGroup
+                    android:id="@+id/temp_unit_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="@dimen/padding_normal"
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:background="@drawable/toggle_outline"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:checked="true"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:id="@+id/temp_selector_c"
+                        android:background="@drawable/toggle_background"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/temp_unit_C"
+                        android:textColor="@color/colorPrimaryLight" />
+
+                    <RadioButton
+                        android:layout_marginRight="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:id="@+id/temp_selector_f"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/toggle_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/temp_unit_F"
+                        android:textColor="@color/colorPrimaryLight" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_before_fermentation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <TextView android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:text="--"
+                    android:textSize="@dimen/text_large"
+                    android:id="@+id/lbl_hydrometer_real_gravity">
+
+                </TextView>
+
+                <Spinner android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:dropDownWidth="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/sp_hydrometer_real_gravity_unit"
+                    android:entries="@array/extract_units">
+
+                </Spinner>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
