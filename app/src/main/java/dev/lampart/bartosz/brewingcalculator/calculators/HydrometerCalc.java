@@ -6,7 +6,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
 /**
  * Created by bartek on 25.07.2016.
  */
-public class HydrometerCalc {
+public class HydrometerCalc extends Calc {
 
     // in celsius
     private static double calibratedTemp = 20;
@@ -21,7 +21,8 @@ public class HydrometerCalc {
      * @return
      */
     public static double calcAdjustmentGravity(double measuredGravity, double temp,
-                                          ExtractUnit gravityUnit, TemperatureUnit tempUnit) {
+                                                ExtractUnit gravityUnit, TemperatureUnit tempUnit,
+                                                ExtractUnit resultUnit) {
 
         switch (gravityUnit) {
             case Brix: measuredGravity = ExtractCalc.calcBrixToPlato(measuredGravity); break;
@@ -32,6 +33,12 @@ public class HydrometerCalc {
             temp = UnitCalc.calcFahrenheitToCelsius(temp);
         }
 
-        return measuredGravity + ((temp - calibratedTemp) * 0.05);
+        double resultGravity = measuredGravity + ((temp - calibratedTemp) * 0.05);  // in plato
+        switch (resultUnit) {
+            case Brix: resultGravity = ExtractCalc.calcPlatoToBrix(resultGravity); break;
+            case SG: resultGravity = ExtractCalc.calcPlatoToSG(resultGravity); break;
+        }
+
+        return resultGravity;
     }
 }
