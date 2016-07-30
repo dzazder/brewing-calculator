@@ -21,11 +21,4 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
     }
 
-    @Test
-    public void carbonation_isCorrect() throws Exception {
-        ArrayList<Tuple<SugarType, Double>> result = CarbonationCalc.calcSugarAmount(5, 2.5, 68, SugarType.TableSugar,
-                VolumeUnit.Gallon, TemperatureUnit.F);
-
-        assertEquals(124.5, result.get(0).y , 0.1);
-    }
 }

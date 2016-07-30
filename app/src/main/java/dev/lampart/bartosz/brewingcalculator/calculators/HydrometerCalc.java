@@ -20,7 +20,7 @@ public class HydrometerCalc extends Calc {
      * @param tempUnit
      * @return
      */
-    public static double calcAdjustmentGravity(double measuredGravity, double temp,
+    public static double calcAdjustmentGravity2(double measuredGravity, double temp,
                                                 ExtractUnit gravityUnit, TemperatureUnit tempUnit,
                                                 ExtractUnit resultUnit) {
 
@@ -37,6 +37,29 @@ public class HydrometerCalc extends Calc {
         switch (resultUnit) {
             case Brix: resultGravity = ExtractCalc.calcPlatoToBrix(resultGravity); break;
             case SG: resultGravity = ExtractCalc.calcPlatoToSG(resultGravity); break;
+        }
+
+        return resultGravity;
+    }
+
+    public static double calcAdjustmentGravity(double measuredGravity, double temp,
+                                               ExtractUnit gravityUnit, TemperatureUnit tempUnit,
+                                               ExtractUnit resultUnit) {
+
+        switch (gravityUnit) {
+            case Brix: measuredGravity = ExtractCalc.calcBrixToSG(measuredGravity); break;
+            case Plato: measuredGravity = ExtractCalc.calcPlatoToSG(measuredGravity); break;
+        }
+
+        if (tempUnit == TemperatureUnit.C) {
+            temp = UnitCalc.calcCelsiusToFahrenheit(temp);
+        }
+        //SG(true) = SG(indic) x [ 1.0 - 0.000025[ T(act) - T(calib) ]]
+        double resultGravity = measuredGravity * ( 1 + (0.000025 * (temp - UnitCalc.calcCelsiusToFahrenheit(calibratedTemp))));  // in SG
+
+        switch (resultUnit) {
+            case Brix: resultGravity = ExtractCalc.calcSGToBrix(resultGravity); break;
+            case Plato: resultGravity = ExtractCalc.calcSGToPlato(resultGravity); break;
         }
 
         return resultGravity;
