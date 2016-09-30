@@ -63,6 +63,8 @@
     <string name="lbl_choose_formula">Choose formula</string>
     <string name="lbl_formula_normal">Standard</string>
     <string name="lbl_formula_alternative">Alternative</string>
+    <string name="lbl_add_hop">Add hop</string>
+    <string name="lbl_no_hops_added">No hops added</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>
@@ -70,6 +72,7 @@
     <string name="title_carbonation_calculator">Carbonation Calculator</string>
     <string name="title_yeasts_amount_calculator">Yeast Amount Calculator</string>
     <string name="title_hydrometer_adjustment">Hydrometer temperature adjustment</string>
+    <string name="title_ibu_calculator">IBU Calculator</string>
 
     <string name="title_yeasts_dry">Dry yeast</string>
     <string name="title_yeasts_liquid">Liquid yeast</string>
@@ -80,6 +83,7 @@
     <string name="description_carbonation_calculator">Calculate sugar amount to the carbonation</string>
     <string name="description_yeasts_amount_calculator">Calculate amount of yeasts for your beer</string>
     <string name="description_hydrometer_adjustment">Measure SG by hydrometer with temperature adjustment</string>
+    <string name="description_ibu_calculator">Calculate IBU</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
