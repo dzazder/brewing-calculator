@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +32,10 @@ public class FragmentIBU extends Fragment {
     LinearLayout mainLayout;
     LinearLayout noHopLayout;
     TextView txtEstimatedIBU;
+    EditText txtPrimingSize;
+    EditText txtGravity;
+    Spinner spSizeUnit;
+    Spinner spGravityUnit;
 
     private static final String LAY_TYPE_HOP = "layout_hop";
     private static final String TXT_TYPE_ALPHA = "txt_alpha";
@@ -51,6 +56,10 @@ public class FragmentIBU extends Fragment {
         mainLayout = (LinearLayout) view.findViewById(R.id.layout_ibu_main);
         noHopLayout = (LinearLayout)view.findViewById(R.id.layout_noHopLabel);
         txtEstimatedIBU = (TextView)view.findViewById(R.id.txt_estimated_ibu);
+        txtPrimingSize = (EditText)view.findViewById(R.id.txt_ibu_priming_size);
+        txtGravity = (EditText)view.findViewById(R.id.txt_ibu_extract_after);
+        spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
+        spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
 
         Button btnAddHop = (Button)view.findViewById(R.id.btn_add_hop);
         btnAddHop.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +137,8 @@ public class FragmentIBU extends Fragment {
             }
         });
 
+        Spinner spWeightUnit = new Spinner(getContext());
+
         EditText txtMinutes = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
         txtMinutes.setBackgroundResource(R.drawable.calc_field);
         txtMinutes.setLayoutParams(lp_button);
@@ -200,7 +211,7 @@ public class FragmentIBU extends Fragment {
             Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
         }
 
-        double ibu = IBUCalculator.calcIBU(ibuDatas);
+        double ibu = 0; //IBUCalculator.calcIBU(ibuDatas, );
 
         setEstimatedIBUValue(txtEstimatedIBU, ibu);
     }
