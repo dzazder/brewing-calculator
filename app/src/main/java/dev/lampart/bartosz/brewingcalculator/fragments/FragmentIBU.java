@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +22,9 @@ import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalculator;
+import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
+import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
@@ -60,6 +64,64 @@ public class FragmentIBU extends Fragment {
         txtGravity = (EditText)view.findViewById(R.id.txt_ibu_extract_after);
         spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
+
+        txtGravity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
+            }
+        });
+
+        txtPrimingSize.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
+            }
+        });
+
+        spGravityUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spSizeUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         Button btnAddHop = (Button)view.findViewById(R.id.btn_add_hop);
         btnAddHop.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +173,7 @@ public class FragmentIBU extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                calculateIBU();
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
             }
         });
 
@@ -133,7 +195,7 @@ public class FragmentIBU extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                calculateIBU();
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
             }
         });
 
@@ -157,7 +219,7 @@ public class FragmentIBU extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                calculateIBU();
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBU);
             }
         });
 
@@ -168,52 +230,69 @@ public class FragmentIBU extends Fragment {
         return lay;
     }
 
-    protected void calculateIBU() {
-        ArrayList<IBUData> ibuDatas = new ArrayList<>();
+    protected void calculateIBU(EditText txtPrimingSize, EditText txtGravity,
+                                Spinner spSizeUnit, Spinner spGravityUnit, TextView txtEstimatedIBU) {
 
-        for (int i = 0; i < mainLayout.getChildCount(); i++) {
-            View nextChild = mainLayout.getChildAt(i);
-            if (nextChild instanceof LinearLayout && nextChild.getTag() != null
-                    && nextChild.getTag().toString() == LAY_TYPE_HOP) {
+        if (NumberFormatter.isNumeric(txtPrimingSize.getText().toString()) &&
+            NumberFormatter.isNumeric(txtGravity.getText().toString())) {
 
-                IBUData ibuData = new IBUData();
+            double primingSize = Double.parseDouble(txtPrimingSize.getText().toString());
+            double gravity = Double.parseDouble(txtGravity.getText().toString());
+            String selectedVolUnit = spSizeUnit.getSelectedItem().toString();
 
-                for (int j =0; j<=((LinearLayout) nextChild).getChildCount(); j++) {
-                    View innerChild = ((LinearLayout) nextChild).getChildAt(j);
-                    if (innerChild instanceof EditText) {
-                        if (NumberFormatter.isNumeric(((EditText) innerChild).getText().toString())) {
-                            double txtValue = Double.parseDouble(((EditText) innerChild).getText().toString());
+            ExtractUnit gravityUnit = ExtractUnit.valueOf(spGravityUnit.getSelectedItem().toString());
+            VolumeUnit volUnit = VolumeUnit.Gallon;
+            if (selectedVolUnit == getContext().getString(R.string.volume_unit_liters)) {
+                volUnit = VolumeUnit.Liter;
+            }
 
-                            Object tagValue = innerChild.getTag();
-                            if (tagValue != null) {
-                                switch (tagValue.toString()) {
-                                    case TXT_TYPE_ALPHA:
-                                        ibuData.setAlpha(txtValue);
-                                        break;
-                                    case TXT_TYPE_WEIGHT:
-                                        ibuData.setWeight(txtValue);
-                                        break;
-                                    case TXT_TYPE_TIME:
-                                        ibuData.setTime(txtValue);
-                                        break;
+            ArrayList<IBUData> ibuDatas = new ArrayList<>();
+
+            for (int i = 0; i < mainLayout.getChildCount(); i++) {
+                View nextChild = mainLayout.getChildAt(i);
+                if (nextChild instanceof LinearLayout && nextChild.getTag() != null
+                        && nextChild.getTag().toString() == LAY_TYPE_HOP) {
+
+                    IBUData ibuData = new IBUData();
+
+                    for (int j = 0; j <= ((LinearLayout) nextChild).getChildCount(); j++) {
+                        View innerChild = ((LinearLayout) nextChild).getChildAt(j);
+                        if (innerChild instanceof EditText) {
+                            if (NumberFormatter.isNumeric(((EditText) innerChild).getText().toString())) {
+                                double txtValue = Double.parseDouble(((EditText) innerChild).getText().toString());
+
+                                Object tagValue = innerChild.getTag();
+                                if (tagValue != null) {
+                                    switch (tagValue.toString()) {
+                                        case TXT_TYPE_ALPHA:
+                                            ibuData.setAlpha(txtValue);
+                                            break;
+                                        case TXT_TYPE_WEIGHT:
+                                            ibuData.setWeight(txtValue);
+                                            break;
+                                        case TXT_TYPE_TIME:
+                                            ibuData.setTime(txtValue);
+                                            break;
+                                    }
                                 }
                             }
                         }
                     }
+
+                    ibuDatas.add(ibuData);
                 }
-
-                ibuDatas.add(ibuData);
             }
+
+            Log.d("IBU", "Ibus data length: " + ibuDatas.size());
+            for (IBUData ibu : ibuDatas) {
+                Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
+            }
+
+
+            double ibu = IBUCalculator.calcIBU(ibuDatas, primingSize, gravity, gravityUnit, volUnit);
+
+            setEstimatedIBUValue(txtEstimatedIBU, ibu);
         }
-
-        Log.d("IBU", "Ibus data length: " + ibuDatas.size());
-        for (IBUData ibu: ibuDatas) {
-            Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
-        }
-
-        double ibu = 0; //IBUCalculator.calcIBU(ibuDatas, );
-
-        setEstimatedIBUValue(txtEstimatedIBU, ibu);
     }
 
     private void setEstimatedIBUValue(TextView txtToSet, double valToSet) {
