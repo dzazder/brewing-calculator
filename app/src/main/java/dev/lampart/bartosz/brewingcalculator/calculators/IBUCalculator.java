@@ -1,5 +1,7 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
@@ -24,6 +26,7 @@ public class IBUCalculator extends Calc {
                 break;
         }
 
+        Log.d("IBU", "SG = " + sg);
         if (volumeUnit == VolumeUnit.Liter) {
             volume = UnitCalc.calcLitresToGallons(volume);
         }

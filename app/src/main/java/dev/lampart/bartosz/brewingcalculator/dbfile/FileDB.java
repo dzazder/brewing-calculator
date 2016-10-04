@@ -15,6 +15,7 @@ import java.security.AccessController;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictLanguages;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.BCalcConf;
 import dev.lampart.bartosz.brewingcalculator.entities.Language;
 
@@ -32,6 +33,7 @@ public class FileDB {
     private static String strVolumeUnit = "volunit";
     private static String strTemperature = "temp";
     private static String strTempUnit = "tempunit";
+    private static String strWeightUnit = "weightunit";
     private static String cfgSep = ";";
     private static String cfgValStart = "=";
 
@@ -43,9 +45,11 @@ public class FileDB {
         String volUnit = setCfgValue(strVolumeUnit, conf.getDefVolumeUnit().toString(), context);
         String temperature = setCfgValue(strTemperature, Double.toString(conf.getDefTemperature()), context);
         String tempUnit = setCfgValue(strTempUnit, conf.getDefTempUnit().toString(), context);
+        String weightUnit = setCfgValue(strWeightUnit, conf.getDefWeightUnit().toString(), context);
+
 
         String confString = unit + cfgSep + useRefr + cfgSep + wort + cfgSep + primingSize +
-                cfgSep + volUnit + cfgSep + temperature + cfgSep + tempUnit + cfgSep;
+                cfgSep + volUnit + cfgSep + temperature + cfgSep + tempUnit + cfgSep + weightUnit + cfgSep;
 
         SaveDBFileContent(context, confString);
     }
@@ -118,6 +122,21 @@ public class FileDB {
 
         Log.d("FileDB", "Default unit is: " + defUnit.toString());
         return defUnit;
+    }
+
+    public static WeightUnit getDefaultWeightUnit(Context context) {
+        Log.d("FileDB", "Read configuration default weight unit");
+        WeightUnit weightUnit = WeightUnit.G;
+
+        String content = ReadDBFileContent(context);
+        String readUnit = getCfgValue(strWeightUnit, content);
+        if (readUnit.length() > 0) {
+            weightUnit = WeightUnit.valueOf(readUnit);
+        }
+
+        Log.d("FileDB", "Default weight unit is: " + weightUnit.toString());
+
+        return weightUnit;
     }
 
     public static boolean getDefaultUsingRefractometer(Context context) {

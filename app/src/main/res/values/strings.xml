@@ -70,6 +70,7 @@
     <string name="lbl_boiling_time">Boiling time</string>
     <string name="lbl_hop_weight">Hop weight</string>
     <string name="lbl_boiling_size">Boiling size</string>
+    <string name="lbl_weight_unit">Weight unit</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>

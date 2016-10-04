@@ -3,6 +3,7 @@ package dev.lampart.bartosz.brewingcalculator.entities;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 
 /**
  * Created by bartek on 01.07.2016.
@@ -15,6 +16,7 @@ public class BCalcConf {
     private VolumeUnit defVolumeUnit;
     private double defTemperature;
     private TemperatureUnit defTempUnit;
+    private WeightUnit defWeightUnit;
 
     public BCalcConf() {
         this.defExtractUnit = ExtractUnit.Plato;
@@ -24,10 +26,12 @@ public class BCalcConf {
         this.defVolumeUnit = VolumeUnit.Liter;
         this.defTemperature = 20;
         this.defTempUnit = TemperatureUnit.C;
+        this.defWeightUnit = WeightUnit.G;
     }
 
     public BCalcConf(ExtractUnit defExtractUnit, boolean defUseRefractometer, double defWortCorrectionFactor,
-                     double defPrimingSize, VolumeUnit defVolumeUnit, double defTemp, TemperatureUnit defTempUnit) {
+                     double defPrimingSize, VolumeUnit defVolumeUnit, double defTemp, TemperatureUnit defTempUnit,
+                     WeightUnit defWeightUnit) {
         this.defExtractUnit = defExtractUnit;
         this.defUseRefractometer = defUseRefractometer;
         this.defWortCorrectionFactor = defWortCorrectionFactor;
@@ -35,6 +39,7 @@ public class BCalcConf {
         this.defVolumeUnit = defVolumeUnit;
         this.defTemperature = defTemp;
         this.defTempUnit = defTempUnit;
+        this.defWeightUnit = defWeightUnit;
     }
 
     public ExtractUnit getDefExtractUnit() {
@@ -91,5 +96,13 @@ public class BCalcConf {
 
     public void setDefTempUnit(TemperatureUnit defTempUnit) {
         this.defTempUnit = defTempUnit;
+    }
+
+    public WeightUnit getDefWeightUnit() {
+        return defWeightUnit;
+    }
+
+    public void setDefWeightUnit(WeightUnit defWeightUnit) {
+        this.defWeightUnit = defWeightUnit;
     }
 }

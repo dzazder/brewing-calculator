@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -25,7 +27,9 @@ import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalculator;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
+import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -200,6 +204,17 @@ public class FragmentIBU extends Fragment {
         });
 
         Spinner spWeightUnit = new Spinner(getContext());
+        ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.weight_light_unit, android.R.layout.simple_spinner_item);
+        spWeightUnit.setAdapter(spinnerArrayAdapter);
+        WeightUnit defWeightUnit = WeightUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefWeightUnit().toString());
+        String valSelectedWeightUnit = "";
+        switch (defWeightUnit) {
+            case OZ: valSelectedWeightUnit = getActivity().getResources().getString(R.string.weight_unit_oz); break;
+            case G: valSelectedWeightUnit = getActivity().getResources().getString(R.string.weight_unit_g); break;
+        }
+        int spinnerTempPosition = spinnerArrayAdapter.getPosition(valSelectedWeightUnit);
+        spWeightUnit.setSelection(spinnerTempPosition);
 
         EditText txtMinutes = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
         txtMinutes.setBackgroundResource(R.drawable.calc_field);
@@ -225,6 +240,7 @@ public class FragmentIBU extends Fragment {
 
         lay.addView(txtAlfa);
         lay.addView(txtAmount);
+        lay.addView(spWeightUnit);
         lay.addView(txtMinutes);
 
         return lay;
@@ -288,8 +304,7 @@ public class FragmentIBU extends Fragment {
                 Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
             }
 
-
-            double ibu = IBUCalculator.calcIBU(ibuDatas, primingSize, gravity, gravityUnit, volUnit);
+            double ibu = IBUCalculator.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit);
 
             setEstimatedIBUValue(txtEstimatedIBU, ibu);
         }
