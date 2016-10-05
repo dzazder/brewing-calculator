@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 
@@ -13,7 +14,7 @@ import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
  */
 public class IBUCalculator extends Calc {
 
-
+    private static double PELLET_FACTOR = 1.1488;
 
     public static double calcIBU(IBUData ibuData, double sg, double volume, ExtractUnit extractUnit,
                                  VolumeUnit volumeUnit) {
@@ -25,8 +26,6 @@ public class IBUCalculator extends Calc {
                 sg = ExtractCalc.calcPlatoToSG(sg);
                 break;
         }
-
-        Log.d("IBU", "SG = " + sg);
         if (volumeUnit == VolumeUnit.Liter) {
             volume = UnitCalc.calcLitresToGallons(volume);
         }
@@ -36,7 +35,13 @@ public class IBUCalculator extends Calc {
 
         //return (ibuData.getAlpha()/100) * ibuData.getWeight() * (ibuData.getTime()/100);
 
-        return (ibuData.getAlpha() * ibuData.getWeight() * 75 * boilTimeFactor * bignessFactor) / volume;
+        double ibu = (ibuData.getAlpha() * ibuData.getWeight() * 75 * boilTimeFactor * bignessFactor) / volume;
+
+        if (ibuData.getHopType() == HopType.PELLETS) {
+            ibu *= PELLET_FACTOR;
+        }
+
+        return ibu;
     }
 
     /**

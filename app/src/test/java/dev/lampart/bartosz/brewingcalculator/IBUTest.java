@@ -7,6 +7,7 @@ import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalculator;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
+import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 
 import static junit.framework.Assert.assertEquals;
@@ -19,11 +20,23 @@ public class IBUTest {
     @Test
     public void ibu1() throws Exception {
         assertEquals(53.1,
-                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.PELLETS), 1.055, 5.5),
+                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.PELLETS), 1.055, 5.5,
+                        ExtractUnit.SG, VolumeUnit.Gallon),
                 1);
 
         assertEquals(46.2,
-                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.WHOLE_HOPS), 1.055, 5.5),
+                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.WHOLE_HOPS), 1.055, 5.5,
+                        ExtractUnit.SG, VolumeUnit.Gallon),
+                1);
+
+        assertEquals(134.74,
+                IBUCalculator.calcIBU(new IBUData(12, 2, 60, HopType.PELLETS), 1.055, 4,
+                        ExtractUnit.SG, VolumeUnit.Gallon),
+                1);
+
+        assertEquals(122.49,
+                IBUCalculator.calcIBU(new IBUData(12, 2, 60, HopType.WHOLE_HOPS), 1.055, 4,
+                        ExtractUnit.SG, VolumeUnit.Gallon),
                 1);
     }
 }
