@@ -69,6 +69,24 @@ public class FragmentIBU extends Fragment {
         spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
 
+        txtPrimingSize.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
+
+        ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
+                android.R.layout.simple_spinner_item);
+        VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
+        String valSelectedInSpinnerVol = "";
+        switch (selDefVolUnit) {
+            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
+            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+        }
+        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
+        spSizeUnit.setSelection(spinnerPrimingUnigPosition);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
+                android.R.layout.simple_spinner_item);
+        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
+        spGravityUnit.setSelection(spinnerPosition);
+
         txtGravity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -152,7 +170,7 @@ public class FragmentIBU extends Fragment {
         lay.setLayoutParams(lp);
         lay.setTag(LAY_TYPE_HOP);
         lay.setOrientation(LinearLayout.HORIZONTAL);
-        lay.setDividerDrawable(getResources().getDrawable(R.drawable.empty_divider_vertical));
+        lay.setDividerDrawable(getResources().getDrawable(R.drawable.empty_divider_vertical_small));
         lay.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         lay.setPadding((int)getResources().getDimension(R.dimen.padding_small),
                 (int)getResources().getDimension(R.dimen.padding_small),
@@ -205,7 +223,7 @@ public class FragmentIBU extends Fragment {
 
         Spinner spWeightUnit = new Spinner(getContext());
         ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.weight_light_unit, android.R.layout.simple_spinner_item);
+                R.array.weight_light_unit, android.R.layout.simple_spinner_dropdown_item);
         spWeightUnit.setAdapter(spinnerArrayAdapter);
         WeightUnit defWeightUnit = WeightUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefWeightUnit().toString());
         String valSelectedWeightUnit = "";
@@ -215,6 +233,11 @@ public class FragmentIBU extends Fragment {
         }
         int spinnerTempPosition = spinnerArrayAdapter.getPosition(valSelectedWeightUnit);
         spWeightUnit.setSelection(spinnerTempPosition);
+
+        Spinner spHopTypes = new Spinner(getContext());
+        ArrayAdapter<CharSequence> spHopTypesArrayAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.hop_types, android.R.layout.simple_spinner_dropdown_item);
+        spHopTypes.setAdapter(spHopTypesArrayAdapter);
 
         EditText txtMinutes = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
         txtMinutes.setBackgroundResource(R.drawable.calc_field);
@@ -241,6 +264,7 @@ public class FragmentIBU extends Fragment {
         lay.addView(txtAlfa);
         lay.addView(txtAmount);
         lay.addView(spWeightUnit);
+        lay.addView(spHopTypes);
         lay.addView(txtMinutes);
 
         return lay;

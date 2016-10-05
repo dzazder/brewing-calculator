@@ -11,6 +11,7 @@
 
     <dimen name="popup_divider_height">1dp</dimen>
     <dimen name="empty_divider_space">15dp</dimen>
+    <dimen name="empty_divider_space_small">5dp</dimen>
     <dimen name="size_zero">0dp</dimen>
     <dimen name="stroke_width">1dp</dimen>
     <dimen name="padding_small">5dp</dimen>

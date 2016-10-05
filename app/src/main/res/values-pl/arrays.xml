@@ -26,4 +26,11 @@
         <item>@string/temp_unit_C</item>
         <item>@string/temp_unit_F</item>
     </string-array>
+
+    <string name="hop_type_pellet">Granulat</string>
+    <string name="hop_type_whole_hops">Szyszka</string>
+    <string-array name="hop_types">
+        <item>@string/hop_type_pellet</item>
+        <item>@string/hop_type_whole_hops</item>
+    </string-array>
 </resources>
