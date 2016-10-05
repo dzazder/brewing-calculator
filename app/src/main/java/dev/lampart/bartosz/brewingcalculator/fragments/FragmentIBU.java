@@ -1,11 +1,15 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ContextThemeWrapper;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +34,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
+import dev.lampart.bartosz.brewingcalculator.helpers.CustomTypefaceSpan;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -181,6 +186,7 @@ public class FragmentIBU extends Fragment {
         txtAlfa.setBackgroundResource(R.drawable.calc_field);
         txtAlfa.setLayoutParams(lp_button);
         txtAlfa.setHint(getString(R.string.lbl_alpha_acids));
+
         txtAlfa.setTag(TXT_TYPE_ALPHA);
         txtAlfa.addTextChangedListener(new TextWatcher() {
             @Override
