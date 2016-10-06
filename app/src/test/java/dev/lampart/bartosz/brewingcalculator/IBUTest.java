@@ -19,24 +19,18 @@ public class IBUTest {
 
     @Test
     public void ibu1() throws Exception {
-        assertEquals(53.1,
-                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.PELLETS), 1.055, 5.5,
-                        ExtractUnit.SG, VolumeUnit.Gallon),
-                1);
+        IBUData ibuData5 = new IBUData(5, 1, 10, HopType.WHOLE_HOPS);
+        IBUData ibuData7 = new IBUData(7, 2, 20, HopType.WHOLE_HOPS);
+        IBUData ibuData10 = new IBUData(10, 2, 30, HopType.WHOLE_HOPS);
+        IBUData ibuData15 = new IBUData(15, 1, 60, HopType.WHOLE_HOPS);
 
-        assertEquals(46.2,
-                IBUCalculator.calcIBU(new IBUData(10, 2, 30, HopType.WHOLE_HOPS), 1.055, 5.5,
-                        ExtractUnit.SG, VolumeUnit.Gallon),
-                1);
+        double sg14 = 1.04;
 
-        assertEquals(134.74,
-                IBUCalculator.calcIBU(new IBUData(12, 2, 60, HopType.PELLETS), 1.055, 4,
-                        ExtractUnit.SG, VolumeUnit.Gallon),
-                1);
 
-        assertEquals(122.49,
-                IBUCalculator.calcIBU(new IBUData(12, 2, 60, HopType.WHOLE_HOPS), 1.055, 4,
-                        ExtractUnit.SG, VolumeUnit.Gallon),
-                1);
+        assertEquals(9,IBUCalculator.calcIBU(ibuData5, sg14, 5, ExtractUnit.SG, VolumeUnit.Gallon, IBUCalculator.FormulaTypeIBU.RAGER),1);
+        assertEquals(31.5,IBUCalculator.calcIBU(ibuData7, sg14, 5, ExtractUnit.SG, VolumeUnit.Gallon, IBUCalculator.FormulaTypeIBU.RAGER),1);
+        assertEquals(53.9,IBUCalculator.calcIBU(ibuData15, sg14, 5, ExtractUnit.SG, VolumeUnit.Gallon, IBUCalculator.FormulaTypeIBU.RAGER),1);
+        assertEquals(56.9,IBUCalculator.calcIBU(ibuData10, sg14, 5, ExtractUnit.SG, VolumeUnit.Gallon, IBUCalculator.FormulaTypeIBU.RAGER),1);
+
     }
 }

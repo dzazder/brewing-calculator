@@ -334,7 +334,8 @@ public class FragmentIBU extends Fragment {
                 Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
             }
 
-            double ibu = IBUCalculator.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit);
+            double ibu = IBUCalculator.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
+                    IBUCalculator.FormulaTypeIBU.RAGER);
 
             setEstimatedIBUValue(txtEstimatedIBU, ibu);
         }
