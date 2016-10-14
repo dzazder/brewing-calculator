@@ -1,15 +1,11 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ContextThemeWrapper;
 import android.text.Editable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,20 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
-import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalculator;
-import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
-import dev.lampart.bartosz.brewingcalculator.helpers.CustomTypefaceSpan;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -298,9 +291,6 @@ public class FragmentIBU extends Fragment {
         if (NumberFormatter.isNumeric(txtPrimingSize.getText().toString()) &&
             NumberFormatter.isNumeric(txtGravity.getText().toString())) {
 
-            final String tempWeightUnitg = getActivity().getResources().getString(R.string.weight_unit_g);
-            final String tempWeightUnitoz = getActivity().getResources().getString(R.string.weight_unit_oz);
-
             double primingSize = Double.parseDouble(txtPrimingSize.getText().toString());
             double gravity = Double.parseDouble(txtGravity.getText().toString());
             String selectedVolUnit = spSizeUnit.getSelectedItem().toString();
@@ -328,18 +318,20 @@ public class FragmentIBU extends Fragment {
                             if (tagValue != null) {
                                 switch (tagValue.toString()) {
                                     case SP_WEIGHT_UNIT:
-                                        switch (val) {
-                                         //   case tempWeightUnitg: break;
-
-
+                                        if (val == getActivity().getResources().getString(R.string.weight_unit_g)) {
+                                            ibuData.setWeightUnit(WeightUnit.G);
                                         }
-                                        WeightUnit weightUnit = WeightUnit.valueOf(val);
-                                        ibuData.setWeightUnit(weightUnit);
+                                        if (val == getActivity().getResources().getString(R.string.weight_unit_oz)) {
+                                            ibuData.setWeightUnit(WeightUnit.OZ);
+                                        }
                                         break;
                                     case SP_HOP_TYPE:
-                                        HopType hopType = HopType.valueOf(
-                                                ((Spinner)innerChild).getSelectedItem().toString());
-                                        ibuData.setHopType(hopType);
+                                        if (val == getActivity().getResources().getString(R.string.hop_type_whole_hops)) {
+                                            ibuData.setHopType(HopType.WHOLE_HOPS);
+                                        }
+                                        if (val == getActivity().getResources().getString(R.string.hop_type_pellet)) {
+                                            ibuData.setHopType(HopType.PELLETS);
+                                        }
                                         break;
                                 }
                             }
@@ -375,11 +367,11 @@ public class FragmentIBU extends Fragment {
                 Log.d("IBU", ibu.getAlpha() + ", " + ibu.getWeight() + ", " + ibu.getTime());
             }
 
-            double ibuRager = IBUCalculator.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
-                    IBUCalculator.FormulaTypeIBU.RAGER);
+            double ibuRager = IBUCalc.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
+                    IBUCalc.FormulaTypeIBU.RAGER);
 
-            double ibuTinseth = IBUCalculator.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
-                    IBUCalculator.FormulaTypeIBU.TINSETH);
+            double ibuTinseth = IBUCalc.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
+                    IBUCalc.FormulaTypeIBU.TINSETH);
 
             setEstimatedIBUValue(txtEstimatedIBURager, ibuRager);
             setEstimatedIBUValue(txtEstimatedIBUTinseth, ibuTinseth);

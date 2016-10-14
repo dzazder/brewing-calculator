@@ -15,7 +15,7 @@ import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
  * Created by bartek on 30.09.2016.
  * Formulas to calc IBU: http://www.realbeer.com/hops/FAQ.html
  */
-public class IBUCalculator extends Calc {
+public class IBUCalc extends Calc {
 
     private static double PELLET_FACTOR = 1.1488;
 
@@ -71,6 +71,10 @@ public class IBUCalculator extends Calc {
     }
 
     private static double calcIBURager(IBUData ibuData, double sg, double volume) {
+        if (ibuData.getWeightUnit() == WeightUnit.G) {
+            ibuData.setWeight(UnitCalc.calcGramsToOunces(ibuData.getWeight()));
+        }
+        
         double utilization = 18.11 + (13.86 * Math.tanh((ibuData.getTime() - 31.32)/18.27));
         //Log.d("IBU", "Utilization: " + utilization);
         double ga = sg > 1.05 ? (sg - 1.05) / 0.2 : 0;
