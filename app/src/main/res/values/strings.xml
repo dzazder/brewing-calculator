@@ -65,7 +65,8 @@
     <string name="lbl_formula_alternative">Alternative</string>
     <string name="lbl_add_hop">Add hop</string>
     <string name="lbl_no_hops_added">No hops added</string>
-    <string name="lbl_estimated_ibu">Estimated IBU: </string>
+    <string name="lbl_estimated_ibu_rager">Estimated IBU (Rager method): </string>
+    <string name="lbl_estimated_ibu_tinseth">Estimated IBU (Tinseth method): </string>
     <string name="lbl_alpha_acids">Alpha acids</string>
     <string name="lbl_boiling_time">Boiling time</string>
     <string name="lbl_hop_weight">Hop weight</string>
