@@ -55,6 +55,7 @@ public class IBUCalc extends Calc {
     private static double calcIBUTinseth(IBUData ibuData, double sg, double volume) {
         if (ibuData.getWeightUnit() == WeightUnit.G) {
             ibuData.setWeight(UnitCalc.calcGramsToOunces(ibuData.getWeight()));
+            ibuData.setWeightUnit(WeightUnit.OZ);
         }
 
         double boilTimeFactor = (1 - Math.exp(-0.04 * ibuData.getTime())) / 4.15;
@@ -73,6 +74,7 @@ public class IBUCalc extends Calc {
     private static double calcIBURager(IBUData ibuData, double sg, double volume) {
         if (ibuData.getWeightUnit() == WeightUnit.G) {
             ibuData.setWeight(UnitCalc.calcGramsToOunces(ibuData.getWeight()));
+            ibuData.setWeightUnit(WeightUnit.OZ);
         }
         
         double utilization = 18.11 + (13.86 * Math.tanh((ibuData.getTime() - 31.32)/18.27));

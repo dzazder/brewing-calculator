@@ -244,6 +244,18 @@ public class FragmentIBU extends Fragment {
         }
         int spinnerTempPosition = spinnerArrayAdapter.getPosition(valSelectedWeightUnit);
         spWeightUnit.setSelection(spinnerTempPosition);
+        spWeightUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 
@@ -251,6 +263,19 @@ public class FragmentIBU extends Fragment {
         ArrayAdapter<CharSequence> spHopTypesArrayAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.hop_types, android.R.layout.simple_spinner_dropdown_item);
         spHopTypes.setAdapter(spHopTypesArrayAdapter);
+        spHopTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         EditText txtMinutes = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
         txtMinutes.setBackgroundResource(R.drawable.calc_field);
