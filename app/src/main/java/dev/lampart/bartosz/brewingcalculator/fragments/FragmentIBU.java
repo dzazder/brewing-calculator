@@ -156,7 +156,10 @@ public class FragmentIBU extends Fragment {
         btnAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainLayout.addView(createHopLine());
+                ArrayList<LinearLayout> layouts = createHopLine();
+                for (LinearLayout lay: layouts) {
+                    mainLayout.addView(lay);
+                }
                 if (noHopLayout.getVisibility() == View.VISIBLE) {
                     noHopLayout.setVisibility(View.GONE);
                 }
@@ -166,12 +169,30 @@ public class FragmentIBU extends Fragment {
         return view;
     }
 
-    private LinearLayout createHopLine() {
+    private ArrayList<LinearLayout> createHopLine() {
+        ArrayList<LinearLayout> result = new ArrayList<>();
+
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         LinearLayout.LayoutParams lp_button = new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+
+        LinearLayout layLabels = new LinearLayout(getContext());
+        layLabels.setLayoutParams(lp);
+        layLabels.setOrientation(LinearLayout.HORIZONTAL);
+        layLabels.setDividerDrawable(getResources().getDrawable(R.drawable.empty_divider_vertical_small));
+        layLabels.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        layLabels.setPadding((int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small));
+
+        TextView lblAlpha = new TextView(getContext());
+        lblAlpha.setText(getResources().getString(R.string.lbl_alpha_acids));
+        layLabels.addView(lblAlpha);
+
+
 
         LinearLayout lay = new LinearLayout(getContext());
         lay.setLayoutParams(lp);
@@ -306,7 +327,10 @@ public class FragmentIBU extends Fragment {
         lay.addView(spHopTypes);
         lay.addView(txtMinutes);
 
-        return lay;
+        result.add(layLabels);
+        result.add(lay);
+
+        return result;
     }
 
     protected void calculateIBU(EditText txtPrimingSize, EditText txtGravity,
