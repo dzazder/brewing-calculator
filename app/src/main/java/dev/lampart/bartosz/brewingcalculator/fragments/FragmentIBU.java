@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.R;
+import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
 import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
@@ -45,6 +47,10 @@ public class FragmentIBU extends Fragment {
     EditText txtGravity;
     Spinner spSizeUnit;
     Spinner spGravityUnit;
+    ListView lvHops;
+
+    ArrayList<IBUData> items = new ArrayList<IBUData>();
+    IBUHopItemAdapter hopItemAdapter;
 
     private static final String LAY_TYPE_HOP = "layout_hop";
     private static final String TXT_TYPE_ALPHA = "txt_alpha";
@@ -72,6 +78,10 @@ public class FragmentIBU extends Fragment {
         txtGravity = (EditText)view.findViewById(R.id.txt_ibu_extract_after);
         spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
+        lvHops = (ListView)view.findViewById(R.id.lv_hops);
+
+        hopItemAdapter = new IBUHopItemAdapter(getActivity(), items);
+        lvHops.setAdapter(hopItemAdapter);
 
         txtPrimingSize.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
 
@@ -157,13 +167,16 @@ public class FragmentIBU extends Fragment {
         btnAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<LinearLayout> layouts = createHopLine();
-                for (LinearLayout lay: layouts) {
-                    mainLayout.addView(lay);
-                }
-                if (noHopLayout.getVisibility() == View.VISIBLE) {
-                    noHopLayout.setVisibility(View.GONE);
-                }
+                items.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
+                hopItemAdapter.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
+                hopItemAdapter.notifyDataSetChanged();
+                //ArrayList<LinearLayout> layouts = createHopLine();
+                //for (LinearLayout lay: layouts) {
+                //    mainLayout.addView(lay);
+                //}
+                //if (noHopLayout.getVisibility() == View.VISIBLE) {
+                //    noHopLayout.setVisibility(View.GONE);
+                //}
             }
         });
 
@@ -187,7 +200,7 @@ public class FragmentIBU extends Fragment {
 
         // alfa BLUE: label alpha, textbox alpha
         LinearLayout layHopAlpha = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+                ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.HORIZONTAL);
 
         // weight BLUE: label weight, textbox weight
         LinearLayout layHopWeight = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -349,11 +362,11 @@ public class FragmentIBU extends Fragment {
         layHopTime.addView(txtMinutes);
 
         // -----
-        layRightHalf.addView(layHopTime);
+        //layRightHalf.addView(layHopTime);
         layHopInfo.addView(layHopAlpha);
-        layHopInfo.addView(layHopWeight);
+        //layHopInfo.addView(layHopWeight);
         layLeftHalf.addView(layHopInfo);
-        layLeftHalf.addView(layHopType);
+        //layLeftHalf.addView(layHopType);
         layFullLine.addView(layLeftHalf);
         layFullLine.addView(layRightHalf);
 
