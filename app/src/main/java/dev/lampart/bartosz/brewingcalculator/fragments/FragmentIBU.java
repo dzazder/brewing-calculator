@@ -1,6 +1,7 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ContextThemeWrapper;
@@ -170,6 +171,221 @@ public class FragmentIBU extends Fragment {
     }
 
     private ArrayList<LinearLayout> createHopLine() {
+        ArrayList<LinearLayout> result = new ArrayList<>();
+
+        //full line BLACK
+        LinearLayout layFullLine = createLinearLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.VERTICAL);
+
+        // left half BROWN
+        LinearLayout layLeftHalf = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+
+        // alfa & weight GREEN
+        LinearLayout layHopInfo = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.VERTICAL);
+
+        // alfa BLUE: label alpha, textbox alpha
+        LinearLayout layHopAlpha = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+
+        // weight BLUE: label weight, textbox weight
+        LinearLayout layHopWeight = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+
+        // hop type GREEN: label type, spinner type
+        LinearLayout layHopType = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+
+        // right half BROWN: lay green, remove button
+        LinearLayout layRightHalf = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.VERTICAL);
+
+        // time GREEN: label time, textbox time
+        LinearLayout layHopTime = createLinearLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
+
+        //-------
+        LinearLayout.LayoutParams lp_button = new LinearLayout.LayoutParams(
+                0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+
+        TextView lblAlpha = new TextView(getContext());
+        lblAlpha.setText(getResources().getString(R.string.lbl_alpha_acids));
+
+        TextView lblWeight = new TextView(getContext());
+        lblAlpha.setText(getResources().getString(R.string.lbl_alpha_acids));
+
+        TextView lblType = new TextView(getContext());
+        lblAlpha.setText(getResources().getString(R.string.lbl_alpha_acids));
+
+        TextView lblTime = new TextView(getContext());
+        lblAlpha.setText(getResources().getString(R.string.lbl_alpha_acids));
+
+        EditText txtAlfa = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
+        txtAlfa.setBackgroundResource(R.drawable.calc_field);
+        txtAlfa.setLayoutParams(lp_button);
+        txtAlfa.setHint(getString(R.string.lbl_alpha_acids));
+        txtAlfa.setTag(TXT_TYPE_ALPHA);
+        txtAlfa.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+        });
+
+        EditText txtWeight = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
+        txtWeight.setBackgroundResource(R.drawable.calc_field);
+        txtWeight.setLayoutParams(lp_button);
+        txtWeight.setHint(getString(R.string.lbl_hop_weight));
+        txtWeight.setTag(TXT_TYPE_WEIGHT);
+        txtWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+        });
+
+        Spinner spWeightUnit = new Spinner(getContext());
+        ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.weight_light_unit, android.R.layout.simple_spinner_dropdown_item);
+        spWeightUnit.setAdapter(spinnerArrayAdapter);
+        spWeightUnit.setTag(SP_WEIGHT_UNIT);
+        WeightUnit defWeightUnit = WeightUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefWeightUnit().toString());
+        String valSelectedWeightUnit = "";
+        switch (defWeightUnit) {
+            case OZ: valSelectedWeightUnit = getActivity().getResources().getString(R.string.weight_unit_oz); break;
+            case G: valSelectedWeightUnit = getActivity().getResources().getString(R.string.weight_unit_g); break;
+        }
+        int spinnerTempPosition = spinnerArrayAdapter.getPosition(valSelectedWeightUnit);
+        spWeightUnit.setSelection(spinnerTempPosition);
+        spWeightUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Spinner spHopTypes = new Spinner(getContext());
+        ArrayAdapter<CharSequence> spHopTypesArrayAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.hop_types, android.R.layout.simple_spinner_dropdown_item);
+        spHopTypes.setAdapter(spHopTypesArrayAdapter);
+        spHopTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        EditText txtMinutes = new EditText(new ContextThemeWrapper(getContext(), R.style.StyleEditText_CalcFieldSmall));
+        txtMinutes.setBackgroundResource(R.drawable.calc_field);
+        txtMinutes.setLayoutParams(lp_button);
+        txtMinutes.setHint(getString(R.string.lbl_boiling_time));
+        txtMinutes.setTag( TXT_TYPE_TIME);
+        txtMinutes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit,
+                        txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+        });
+
+        // -----
+        layHopAlpha.addView(lblAlpha);
+        layHopAlpha.addView(txtAlfa);
+
+        layHopWeight.addView(lblWeight);
+        layHopWeight.addView(txtWeight);
+        layHopWeight.addView(spWeightUnit);
+
+        layHopType.addView(lblType);
+        layHopType.addView(spHopTypes);
+
+        layHopTime.addView(lblTime);
+        layHopTime.addView(txtMinutes);
+
+        // -----
+        layRightHalf.addView(layHopTime);
+        layHopInfo.addView(layHopAlpha);
+        layHopInfo.addView(layHopWeight);
+        layLeftHalf.addView(layHopInfo);
+        layLeftHalf.addView(layHopType);
+        layFullLine.addView(layLeftHalf);
+        layFullLine.addView(layRightHalf);
+
+        result.add(layFullLine);
+
+        return result;
+    }
+
+
+    private LinearLayout createLinearLayout(int width, int height, int orientation) {
+        return createLinearLayout(width, height, orientation, getResources().getDrawable(R.drawable.empty_divider_vertical_small),
+                LinearLayout.SHOW_DIVIDER_MIDDLE, (int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small),
+                (int)getResources().getDimension(R.dimen.padding_small));
+    }
+
+    private LinearLayout createLinearLayout(int width, int height, int orientation, Drawable divider,
+                                            int dividerShowType, int paddingLeft, int paddingTop,
+                                            int paddingRight, int paddingBottom) {
+
+        LinearLayout ll = new LinearLayout(getContext());
+        ll.setLayoutParams(new ViewGroup.LayoutParams(width, height));
+        ll.setOrientation(orientation);
+        ll.setDividerDrawable(divider);
+        ll.setShowDividers(dividerShowType);
+        ll.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+
+        return ll;
+    }
+
+    private ArrayList<LinearLayout> createHopLin() {
         ArrayList<LinearLayout> result = new ArrayList<>();
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
