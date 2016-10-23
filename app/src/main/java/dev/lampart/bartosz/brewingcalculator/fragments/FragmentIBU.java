@@ -54,13 +54,6 @@ public class FragmentIBU extends Fragment {
     ArrayList<IBUData> items = new ArrayList<IBUData>();
     IBUHopItemAdapter hopItemAdapter;
 
-    private static final String LAY_TYPE_HOP = "layout_hop";
-    private static final String TXT_TYPE_ALPHA = "txt_alpha";
-    private static final String TXT_TYPE_WEIGHT = "txt_weight";
-    private static final String TXT_TYPE_TIME = "txt_time";
-    private static final String SP_WEIGHT_UNIT = "sp_weight_unit";
-    private static final String SP_HOP_TYPE = "sp_hop_type";
-
     public FragmentIBU() {
         // Required empty public constructor
     }

@@ -53,15 +53,15 @@ public class IBUCalc extends Calc {
     }
 
     private static double calcIBUTinseth(IBUData ibuData, double sg, double volume) {
+        double weight = ibuData.getWeight();
         if (ibuData.getWeightUnit() == WeightUnit.G) {
-            ibuData.setWeight(UnitCalc.calcGramsToOunces(ibuData.getWeight()));
-            ibuData.setWeightUnit(WeightUnit.OZ);
+            weight = UnitCalc.calcGramsToOunces(ibuData.getWeight());
         }
 
         double boilTimeFactor = (1 - Math.exp(-0.04 * ibuData.getTime())) / 4.15;
         double bignessFactor = 1.65 * Math.pow(0.000125, sg - 1);
 
-        double ibu = (ibuData.getAlpha() * ibuData.getWeight() * 74.9 * boilTimeFactor * bignessFactor) / volume;
+        double ibu = (ibuData.getAlpha() * weight * 74.9 * boilTimeFactor * bignessFactor) / volume;
 
         // is correct in TINSETH?????
         if (ibuData.getHopType() == HopType.PELLETS) {
@@ -72,9 +72,9 @@ public class IBUCalc extends Calc {
     }
 
     private static double calcIBURager(IBUData ibuData, double sg, double volume) {
+        double weight = ibuData.getWeight();
         if (ibuData.getWeightUnit() == WeightUnit.G) {
-            ibuData.setWeight(UnitCalc.calcGramsToOunces(ibuData.getWeight()));
-            ibuData.setWeightUnit(WeightUnit.OZ);
+            weight = UnitCalc.calcGramsToOunces(weight);
         }
         
         double utilization = 18.11 + (13.86 * Math.tanh((ibuData.getTime() - 31.32)/18.27));
@@ -82,7 +82,7 @@ public class IBUCalc extends Calc {
         double ga = sg > 1.05 ? (sg - 1.05) / 0.2 : 0;
         //Log.d("IBU", "GA: " + ga);
 
-        double ibu = (ibuData.getWeight() * (utilization/100) * (ibuData.getAlpha()/100) * 7462) / (volume * (1 + ga));
+        double ibu = (weight * (utilization/100) * (ibuData.getAlpha()/100) * 7462) / (volume * (1 + ga));
         //Log.d("IBU", "IBU RAGER: " + ibu);
         if (ibuData.getHopType() == HopType.PELLETS) {
             ibu *= PELLET_FACTOR;
