@@ -33,6 +33,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
+import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +81,12 @@ public class FragmentIBU extends Fragment {
         spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
         lvHops = (ListView)view.findViewById(R.id.lv_hops);
 
-        hopItemAdapter = new IBUHopItemAdapter(getActivity(), items);
+        hopItemAdapter = new IBUHopItemAdapter(getActivity(), items, new IEditTextTextChangedListener() {
+            @Override
+            public void afterTextChanged(int position) {
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
+            }
+        });
         lvHops.setAdapter(hopItemAdapter);
 
         txtPrimingSize.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
@@ -167,9 +173,11 @@ public class FragmentIBU extends Fragment {
         btnAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                items.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
-                hopItemAdapter.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
-                hopItemAdapter.notifyDataSetChanged();
+                //items.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
+                //hopItemAdapter.notifyDataSetChanged();
+                hopItemAdapter.updateDataSet(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
+                //hopItemAdapter.add(new IBUData(0, 0, WeightUnit.G, 0, HopType.WHOLE_HOPS));
+                //hopItemAdapter.notifyDataSetChanged();
                 //ArrayList<LinearLayout> layouts = createHopLine();
                 //for (LinearLayout lay: layouts) {
                 //    mainLayout.addView(lay);
@@ -577,6 +585,9 @@ public class FragmentIBU extends Fragment {
             VolumeUnit volUnit = VolumeUnit.Gallon;
             if (selectedVolUnit == getContext().getString(R.string.volume_unit_liters)) {
                 volUnit = VolumeUnit.Liter;
+            }
+            for (int i = 0; i < hopItemAdapter.getCount(); i++) {
+                IBUData ibuData = hopItemAdapter.getItem(i);
             }
 
             ArrayList<IBUData> ibuDatas = new ArrayList<>();

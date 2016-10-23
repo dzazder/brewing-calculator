@@ -26,11 +26,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_alpha_acids"/>
 
-                <EditText
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/calc_field"
-                    style="@style/StyleEditText_CalcFieldSmall" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/calc_field"
+                        style="@style/StyleEditText_CalcFieldSmall"
+                        android:id="@+id/txt_ibu_alpha" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -54,7 +62,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/calc_field"
-                        style="@style/StyleEditText_CalcFieldSmall" />
+                        style="@style/StyleEditText_CalcFieldSmall"
+                        android:id="@+id/txt_ibu_weight" />
 
                     <Spinner
                         android:layout_width="wrap_content"
@@ -112,13 +121,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/calc_field"
-                style="@style/StyleEditText_CalcFieldSmall" />
+                style="@style/StyleEditText_CalcFieldSmall"
+                android:id="@+id/txt_ibu_time" />
 
         </LinearLayout>
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/ibtn_ibu_remove" />
 
     </LinearLayout>
 </LinearLayout>
