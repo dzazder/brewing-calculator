@@ -7,16 +7,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.R;
+import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
+import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
+import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
 
 /**
  * Created by bartek on 22.10.2016.
@@ -26,13 +31,16 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
     private ArrayList<IBUData> ibuData;
 
     private IEditTextTextChangedListener mTextChangedListener = null;
+    private IOnItemSelectedListener mOnItemSelectedListener = null;
 
     public IBUHopItemAdapter(Activity context, ArrayList<IBUData> resource,
-                             IEditTextTextChangedListener listener) {
+                             IEditTextTextChangedListener iEditTextTextChangedListener,
+                             IOnItemSelectedListener iOnItemSelectedListener) {
         super(context, R.layout.ibu_hop_item, resource);
         this.context = context;
         this.ibuData = resource;
-        mTextChangedListener = listener;
+        mTextChangedListener = iEditTextTextChangedListener;
+        mOnItemSelectedListener = iOnItemSelectedListener;
     }
 
     @Override
@@ -83,8 +91,12 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (mTextChangedListener != null) {
-                    mTextChangedListener.afterTextChanged((Integer)txtWeight.getTag());
+                if (NumberFormatter.isNumeric(editable.toString())) {
+                    int position = (Integer) txtWeight.getTag();
+                    ibuData.get(position).setWeight(Double.parseDouble(editable.toString()));
+                    if (mTextChangedListener != null) {
+                        mTextChangedListener.afterTextChanged(position);
+                    }
                 }
             }
         });
@@ -104,21 +116,63 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (mTextChangedListener != null) {
-                    mTextChangedListener.afterTextChanged((Integer)txtTime.getTag());
+                if (NumberFormatter.isNumeric(editable.toString())) {
+                    int position = (Integer) txtTime.getTag();
+                    ibuData.get(position).setTime(Double.parseDouble(editable.toString()));
+                    if (mTextChangedListener != null) {
+                        mTextChangedListener.afterTextChanged(position);
+                    }
                 }
             }
         });
 
+        final Spinner spWeightUnit = (Spinner)rowView.findViewById(R.id.sp_hop_weight_unit);
+        spWeightUnit.setTag(position);
+        spWeightUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int position = (Integer) spWeightUnit.getTag();
+                String val = spWeightUnit.getSelectedItem().toString();
+                if (val == context.getResources().getString(R.string.weight_unit_g)) {
+                    ibuData.get(position).setWeightUnit(WeightUnit.G);
+                }
+                if (val == context.getResources().getString(R.string.weight_unit_oz)) {
+                    ibuData.get(position).setWeightUnit(WeightUnit.OZ);
+                }
+                if (mOnItemSelectedListener != null) {
+                    mOnItemSelectedListener.onItemSelected(position);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
 
+        final Spinner spHopType = (Spinner)rowView.findViewById(R.id.sp_hop_type);
+        spHopType.setTag(position);
+        spHopType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int position = (Integer) spHopType.getTag();
+                String val = spHopType.getSelectedItem().toString();
+                if (val == context.getResources().getString(R.string.hop_type_whole_hops)) {
+                    ibuData.get(position).setHopType(HopType.WHOLE_HOPS);
+                }
+                if (val == context.getResources().getString(R.string.hop_type_pellet)) {
+                    ibuData.get(position).setHopType(HopType.PELLETS);
+                }
+                if (mOnItemSelectedListener != null) {
+                    mOnItemSelectedListener.onItemSelected(position);
+                }
+            }
 
-//        TextView tvLanguage = (TextView) rowView.findViewById(R.id.tvLanguage);
-//        TextView tvItemNumber = (TextView) rowView.findViewById(R.id.tvItemNumber);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-//        tvItemNumber.setText(Integer.toString(position));
-//        tvLanguage.setText(languages[position]);
+            }
+        });
 
         return rowView;
     }
