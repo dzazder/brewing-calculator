@@ -23,6 +23,7 @@ import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
  */
 public class FragmentAddHop extends DialogFragment implements View.OnClickListener {
 
+    View fragmentIBU;
     View dialogView;
     EditText txtAlpha;
     EditText txtWeight;
@@ -30,9 +31,11 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     Spinner spWeightUnit;
     Spinner spHopType;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dialogView = inflater.inflate(R.layout.dialog_add_hop, container, false);
+        fragmentIBU = inflater.inflate(R.layout.fragment_ibu, container, false);
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -59,9 +62,10 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
 
     private void saveHop() {
 
-        //ListView listHops = (ListView)getDialog().findViewById(R.id.lv_hops);
-        //IBUHopItemAdapter hopsAdapter = (IBUHopItemAdapter) listHops.getAdapter();
-        //hopsAdapter.updateDataSet(new IBUData(12, 5, WeightUnit.G, 60, HopType.WHOLE_HOPS));
+        ListView listHops = (ListView)fragmentIBU.findViewById(R.id.lv_hops);
+        IBUHopItemAdapter hopsAdapter = (IBUHopItemAdapter) listHops.getAdapter();
+
+        hopsAdapter.updateDataSet(new IBUData(12, 5, WeightUnit.G, 60, HopType.WHOLE_HOPS));
 
         hideDialog();
 
