@@ -171,6 +171,10 @@ public class FragmentIBU extends Fragment {
         btnAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                FragmentAddHop fAddHop = new FragmentAddHop();
+                fAddHop.show(getActivity().getFragmentManager(), "fragment_add_hop");
+
                 hopItemAdapter.updateDataSet(new IBUData(0, 0,
                         AppConfiguration.getInstance().defaultSettings.getDefWeightUnit(), 0,
                         HopType.PELLETS));
