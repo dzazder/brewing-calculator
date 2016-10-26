@@ -68,21 +68,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-
-            @Override
-            public void onBackStackChanged() {
-                if (fragmentManager.findFragmentByTag(ConstStrings.CURRENT_FRAGMENT) instanceof FragmentHome) {
-                    showBackStackButton = false;
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                } else {
-                    showBackStackButton = true;
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                }
-            }
-        });
-
-
+        addOnBackStackChangedListenerToFragmentManager();
+        
         final Drawable upArrow = ContextCompat.getDrawable(getApplicationContext(), R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
@@ -100,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
-
 
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
@@ -211,5 +197,23 @@ public class MainActivity extends AppCompatActivity {
             Log.d("LANG", "Languages are identical");
         }
     }
+
+
+    private void addOnBackStackChangedListenerToFragmentManager() {
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+
+            @Override
+            public void onBackStackChanged() {
+                if (fragmentManager.findFragmentByTag(ConstStrings.CURRENT_FRAGMENT) instanceof FragmentHome) {
+                    showBackStackButton = false;
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                } else {
+                    showBackStackButton = true;
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }
+            }
+        });
+    }
+
 
 }
