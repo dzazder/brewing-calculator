@@ -76,6 +76,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
     private void initControls(View rootView) {
         getControlsFromView(rootView);
         setControlValues();
+        initListeners();
     }
 
     private void getControlsFromView(View rootView) {
@@ -97,12 +98,15 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
         layWortCorrectionFactor.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.VISIBLE : View.GONE);
         layFormulaSelector.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.GONE : View.VISIBLE);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
                 android.R.layout.simple_spinner_item);
         int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
         spAfter.setSelection(spinnerPosition);
         spBefore.setSelection(spinnerPosition);
+    }
 
+    private void initListeners() {
         txtExtAfter.addTextChangedListener(this);
         txtExtBefore.addTextChangedListener(this);
         txtWortCorrectionFactor.addTextChangedListener(this);

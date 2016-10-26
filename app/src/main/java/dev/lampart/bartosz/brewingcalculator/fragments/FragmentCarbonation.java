@@ -29,13 +29,22 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentCarbonation extends Fragment {
+public class FragmentCarbonation extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener {
 
+    EditText txtPrimingSize;
+    EditText txtCO2;
+    EditText txtBeerTemp;
+
+    Spinner spPrimingSize;
+    Spinner spBeerTemp;
+
+    TextView txtAmountTableSugar;
+    TextView txtAmountCornSugar;
+    TextView txtAmountDME;
 
     public FragmentCarbonation() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,32 +53,35 @@ public class FragmentCarbonation extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_carbonation, container, false);
         getActivity().setTitle(getResources().getString(R.string.title_carbonation_calculator));
 
-        final EditText txtPrimingSize = (EditText)rootView.findViewById(R.id.txt_priming_size);
-        final EditText txtCO2 = (EditText)rootView.findViewById(R.id.txt_co2_volumes);
-        final EditText txtBeerTemp = (EditText)rootView.findViewById(R.id.txt_beer_temp);
+        initControls(rootView);
 
-        final Spinner spPrimingSize = (Spinner)rootView.findViewById(R.id.sp_priming_size);
-        final Spinner spBeerTemp = (Spinner)rootView.findViewById(R.id.sp_temp_scale);
+        return rootView;
+    }
 
-        final TextView txtAmountTableSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_table_sugar);
-        final TextView txtAmountCornSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_corn_sugar);
-        final TextView txtAmountDME = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_dme);
+    private void initControls(View rootView) {
+        getControlsFromView(rootView);
+        setControlValues();
+        initListeners();
+    }
 
-        // set data from configuration
+    private void initListeners() {
+        txtPrimingSize.addTextChangedListener(this);
+        txtCO2.addTextChangedListener(this);
+        txtBeerTemp.addTextChangedListener(this);
+
+        spPrimingSize.setOnItemSelectedListener(this);
+        spBeerTemp.setOnItemSelectedListener(this);
+    }
+
+    private void setControlValues() {
         txtPrimingSize.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefPrimingSize()));
         txtBeerTemp.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefTemperature()));
 
-        ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
-                android.R.layout.simple_spinner_item);
-        VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
-        String valSelectedInSpinnerVol = "";
-        switch (selDefVolUnit) {
-            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
-            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
-        }
-        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
-        spPrimingSize.setSelection(spinnerPrimingUnigPosition);
+        initPrimingSizeSpinner();
+        initBeerTemperatureSpinner();
+    }
 
+    private void initBeerTemperatureSpinner() {
         ArrayAdapter<CharSequence> tempScale = ArrayAdapter.createFromResource(getActivity(), R.array.temp_scale,
                 android.R.layout.simple_spinner_item);
         TemperatureUnit tempDefUnit = TemperatureUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefTempUnit().toString());
@@ -80,99 +92,33 @@ public class FragmentCarbonation extends Fragment {
         }
         int spinnerTempPosition = tempScale.getPosition(valSelectedInTempUnit);
         spBeerTemp.setSelection(spinnerTempPosition);
-        // end of set from configuration
-        /*
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
+    }
+
+    private void initPrimingSizeSpinner() {
+        ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
                 android.R.layout.simple_spinner_item);
-
-        int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
-
-        spAfter.setSelection(spinnerPosition);
-        spBefore.setSelection(spinnerPosition);
-         */
-
-        txtPrimingSize.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
-                        txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
-            }
-        });
-
-        txtCO2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
-                        txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
-            }
-        });
-
-        txtBeerTemp.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
-                        txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
-            }
-        });
-
-        spPrimingSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
-                        txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spBeerTemp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
-                        txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
+        String valSelectedInSpinnerVol = "";
+        switch (selDefVolUnit) {
+            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
+            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+        }
+        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
+        spPrimingSize.setSelection(spinnerPrimingUnigPosition);
+    }
 
 
-        return rootView;
+    private void getControlsFromView(View rootView) {
+        txtPrimingSize = (EditText)rootView.findViewById(R.id.txt_priming_size);
+        txtCO2 = (EditText)rootView.findViewById(R.id.txt_co2_volumes);
+        txtBeerTemp = (EditText)rootView.findViewById(R.id.txt_beer_temp);
+
+        spPrimingSize = (Spinner)rootView.findViewById(R.id.sp_priming_size);
+        spBeerTemp = (Spinner)rootView.findViewById(R.id.sp_temp_scale);
+
+        txtAmountTableSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_table_sugar);
+        txtAmountCornSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_corn_sugar);
+        txtAmountDME = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_dme);
     }
 
     private void calculateCarbonation(EditText txtPrimingSize, EditText txtCO2, EditText txtBeerTemp,
@@ -222,4 +168,30 @@ public class FragmentCarbonation extends Fragment {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
+                txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        calculateCarbonation(txtPrimingSize, txtCO2, txtBeerTemp, spPrimingSize, spBeerTemp,
+                txtAmountTableSugar, txtAmountCornSugar, txtAmountDME);
+    }
 }
