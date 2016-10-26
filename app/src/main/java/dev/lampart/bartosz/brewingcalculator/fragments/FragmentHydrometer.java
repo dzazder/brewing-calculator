@@ -25,7 +25,8 @@ import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHydrometer extends Fragment {
+public class FragmentHydrometer extends Fragment implements TextWatcher,
+        AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
     private EditText txtGravity;
     private EditText txtTemperature;
@@ -47,80 +48,32 @@ public class FragmentHydrometer extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_hydrometer, container, false);
         getActivity().setTitle(getResources().getString(R.string.title_hydrometer_adjustment));
 
+        initControls(rootView);
+
+        return rootView;
+    }
+
+
+    private void initControls(View rootView) {
+        getControlsFromView(rootView);
+        initListeners();
+    }
+
+    private void initListeners() {
+        txtGravity.addTextChangedListener(this);
+        txtTemperature.addTextChangedListener(this);
+        spGravity.setOnItemSelectedListener(this);
+        spRealGravity.setOnItemSelectedListener(this);
+        rgTemperature.setOnCheckedChangeListener(this);
+    }
+
+    private void getControlsFromView(View rootView) {
         txtGravity = (EditText)rootView.findViewById(R.id.txt_hydrometer_measured_gravity);
         txtTemperature = (EditText)rootView.findViewById(R.id.txt_adjustment_temperature);
         spGravity = (Spinner)rootView.findViewById(R.id.sp_hydrometer_gravity_unit);
         spRealGravity = (Spinner)rootView.findViewById(R.id.sp_hydrometer_real_gravity_unit);
         rgTemperature = (RadioGroup)rootView.findViewById(R.id.temp_unit_selector);
         lblRealGravity = (TextView)rootView.findViewById(R.id.lbl_hydrometer_real_gravity);
-
-        txtGravity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
-            }
-        });
-
-
-        txtTemperature.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
-            }
-        });
-
-        spGravity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spRealGravity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        rgTemperature.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
-            }
-        });
-
-        return rootView;
     }
 
     private void calculateGravity(EditText txtGravity, EditText txtTemperature, Spinner spGravity,
@@ -160,4 +113,33 @@ public class FragmentHydrometer extends Fragment {
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        calculateGravity(txtGravity, txtTemperature, spGravity, rgTemperature, lblRealGravity, spRealGravity);
+    }
 }
