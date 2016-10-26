@@ -38,13 +38,24 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentAlcohol extends Fragment {
+public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelectedListener,
+        TextWatcher, CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
 
     private boolean editedByProgram = false;
 
     TextView lblAlco;
     TextView lblAtt;
-    
+    Spinner spBefore;
+    Spinner spAfter;
+    EditText txtExtBefore;
+    EditText txtExtAfter;
+    EditText txtWortCorrectionFactor;
+    LinearLayout layWortCorrectionFactor;
+    LinearLayout layFormulaSelector;
+    CheckBox chbUseRefractometer;
+    RadioGroup rgFormula;
+
+
     public FragmentAlcohol() {
         // Required empty public constructor
     }
@@ -57,131 +68,50 @@ public class FragmentAlcohol extends Fragment {
 
         getActivity().setTitle(getResources().getString(R.string.title_alcohol_calculator));
 
-        final Spinner spBefore = (Spinner)rootView.findViewById(R.id.sp_extract_before);
-        final Spinner spAfter = (Spinner)rootView.findViewById(R.id.sp_extract_after);
+        initControls(rootView);
 
-        final EditText txtExtBefore = (EditText)rootView.findViewById(R.id.txt_extract_before);
-        final EditText txtExtAfter = (EditText)rootView.findViewById(R.id.txt_extract_after);
+        return rootView;
+    }
 
+    private void initControls(View rootView) {
+        getControlsFromView(rootView);
+        setControlValues();
+    }
+
+    private void getControlsFromView(View rootView) {
+        spBefore = (Spinner)rootView.findViewById(R.id.sp_extract_before);
+        spAfter = (Spinner)rootView.findViewById(R.id.sp_extract_after);
+        txtExtBefore = (EditText)rootView.findViewById(R.id.txt_extract_before);
+        txtExtAfter = (EditText)rootView.findViewById(R.id.txt_extract_after);
+        txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
         lblAlco = (TextView)rootView.findViewById(R.id.txt_calc_alc);
         lblAtt = (TextView)rootView.findViewById(R.id.txt_calc_att);
+        chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
+        layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
+        layFormulaSelector = (LinearLayout)rootView.findViewById(R.id.layout_alcohol_formula);
+        rgFormula = (RadioGroup)rootView.findViewById(R.id.alc_formula);
+    }
 
-        final CheckBox chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
+    private void setControlValues() {
         chbUseRefractometer.setChecked(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer());
-
-        final EditText txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
         txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
-
-        final LinearLayout layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
         layWortCorrectionFactor.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.VISIBLE : View.GONE);
-
-        final LinearLayout layFormulaSelector = (LinearLayout)rootView.findViewById(R.id.layout_alcohol_formula);
         layFormulaSelector.setVisibility(AppConfiguration.getInstance().defaultSettings.isDefUseRefractometer() ? View.GONE : View.VISIBLE);
-
-        final RadioGroup rgFormula = (RadioGroup)rootView.findViewById(R.id.alc_formula);
-        
-        spAfter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spBefore.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        txtExtBefore.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-        });
-
-        rgFormula.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-        });
-
-        txtWortCorrectionFactor.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-        });
-
-        txtExtAfter.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-        });
-
-        chbUseRefractometer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
-                layWortCorrectionFactor.setVisibility(b ? View.VISIBLE : View.GONE);
-                layFormulaSelector.setVisibility(b ? View.GONE : View.VISIBLE);
-
-                calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
-            }
-        });
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
                 android.R.layout.simple_spinner_item);
-
         int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
-
         spAfter.setSelection(spinnerPosition);
         spBefore.setSelection(spinnerPosition);
 
-        return rootView;
+        txtExtAfter.addTextChangedListener(this);
+        txtExtBefore.addTextChangedListener(this);
+        txtWortCorrectionFactor.addTextChangedListener(this);
+
+        spAfter.setOnItemSelectedListener(this);
+        spBefore.setOnItemSelectedListener(this);
+
+        chbUseRefractometer.setOnCheckedChangeListener(this);
+        rgFormula.setOnCheckedChangeListener(this);
     }
 
     private void calculateAlcohol(EditText txtExtBefore, EditText txtExtAfter, 
@@ -230,4 +160,42 @@ public class FragmentAlcohol extends Fragment {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        txtWortCorrectionFactor.setText(Double.toString(AppConfiguration.getInstance().defaultSettings.getDefWortCorrectionFactor()));
+        layWortCorrectionFactor.setVisibility(b ? View.VISIBLE : View.GONE);
+        layFormulaSelector.setVisibility(b ? View.GONE : View.VISIBLE);
+
+        calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        calculateAlcohol(txtExtBefore, txtExtAfter, spBefore, spAfter, chbUseRefractometer, txtWortCorrectionFactor, rgFormula);
+    }
 }
