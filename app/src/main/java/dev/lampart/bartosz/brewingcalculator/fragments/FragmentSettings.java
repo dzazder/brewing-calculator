@@ -26,15 +26,15 @@ import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
  */
 public class FragmentSettings extends DialogFragment implements View.OnClickListener {
 
-    Spinner spDefaultExtractUnit;
-    CheckBox chbUseRefractometer;
-    EditText txtWortCorrectFactor;
-    EditText txtPrimingSize;
-    Spinner spDefaultPrimingVol;
-    EditText txtBeerTemp;
-    Spinner spDefaultTempScale;
-    Button btnSettingsCancel;
-    Button btnSettingsSave;
+    private Spinner spDefaultExtractUnit;
+    private CheckBox chbUseRefractometer;
+    private EditText txtWortCorrectFactor;
+    private EditText txtPrimingSize;
+    private Spinner spDefaultPrimingVol;
+    private EditText txtBeerTemp;
+    private Spinner spDefaultTempScale;
+    private Button btnSettingsCancel;
+    private Button btnSettingsSave;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

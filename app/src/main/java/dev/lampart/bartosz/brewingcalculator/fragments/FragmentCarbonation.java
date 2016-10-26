@@ -31,16 +31,16 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
  */
 public class FragmentCarbonation extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener {
 
-    EditText txtPrimingSize;
-    EditText txtCO2;
-    EditText txtBeerTemp;
+    private EditText txtPrimingSize;
+    private EditText txtCO2;
+    private EditText txtBeerTemp;
 
-    Spinner spPrimingSize;
-    Spinner spBeerTemp;
+    private Spinner spPrimingSize;
+    private Spinner spBeerTemp;
 
-    TextView txtAmountTableSugar;
-    TextView txtAmountCornSugar;
-    TextView txtAmountDME;
+    private TextView txtAmountTableSugar;
+    private TextView txtAmountCornSugar;
+    private TextView txtAmountDME;
 
     public FragmentCarbonation() {
         // Required empty public constructor

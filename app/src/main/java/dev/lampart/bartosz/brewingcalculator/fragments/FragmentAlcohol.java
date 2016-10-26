@@ -41,19 +41,17 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelectedListener,
         TextWatcher, CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
 
-    private boolean editedByProgram = false;
-
-    TextView lblAlco;
-    TextView lblAtt;
-    Spinner spBefore;
-    Spinner spAfter;
-    EditText txtExtBefore;
-    EditText txtExtAfter;
-    EditText txtWortCorrectionFactor;
-    LinearLayout layWortCorrectionFactor;
-    LinearLayout layFormulaSelector;
-    CheckBox chbUseRefractometer;
-    RadioGroup rgFormula;
+    private TextView lblAlco;
+    private TextView lblAtt;
+    private Spinner spBefore;
+    private Spinner spAfter;
+    private EditText txtExtBefore;
+    private EditText txtExtAfter;
+    private EditText txtWortCorrectionFactor;
+    private LinearLayout layWortCorrectionFactor;
+    private LinearLayout layFormulaSelector;
+    private CheckBox chbUseRefractometer;
+    private RadioGroup rgFormula;
 
 
     public FragmentAlcohol() {
