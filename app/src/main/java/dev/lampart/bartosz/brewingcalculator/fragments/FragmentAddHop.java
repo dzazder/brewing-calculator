@@ -1,7 +1,9 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
-import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +16,18 @@ import android.widget.Toast;
 
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
+import dev.lampart.bartosz.brewingcalculator.dicts.HopIntentValues;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
+import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
+import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
  * Created by bartek on 25.10.2016.
  */
 public class FragmentAddHop extends DialogFragment implements View.OnClickListener {
 
-    View fragmentIBU;
     View dialogView;
     EditText txtAlpha;
     EditText txtWeight;
@@ -35,7 +39,13 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dialogView = inflater.inflate(R.layout.dialog_add_hop, container, false);
-        fragmentIBU = inflater.inflate(R.layout.fragment_ibu, container, false);
+        //fragmentIBU = inflater.inflate(R.layout.fragment_ibu, container, false);
+
+        txtAlpha = (EditText) dialogView.findViewById(R.id.txt_ibu_alpha);
+        txtWeight = (EditText) dialogView.findViewById(R.id.txt_ibu_weight);
+        txtMinutes = (EditText) dialogView.findViewById(R.id.txt_ibu_time);
+        spWeightUnit = (Spinner) dialogView.findViewById(R.id.sp_hop_weight_unit);
+        spHopType = (Spinner) dialogView.findViewById(R.id.sp_hop_type);
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -61,15 +71,30 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     }
 
     private void saveHop() {
-
-        ListView listHops = (ListView)fragmentIBU.findViewById(R.id.lv_hops);
-        IBUHopItemAdapter hopsAdapter = (IBUHopItemAdapter) listHops.getAdapter();
-
-        hopsAdapter.updateDataSet(new IBUData(12, 5, WeightUnit.G, 60, HopType.WHOLE_HOPS));
-
         hideDialog();
 
-        Toast.makeText(getActivity(), "Hop added", Toast.LENGTH_SHORT);
+        Intent data = prepareHopIntentData();
+        getTargetFragment().onActivityResult(getTargetRequestCode(), RequestCodes.RESULT_OK, data);
+    }
+
+    private Intent prepareHopIntentData() {
+        Intent data= new Intent();
+
+        if (NumberFormatter.isNumeric(txtAlpha.getText().toString())) {
+            data.putExtra(HopIntentValues.ALPHA, Double.parseDouble(txtAlpha.getText().toString()));
+        }
+
+        if (NumberFormatter.isNumeric(txtMinutes.getText().toString())) {
+            data.putExtra(HopIntentValues.BOILING_TIME, Double.parseDouble(txtMinutes.getText().toString()));
+        }
+
+        if (NumberFormatter.isNumeric(txtWeight.getText().toString())) {
+            data.putExtra(HopIntentValues.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
+        }
+
+        data.putExtra(HopIntentValues.HOP_TYPE, spHopType.getSelectedItem().toString());
+        data.putExtra(HopIntentValues.WEIGHT_UNIT, spWeightUnit.getSelectedItem().toString());
+        return data;
     }
 
     private void hideDialog() {
