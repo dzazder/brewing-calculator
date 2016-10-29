@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("IBU", "get View");
         View rowView = convertView;
         if (rowView == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
@@ -53,6 +55,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
         final EditText txtAlpha = (EditText)rowView.findViewById(R.id.txt_ibu_alpha);
         txtAlpha.setTag(position);
+        txtAlpha.setText(String.valueOf(ibuData.get(position).getAlpha()));
         txtAlpha.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -78,6 +81,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
         final EditText txtWeight = (EditText)rowView.findViewById(R.id.txt_ibu_weight);
         txtWeight.setTag(position);
+        txtWeight.setText(String.valueOf(ibuData.get(position).getWeight()));
         txtWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -103,6 +107,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
         final EditText txtTime = (EditText)rowView.findViewById(R.id.txt_ibu_time);
         txtTime.setTag(position);
+        txtTime.setText(String.valueOf(ibuData.get(position).getTime()));
         txtTime.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -128,6 +133,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
         final Spinner spWeightUnit = (Spinner)rowView.findViewById(R.id.sp_hop_weight_unit);
         spWeightUnit.setTag(position);
+       
         spWeightUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -178,6 +184,7 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
     }
 
     public void updateDataSet(IBUData ibu) {
+        Log.d("IBU", "update data set");
         this.ibuData.add(ibu);
         notifyDataSetChanged();
     }

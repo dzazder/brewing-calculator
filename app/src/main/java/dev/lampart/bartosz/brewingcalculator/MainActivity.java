@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onOptionsItemSelected(item);
 
-
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
 
