@@ -66,6 +66,12 @@
         <item name="android:paddingBottom">@dimen/padding_normal</item>
     </style>
 
+    <style name="StyleTextView_Large" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/colorAccent</item>
+        <item name="android:padding">@dimen/padding_normal</item>
+    </style>
+
     <style name="StyleEditText_CalcField" parent="@android:style/Widget.EditText">
         <item name="android:textColor">@color/black</item>
         <item name="android:minHeight">@dimen/calc_field_min_height</item>

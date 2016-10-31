@@ -3,6 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_small"
+    android:background="@color/colorPrimaryMedium"
     android:padding="@dimen/padding_very_small">
 
     <LinearLayout
@@ -34,7 +36,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/calc_field"
+                        style="@style/StyleTextView_Large"
                         android:id="@+id/txt_ibu_alpha" />
 
                 </LinearLayout>
@@ -60,7 +62,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/calc_field"
+                        style="@style/StyleTextView_Large"
                         android:id="@+id/txt_ibu_weight" />
 
                     <TextView
@@ -88,6 +90,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/StyleTextView_Large"
                 android:id="@+id/sp_hop_type"></TextView>
 
         </LinearLayout>
@@ -114,7 +117,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/calc_field"
+                style="@style/StyleTextView_Large"
                 android:id="@+id/txt_ibu_time" />
 
         </LinearLayout>
