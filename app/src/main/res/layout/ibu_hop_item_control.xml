@@ -31,10 +31,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/calc_field"
+                        style="@style/StyleEditText_CalcFieldVerySmall"
                         android:id="@+id/txt_ibu_alpha" />
 
                 </LinearLayout>
@@ -57,16 +58,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/calc_field"
+                        style="@style/StyleEditText_CalcFieldVerySmall"
                         android:id="@+id/txt_ibu_weight" />
 
-                    <TextView
+                    <Spinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/sp_hop_weight_unit"></TextView>
+                        android:id="@+id/sp_hop_weight_unit"
+                        android:spinnerMode="dropdown"
+                        android:entries="@array/weight_light_unit"></Spinner>
 
                 </LinearLayout>
 
@@ -85,10 +89,12 @@
                 android:layout_height="wrap_content"
                 android:text="Hop type"/>
 
-            <TextView
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sp_hop_type"></TextView>
+                android:id="@+id/sp_hop_type"
+                android:spinnerMode="dropdown"
+                android:entries="@array/hop_types"></Spinner>
 
         </LinearLayout>
 
@@ -111,10 +117,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_boiling_time"/>
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/calc_field"
+                style="@style/StyleEditText_CalcFieldVerySmall"
                 android:id="@+id/txt_ibu_time" />
 
         </LinearLayout>
