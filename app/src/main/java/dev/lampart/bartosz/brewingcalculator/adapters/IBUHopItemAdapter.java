@@ -46,7 +46,6 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("IBU", "get View");
         View rowView = convertView;
         if (rowView == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();

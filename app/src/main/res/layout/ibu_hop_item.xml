@@ -24,7 +24,7 @@
                 android:padding="@dimen/padding_very_small">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_alpha_acids"/>
 
@@ -39,6 +39,11 @@
                         style="@style/StyleTextView_Large"
                         android:id="@+id/txt_ibu_alpha" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/StyleTextView_LargeNoPadding"
+                        android:text="%"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -50,7 +55,7 @@
                 android:padding="@dimen/padding_very_small">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_hop_weight"/>
 
@@ -132,14 +137,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
                 android:background="@android:color/transparent"
-                android:id="@+id/ibtn_ibu_edit" />
+                android:id="@+id/ibtn_ibu_edit"
+                android:layout_margin="@dimen/padding_normal" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_remove"
                 android:background="@android:color/transparent"
-                android:id="@+id/ibtn_ibu_remove" />
+                android:id="@+id/ibtn_ibu_remove"
+                android:layout_margin="@dimen/padding_normal" />
 
         </LinearLayout>
 
