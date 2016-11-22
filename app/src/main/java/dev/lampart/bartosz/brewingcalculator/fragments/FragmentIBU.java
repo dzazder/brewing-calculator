@@ -251,6 +251,8 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                         AppConfiguration.getInstance().defaultSettings.getDefWeightUnit(),
                         data.getDoubleExtra(HopIntentValues.BOILING_TIME, 0),
                         HopType.PELLETS));
+
+                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
             }
         }
     }
