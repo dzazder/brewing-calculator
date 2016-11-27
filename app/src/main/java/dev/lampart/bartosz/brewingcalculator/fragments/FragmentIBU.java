@@ -32,6 +32,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
+import dev.lampart.bartosz.brewingcalculator.helpers.ArraysHelper;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
 import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
@@ -248,9 +249,9 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
 
                 hopItemAdapter.updateDataSet(new IBUData(data.getDoubleExtra(HopIntentValues.ALPHA, 0),
                         data.getDoubleExtra(HopIntentValues.WEIGHT, 0),
-                        AppConfiguration.getInstance().defaultSettings.getDefWeightUnit(),
+                        ArraysHelper.getWeightUnit(data.getStringExtra(HopIntentValues.WEIGHT_UNIT), getActivity()),
                         data.getDoubleExtra(HopIntentValues.BOILING_TIME, 0),
-                        HopType.PELLETS));
+                        ArraysHelper.getHopType(data.getStringExtra(HopIntentValues.HOP_TYPE), getActivity())));
 
                 calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
             }

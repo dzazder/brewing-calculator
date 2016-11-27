@@ -94,6 +94,7 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
 
         data.putExtra(HopIntentValues.HOP_TYPE, spHopType.getSelectedItem().toString());
         data.putExtra(HopIntentValues.WEIGHT_UNIT, spWeightUnit.getSelectedItem().toString());
+
         return data;
     }
 

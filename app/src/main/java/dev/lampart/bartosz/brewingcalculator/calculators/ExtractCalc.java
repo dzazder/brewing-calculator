@@ -14,13 +14,13 @@ public class ExtractCalc extends Calc {
     public static double calcBrixToSG(double brix) {
         double plato = brix / 1.04;
         double sg = calcPlatoToSG(plato);
-        Log.d("CALC", "Brix: " + brix + " , SG: " + sg);
+        //Log.d("CALC", "Brix: " + brix + " , SG: " + sg);
         return sg;
     }
 
     public static double calcSGToBrix(double sg) {
         double brix = 1.04 *  ((-1 * 616.868) + (1111.14 * sg) - (630.272 * Math.pow(sg, 2)) + (135.997 * Math.pow(sg, 3)));
-        Log.d("CALC", "SG: " + sg + " , Brix: " + brix);
+        //Log.d("CALC", "SG: " + sg + " , Brix: " + brix);
         return brix;
     }
 
@@ -32,7 +32,7 @@ public class ExtractCalc extends Calc {
      */
     public static double calcSGToPlato(double sg) {
         double plato = (-1 * 616.868) + (1111.14 * sg) - (630.272 * Math.pow(sg, 2)) + (135.997 * Math.pow(sg, 3));
-        Log.d("CALC", "SG: " + sg + " , Plato: " + plato);
+        //Log.d("CALC", "SG: " + sg + " , Plato: " + plato);
         return plato;
     }
 
@@ -44,7 +44,7 @@ public class ExtractCalc extends Calc {
      */
     public static double calcPlatoToSG(double plato) {
         double sg = 1 + (plato / (258.6 - ((plato / 258.2) * 227.1)));
-        Log.d("CALC", "Plato: " + plato + " , SG: " + sg);
+        //Log.d("CALC", "Plato: " + plato + " , SG: " + sg);
         return sg;
     }
 

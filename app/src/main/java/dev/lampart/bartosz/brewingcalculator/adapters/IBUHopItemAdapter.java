@@ -30,6 +30,12 @@ import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
 public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
     private Activity context;
     private ArrayList<IBUData> ibuData;
+    private TextView txtAlpha;
+    private TextView txtWeight;
+    private TextView txtTime;
+    private TextView spWeightUnit;
+    private TextView spHopType;
+
 
     private IEditTextTextChangedListener mTextChangedListener = null;
     private IOnItemSelectedListener mOnItemSelectedListener = null;
@@ -52,23 +58,23 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
             rowView =  layoutInflater.inflate(R.layout.ibu_hop_item, null, true);
         }
 
-        final TextView txtAlpha = (TextView)rowView.findViewById(R.id.txt_ibu_alpha);
+        txtAlpha = (TextView)rowView.findViewById(R.id.txt_ibu_alpha);
         txtAlpha.setTag(position);
         txtAlpha.setText(String.valueOf(ibuData.get(position).getAlpha()));
 
-        final TextView txtWeight = (TextView)rowView.findViewById(R.id.txt_ibu_weight);
+        txtWeight = (TextView)rowView.findViewById(R.id.txt_ibu_weight);
         txtWeight.setTag(position);
         txtWeight.setText(String.valueOf(ibuData.get(position).getWeight()));
 
-        final TextView txtTime = (TextView)rowView.findViewById(R.id.txt_ibu_time);
+        txtTime = (TextView)rowView.findViewById(R.id.txt_ibu_time);
         txtTime.setTag(position);
         txtTime.setText(String.valueOf(ibuData.get(position).getTime()));
 
-        final TextView spWeightUnit = (TextView) rowView.findViewById(R.id.sp_hop_weight_unit);
+        spWeightUnit = (TextView) rowView.findViewById(R.id.sp_hop_weight_unit);
         spWeightUnit.setTag(position);
         spWeightUnit.setText(ibuData.get(position).getWeightUnit().toString());
 
-        final TextView spHopType = (TextView) rowView.findViewById(R.id.sp_hop_type);
+        spHopType = (TextView) rowView.findViewById(R.id.sp_hop_type);
         spHopType.setTag(position);
         spHopType.setText(ibuData.get(position).getHopType().toString());
 
