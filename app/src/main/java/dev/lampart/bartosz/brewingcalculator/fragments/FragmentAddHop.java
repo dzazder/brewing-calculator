@@ -1,5 +1,6 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -99,6 +100,19 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     }
 
     private void hideDialog() {
-        getDialog().hide();
+        onDestroyView();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Dialog dialog = getDialog();
+        // handles https://code.google.com/p/android/issues/detail?id=17423
+        if (dialog != null && getRetainInstance()) {
+            dialog.setDismissMessage(null);
+            dialog.dismiss();
+        }
+        this.dismiss();
+        super.onDestroyView();
+
     }
 }
