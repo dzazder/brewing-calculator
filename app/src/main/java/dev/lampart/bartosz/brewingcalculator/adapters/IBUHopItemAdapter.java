@@ -86,4 +86,8 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
         this.ibuData.add(ibu);
         notifyDataSetChanged();
     }
+
+    public ArrayList<IBUData> getValues() {
+        return ibuData;
+    }
 }

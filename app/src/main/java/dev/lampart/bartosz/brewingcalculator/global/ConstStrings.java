@@ -7,4 +7,6 @@ public class ConstStrings {
     public static String BACK_BUTTON_VISIBILITY = "backButtonVisibility";
 
     public static String CURRENT_FRAGMENT = "FRAGMENT_DISPLAYED";
+
+    public static String IBU_DATA = "IBU_DATA";
 }

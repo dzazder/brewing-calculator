@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
@@ -32,6 +33,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
+import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 import dev.lampart.bartosz.brewingcalculator.helpers.ArraysHelper;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
@@ -69,6 +71,13 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
         View view = inflater.inflate(R.layout.fragment_ibu, container, false);
 
         Log.d("IBU", "IBU view created");
+
+        if (savedInstanceState != null) {
+            ArrayList<IBUData> savedData = savedInstanceState.getParcelableArrayList(ConstStrings.IBU_DATA);
+            if (savedData != null) {
+                items = savedData;
+            }
+        }
 
         initControls(view);
 
@@ -256,5 +265,12 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                 calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
             }
         }
+    }
+
+    public void onSaveInstanceState(Bundle savedState) {
+        super.onSaveInstanceState(savedState);
+
+        ArrayList<IBUData> values = hopItemAdapter.getValues();
+        savedState.putParcelableArrayList(ConstStrings.IBU_DATA, values);
     }
 }

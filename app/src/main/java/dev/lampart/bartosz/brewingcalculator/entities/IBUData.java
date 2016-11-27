@@ -1,12 +1,15 @@
 package dev.lampart.bartosz.brewingcalculator.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 
 /**
  * Created by bartek on 02.10.2016.
  */
-public class IBUData {
+public class IBUData implements Parcelable {
     private double alpha;
     private double weight;
     private double time;
@@ -23,6 +26,14 @@ public class IBUData {
         this.weightUnit = weightUnit;
         this.time = time;
         this.hopType = hopType;
+    }
+
+    public IBUData(Parcel in) {
+        this.alpha = in.readDouble();
+        this.weight = in.readDouble();
+        this.time = in.readDouble();
+        this.weightUnit = (WeightUnit) in.readValue(WeightUnit.class.getClassLoader());
+        this.hopType = (HopType) in.readValue(HopType.class.getClassLoader());
     }
 
     public double getAlpha() {
@@ -64,4 +75,28 @@ public class IBUData {
     public void setHopType(HopType hopType) {
         this.hopType = hopType;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeDouble(alpha);
+        parcel.writeDouble(weight);
+        parcel.writeDouble(time);
+        parcel.writeValue(weightUnit);
+        parcel.writeValue(hopType);
+    }
+
+    public static final Parcelable.Creator<IBUData> CREATOR = new Parcelable.Creator<IBUData>() {
+        public IBUData createFromParcel(Parcel in) {
+            return new IBUData(in);
+        }
+
+        public IBUData[] newArray(int size) {
+            return new IBUData[size];
+        }
+    };
 }
