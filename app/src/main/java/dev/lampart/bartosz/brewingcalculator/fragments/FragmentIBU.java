@@ -45,7 +45,6 @@ import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
 public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener,
         View.OnClickListener {
 
-
     private LinearLayout mainLayout;
     private LinearLayout noHopLayout;
     private TextView txtEstimatedIBURager;
@@ -82,6 +81,10 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
         initControls(view);
 
         return view;
+    }
+
+    public void updateIBUControls() {
+        calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
     }
 
     private void initControls(View view) {
@@ -150,7 +153,14 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                 calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
             }
         });
+        hopItemAdapter.setFragmentIBU(this);
         lvHops.setAdapter(hopItemAdapter);
+        lvHops.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     private void showAddHopDialog() {

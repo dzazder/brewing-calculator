@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentIBU;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.helpers.spinner.SpinnerWeightUnitHelper;
 import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
@@ -27,7 +30,7 @@ import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
 /**
  * Created by bartek on 22.10.2016.
  */
-public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
+public class IBUHopItemAdapter extends ArrayAdapter<IBUData> implements View.OnClickListener {
     private Activity context;
     private ArrayList<IBUData> ibuData;
     private TextView txtAlpha;
@@ -35,7 +38,9 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
     private TextView txtTime;
     private TextView spWeightUnit;
     private TextView spHopType;
-
+    private ImageButton btnEditHop;
+    private ImageButton btnRemoveHop;
+    private FragmentIBU fragmentIBU;
 
     private IEditTextTextChangedListener mTextChangedListener = null;
     private IOnItemSelectedListener mOnItemSelectedListener = null;
@@ -78,6 +83,14 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
         spHopType.setTag(position);
         spHopType.setText(ibuData.get(position).getHopType().toString());
 
+        btnEditHop = (ImageButton) rowView.findViewById(R.id.ibtn_ibu_edit);
+        btnEditHop.setTag(position);
+        btnEditHop.setOnClickListener(this);
+
+        btnRemoveHop = (ImageButton) rowView.findViewById(R.id.ibtn_ibu_remove);
+        btnRemoveHop.setTag(position);
+        btnRemoveHop.setOnClickListener(this);
+
         return rowView;
     }
 
@@ -89,5 +102,30 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> {
 
     public ArrayList<IBUData> getValues() {
         return ibuData;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ibtn_ibu_remove:
+                ImageButton btn = (ImageButton)view;
+                int indexToRemove = (int)btn.getTag();
+                if (this.ibuData.size() > indexToRemove) {
+                    this.ibuData.remove(indexToRemove);
+                    notifyDataSetChanged();
+                    fragmentIBU.updateIBUControls();
+                }
+                break;
+            case R.id.ibtn_ibu_edit:
+                break;
+        }
+    }
+
+    public void setFragmentIBU(FragmentIBU fragmentIBU) {
+        this.fragmentIBU = fragmentIBU;
+    }
+
+    public FragmentIBU getFragmentIBU() {
+        return fragmentIBU;
     }
 }
