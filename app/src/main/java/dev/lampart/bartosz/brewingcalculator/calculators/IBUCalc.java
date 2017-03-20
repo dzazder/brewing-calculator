@@ -14,10 +14,11 @@ import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 /**
  * Created by bartek on 30.09.2016.
  * Formulas to calc IBU: http://www.realbeer.com/hops/FAQ.html
+ * https://hopsteiner.com/ibu-calculator/
  */
 public class IBUCalc extends Calc {
 
-    private static double PELLET_FACTOR = 1.1488;
+    private static double PELLET_FACTOR = 1.15;
 
     public enum FormulaTypeIBU {
         RAGER, GARETZ, TINSETH
