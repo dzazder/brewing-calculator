@@ -9,4 +9,8 @@ public class ConstStrings {
     public static String CURRENT_FRAGMENT = "FRAGMENT_DISPLAYED";
 
     public static String IBU_DATA = "IBU_DATA";
+
+    public static String WEIGHT = "weight";
+    public static String MINUTES = "minutes";
+    public static String ALPHA = "alpha";
 }

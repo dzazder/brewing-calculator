@@ -163,9 +163,24 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
         });
     }
 
-    private void showAddHopDialog() {
+    public void showAddHopDialog() {
+        showAddHopDialog(RequestCodes.ADD_HOP_REQUEST_CODE);
+    }
+
+    public void showAddHopDialog(int requestCode) {
+        showAddHopDialog(requestCode, null);
+    }
+
+    public void showAddHopDialog(int requestCode, IBUData ibuData) {
         FragmentAddHop fAddHop = new FragmentAddHop();
-        fAddHop.setTargetFragment(this, RequestCodes.ADD_HOP_REQUEST_CODE);
+        if (ibuData != null) {
+            Bundle bundle = new Bundle();
+            bundle.putDouble(ConstStrings.WEIGHT, ibuData.getWeight());
+            bundle.putDouble(ConstStrings.ALPHA, ibuData.getAlpha());
+            bundle.putDouble(ConstStrings.MINUTES, ibuData.getTime());
+            fAddHop.setArguments(bundle);
+        }
+        fAddHop.setTargetFragment(this, requestCode);
         fAddHop.show(getActivity().getSupportFragmentManager(), "fragment_add_hop");
 
         //hopItemAdapter.updateDataSet(new IBUData(0, 0,
@@ -255,6 +270,7 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_add_hop: showAddHopDialog(); break;
+
         }
     }
 

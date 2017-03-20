@@ -22,6 +22,7 @@ import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
+import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
@@ -36,6 +37,7 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     Spinner spWeightUnit;
     Spinner spHopType;
 
+    IBUData ibuData = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +57,13 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
 
         Button btnSave = (Button)dialogView.findViewById(R.id.btn_add_hop_save);
         btnSave.setOnClickListener(this);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            txtAlpha.setText(String.valueOf(bundle.getDouble(ConstStrings.ALPHA)));
+            txtMinutes.setText(String.valueOf(bundle.getDouble(ConstStrings.MINUTES)));
+            txtWeight.setText(String.valueOf(bundle.getDouble(ConstStrings.WEIGHT)));
+        }
 
         return dialogView;
     }

@@ -57,4 +57,10 @@
     <string name="lbl_hop_weight">Waga chmielu</string>
     <string name="lbl_no_hops_added">Nie dodano chmieli</string>
     <string name="title_ibu_calculator">Kalkulator IBU</string>
+    <string name="lbl_estimated_ibu_rager">Szacowane IBU (metoda Ragera):</string>
+    <string name="lbl_estimated_ibu_tinseth">Szacowane IBU (metoda Tinsetha):</string>
+    <string name="lbl_hop_type">Typ chmielu</string>
+    <string name="lbl_minutes">minuty</string>
+    <string name="lbl_weight_unit">Jednostka wagi</string>
+    <string name="title_hydrometer_adjustment"></string>
 </resources>

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
+import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentIBU;
@@ -108,8 +109,8 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ibtn_ibu_remove:
-                ImageButton btn = (ImageButton)view;
-                int indexToRemove = (int)btn.getTag();
+                ImageButton btnRemoveHop = (ImageButton)view;
+                int indexToRemove = (int)btnRemoveHop.getTag();
                 if (this.ibuData.size() > indexToRemove) {
                     this.ibuData.remove(indexToRemove);
                     notifyDataSetChanged();
@@ -117,6 +118,11 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> implements View.OnC
                 }
                 break;
             case R.id.ibtn_ibu_edit:
+                ImageButton btnEditHop = (ImageButton)view;
+                int indexToEdit = (int)btnEditHop.getTag();
+                if (this.ibuData.size() > indexToEdit) {
+                    getFragmentIBU().showAddHopDialog(RequestCodes.EDIT_HOP_REQUEST_CODE, ibuData.get(indexToEdit));
+                }
                 break;
         }
     }
