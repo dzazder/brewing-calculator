@@ -22,4 +22,14 @@ public enum HopType {
     public String toString() {
         return BrewingCalculatorApplication.getContext().getString(mResourceId);
     }
+
+    public static HopType getEnum(String value) {
+        for (HopType v : values()) {
+            if (BrewingCalculatorApplication.getContext().getString(v.mResourceId).equalsIgnoreCase(value)) {
+                return v;
+            }
+        }
+        return HopType.PELLETS;
+    }
+
 }

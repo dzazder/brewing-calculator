@@ -80,7 +80,7 @@
     <string name="title_alcohol_calculator">Alcohol Calculator</string>
     <string name="title_carbonation_calculator">Carbonation Calculator</string>
     <string name="title_yeasts_amount_calculator">Yeast Amount Calculator</string>
-    <string name="title_hydrometer_adjustment">Hydrometer temperature adjustment</string>
+    <string name="title_hydrometer_adjustment" translatable="false">Hydrometer temperature adjustment</string>
     <string name="title_ibu_calculator">IBU Calculator</string>
 
     <string name="title_yeasts_dry">Dry yeast</string>
@@ -91,7 +91,7 @@
     <string name="description_alcohol_calculator">Calculate alcohol by value within a beer</string>
     <string name="description_carbonation_calculator">Calculate sugar amount to the carbonation</string>
     <string name="description_yeasts_amount_calculator">Calculate amount of yeasts for your beer</string>
-    <string name="description_hydrometer_adjustment">Measure SG by hydrometer with temperature adjustment</string>
+    <string name="description_hydrometer_adjustment" translatable="false">Measure SG by hydrometer with temperature adjustment</string>
     <string name="description_ibu_calculator">Calculate IBU</string>
 
     <!-- TODO: Remove or change this placeholder text -->

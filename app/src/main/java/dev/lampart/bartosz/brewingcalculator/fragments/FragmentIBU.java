@@ -123,8 +123,12 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
         VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
         String valSelectedInSpinnerVol = "";
         switch (selDefVolUnit) {
-            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
-            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+            case Liter:
+                valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters);
+                break;
+            case Gallon:
+                valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons);
+                break;
         }
         int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
         spSizeUnit.setSelection(spinnerPrimingUnigPosition);
@@ -132,15 +136,15 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
 
     private void getControlsFromView(View view) {
         mainLayout = (LinearLayout) view.findViewById(R.id.layout_ibu_main);
-        noHopLayout = (LinearLayout)view.findViewById(R.id.layout_noHopLabel);
-        txtEstimatedIBURager = (TextView)view.findViewById(R.id.txt_estimated_ibu_rager);
-        txtEstimatedIBUTinseth = (TextView)view.findViewById(R.id.txt_estimated_ibu_tinseth);
-        txtPrimingSize = (EditText)view.findViewById(R.id.txt_ibu_priming_size);
-        txtGravity = (EditText)view.findViewById(R.id.txt_ibu_extract_after);
+        noHopLayout = (LinearLayout) view.findViewById(R.id.layout_noHopLabel);
+        txtEstimatedIBURager = (TextView) view.findViewById(R.id.txt_estimated_ibu_rager);
+        txtEstimatedIBUTinseth = (TextView) view.findViewById(R.id.txt_estimated_ibu_tinseth);
+        txtPrimingSize = (EditText) view.findViewById(R.id.txt_ibu_priming_size);
+        txtGravity = (EditText) view.findViewById(R.id.txt_ibu_extract_after);
         spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
-        spGravityUnit = (Spinner)view.findViewById(R.id.sp_ibu_extract_after);
-        lvHops = (ListView)view.findViewById(R.id.lv_hops);
-        btnAddHop = (Button)view.findViewById(R.id.btn_add_hop);
+        spGravityUnit = (Spinner) view.findViewById(R.id.sp_ibu_extract_after);
+        lvHops = (ListView) view.findViewById(R.id.lv_hops);
+        btnAddHop = (Button) view.findViewById(R.id.btn_add_hop);
     }
 
     private void initHopItemsAdapter() {
@@ -170,16 +174,19 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     }
 
     public void showAddHopDialog(int requestCode) {
-        showAddHopDialog(requestCode, null);
+        showAddHopDialog(requestCode, -1, null);
     }
 
-    public void showAddHopDialog(int requestCode, IBUData ibuData) {
+    public void showAddHopDialog(int requestCode, int ibuIndex, IBUData ibuData) {
         FragmentAddHop fAddHop = new FragmentAddHop();
-        if (ibuData != null) {
+        if (ibuIndex >= 0 && ibuData != null) {
             Bundle bundle = new Bundle();
+            bundle.putInt(ConstStrings.ID, ibuIndex);
             bundle.putDouble(ConstStrings.WEIGHT, ibuData.getWeight());
             bundle.putDouble(ConstStrings.ALPHA, ibuData.getAlpha());
             bundle.putDouble(ConstStrings.MINUTES, ibuData.getTime());
+            bundle.putString(ConstStrings.HOP_TYPE, ibuData.getHopType().toString());
+            bundle.putString(ConstStrings.WEIGHT_UNIT, ibuData.getWeightUnit().toString());
             fAddHop.setArguments(bundle);
         }
         fAddHop.setTargetFragment(this, requestCode);
@@ -199,7 +206,7 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                                 TextView txtEstimatedIBURager, TextView txtEstimatedIBUTinseth) {
 
         if (NumberFormatter.isNumeric(txtPrimingSize.getText().toString()) &&
-            NumberFormatter.isNumeric(txtGravity.getText().toString())) {
+                NumberFormatter.isNumeric(txtGravity.getText().toString())) {
 
             double primingSize = Double.parseDouble(txtPrimingSize.getText().toString());
             double gravity = Double.parseDouble(txtGravity.getText().toString());
@@ -234,8 +241,7 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
         if (valToSet < 0) {
             txtToSet.setTextColor(getResources().getColor(R.color.colorError));
             txtToSet.setText(getResources().getText(R.string.incorrect_value));
-        }
-        else {
+        } else {
             txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
             txtToSet.setText(String.format(Locale.US, "%.1f IBU", valToSet));
         }
@@ -271,28 +277,26 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_add_hop: showAddHopDialog(); break;
+            case R.id.btn_add_hop:
+                showAddHopDialog();
+                break;
 
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == RequestCodes.ADD_HOP_REQUEST_CODE) {
-            // Make sure the request was successful
-            if (resultCode == RequestCodes.RESULT_OK) {
-                Log.d("IBU", "onActivityResult");
-
-                hopItemAdapter.updateDataSet(new IBUData(data.getDoubleExtra(HopIntentValues.ALPHA, 0),
-                        data.getDoubleExtra(HopIntentValues.WEIGHT, 0),
-                        ArraysHelper.getWeightUnit(data.getStringExtra(HopIntentValues.WEIGHT_UNIT), getActivity()),
-                        data.getDoubleExtra(HopIntentValues.BOILING_TIME, 0),
-                        ArraysHelper.getHopType(data.getStringExtra(HopIntentValues.HOP_TYPE), getActivity())));
+        if (resultCode == RequestCodes.RESULT_OK) {
+            if (requestCode == RequestCodes.ADD_HOP_REQUEST_CODE || requestCode == RequestCodes.EDIT_HOP_REQUEST_CODE) {
+                hopItemAdapter.updateDataSet(data.getIntExtra(HopIntentValues.IBU_INDEX, -1),
+                        new IBUData(data.getDoubleExtra(HopIntentValues.ALPHA, 0),
+                                data.getDoubleExtra(HopIntentValues.WEIGHT, 0),
+                                ArraysHelper.getWeightUnit(data.getStringExtra(HopIntentValues.WEIGHT_UNIT), getActivity()),
+                                data.getDoubleExtra(HopIntentValues.BOILING_TIME, 0),
+                                ArraysHelper.getHopType(data.getStringExtra(HopIntentValues.HOP_TYPE), getActivity())));
 
                 calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
-
-                InputMethodManager inputManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }

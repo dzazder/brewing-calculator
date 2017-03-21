@@ -9,4 +9,5 @@ public class HopIntentValues {
     public static String BOILING_TIME = "boiling_time";
     public static String HOP_TYPE = "hoptype";
     public static String WEIGHT_UNIT = "weightunit";
+    public static String IBU_INDEX = "ibu_index";
 }

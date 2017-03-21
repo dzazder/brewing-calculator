@@ -62,5 +62,4 @@
     <string name="lbl_hop_type">Typ chmielu</string>
     <string name="lbl_minutes">minuty</string>
     <string name="lbl_weight_unit">Jednostka wagi</string>
-    <string name="title_hydrometer_adjustment"></string>
 </resources>

@@ -95,10 +95,19 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> implements View.OnC
         return rowView;
     }
 
-    public void updateDataSet(IBUData ibu) {
+    public void updateDataSet(int ibuIndex, IBUData ibu) {
         Log.d("IBU", "update data set");
-        this.ibuData.add(ibu);
+        if (ibuIndex >= 0) {
+            this.ibuData.set(ibuIndex, ibu);
+        }
+        else {
+            this.ibuData.add(ibu);
+        }
         notifyDataSetChanged();
+    }
+
+    public void updateDataSet(IBUData ibu) {
+        updateDataSet(-1, ibu);
     }
 
     public ArrayList<IBUData> getValues() {
@@ -121,7 +130,8 @@ public class IBUHopItemAdapter extends ArrayAdapter<IBUData> implements View.OnC
                 ImageButton btnEditHop = (ImageButton)view;
                 int indexToEdit = (int)btnEditHop.getTag();
                 if (this.ibuData.size() > indexToEdit) {
-                    getFragmentIBU().showAddHopDialog(RequestCodes.EDIT_HOP_REQUEST_CODE, ibuData.get(indexToEdit));
+                    getFragmentIBU().showAddHopDialog(RequestCodes.EDIT_HOP_REQUEST_CODE,
+                            indexToEdit, ibuData.get(indexToEdit));
                 }
                 break;
         }
