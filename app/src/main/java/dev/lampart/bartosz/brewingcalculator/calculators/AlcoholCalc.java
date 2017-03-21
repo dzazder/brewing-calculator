@@ -5,6 +5,7 @@ import android.util.Log;
 import dev.lampart.bartosz.brewingcalculator.dicts.AlcFormula;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
+import dev.lampart.bartosz.brewingcalculator.helpers.Triple;
 import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
 /**
@@ -21,9 +22,9 @@ public class AlcoholCalc extends Calc {
      * @param useRefractometer
      * @return
      */
-    public static Tuple<Double, Double> CalculateAlcohol(double extBefore, double extAfter,
-                                                         ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
-                                                         boolean useRefractometer, double wortFactor, AlcFormula formula) {
+    public static Triple<Double, Double, Double> CalculateAlcohol(double extBefore, double extAfter,
+                                                                  ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
+                                                                  boolean useRefractometer, double wortFactor, AlcFormula formula) {
         double alc = 0;
         double att = 0;
 
@@ -74,10 +75,10 @@ public class AlcoholCalc extends Calc {
             att = ((extBefore - 1) - (extAfter - 1)) / (extBefore - 1) * 100;
         }
 
-        return new Tuple<>(alc, att);
+        return new Triple<>(alc, att, extAfter);
     }
 
-    private static Tuple<Double, Double> calcAlcoholWithRefractometer(double brixOriginal, double brixFinal, double wortCorrectionFactor) {
+    private static Triple<Double, Double, Double> calcAlcoholWithRefractometer(double brixOriginal, double brixFinal, double wortCorrectionFactor) {
         Log.d("CALC ALC", "==========");
         Log.d("CALC ALC", "Brix original: " + brixOriginal);
         Log.d("CALC ALC", "Brix final: " + brixFinal);
@@ -97,6 +98,6 @@ public class AlcoholCalc extends Calc {
         Log.d("CALC ALC", "ALC: " + alc);
         Log.d("CALC ALC", "ATT: " + att);
 
-        return new Tuple<>(alc, att);
+        return new Triple<>(alc, att, fg);
     }
 }

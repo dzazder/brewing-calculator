@@ -29,10 +29,12 @@ import java.util.Locale;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.AlcFormula;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
+import dev.lampart.bartosz.brewingcalculator.helpers.Triple;
 import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
 /**
@@ -43,6 +45,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
 
     private TextView lblAlco;
     private TextView lblAtt;
+    private TextView lblFG;
     private Spinner spBefore;
     private Spinner spAfter;
     private EditText txtExtBefore;
@@ -85,6 +88,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
         lblAlco = (TextView)rootView.findViewById(R.id.txt_calc_alc);
         lblAtt = (TextView)rootView.findViewById(R.id.txt_calc_att);
+        lblFG = (TextView)rootView.findViewById(R.id.lbl_refractometer_final_gravity);
         chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
         layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
         layFormulaSelector = (LinearLayout)rootView.findViewById(R.id.layout_alcohol_formula);
@@ -135,14 +139,23 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
                 alcFormula = AlcFormula.Alternative;
             }
 
-            Tuple<Double, Double> alcatt =  AlcoholCalc.CalculateAlcohol(dBefore, dAfter, extBefore,
+            Triple<Double, Double, Double> alcatt =  AlcoholCalc.CalculateAlcohol(dBefore, dAfter, extBefore,
                     extAfter, useRefractometer, dWortFactor, alcFormula);
 
-            setValues(alcatt.x, alcatt.y);
+            double fg = alcatt.z;
+
+            if (extAfter == ExtractUnit.Brix) {
+                fg = ExtractCalc.calcSGToBrix(alcatt.z);
+            }
+            if (extAfter == ExtractUnit.Plato) {
+                fg = ExtractCalc.calcSGToPlato(alcatt.z);
+            }
+
+            setValues(alcatt.x, alcatt.y, fg);
         }
     }
 
-    private void setValues(double alco, double att) {
+    private void setValues(double alco, double att, double fg) {
         if (alco <0 || alco > 100) {
             
             lblAlco.setTextColor(getResources().getColor(R.color.colorError));
@@ -150,7 +163,8 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         }
         else {
             lblAlco.setTextColor(getResources().getColor(R.color.colorAccent));
-            lblAlco.setText(String.format(Locale.US, "%.2f %%", alco));
+            lblAlco.setText(String.format(Locale.US, "%.2f ", alco));
+            lblFG.setText(String.format(Locale.US, "%.2f ", fg));
         }
         if (att < 0 || att > 100) {
             lblAtt.setTextColor(getResources().getColor(R.color.colorError));
@@ -158,7 +172,8 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         }
         else {
             lblAtt.setTextColor(getResources().getColor(R.color.colorAccent));
-            lblAtt.setText(String.format(Locale.US, "%.2f %%", att));
+            lblAtt.setText(String.format(Locale.US, "%.2f ", att));
+            lblFG.setText(String.format(Locale.US, "%.2f ", fg));
         }
     }
 
