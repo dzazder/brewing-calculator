@@ -289,8 +289,10 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                         ArraysHelper.getHopType(data.getStringExtra(HopIntentValues.HOP_TYPE), getActivity())));
 
                 calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
+                mainLayout.requestFocus();
             }
         }
+
     }
 
     public void onSaveInstanceState(Bundle savedState) {

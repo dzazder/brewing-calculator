@@ -42,7 +42,7 @@ public class MainMenu {
         MainMenuItem calcIBU = new MainMenuItem(5,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_ibu_calculator),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_ibu_calculator),
-                R.drawable.ic_yeast_fragment, DictFragment.FRAGMENT_IBU);
+                R.drawable.ic_ibu_fragment, DictFragment.FRAGMENT_IBU);
 
         MainMenuItem calcHydrometer = new MainMenuItem(6,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_hydrometer_adjustment),
