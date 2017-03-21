@@ -48,4 +48,18 @@
     <string name="lbl_choose_formula">Wybierz wzór</string>
     <string name="lbl_formula_alternative">Alternatywny</string>
     <string name="lbl_formula_normal">Standardowy</string>
+    <string name="description_ibu_calculator">Oblicz IBU</string>
+    <string name="lbl_add_hop">Dodaj chmiel</string>
+    <string name="lbl_alpha_acids">Alfa kwasy</string>
+    <string name="lbl_boiling_size">Wielkość warki</string>
+    <string name="lbl_boiling_time">Czas gotowania</string>
+    <string name="lbl_estimated_ibu">Szacowane IBU:</string>
+    <string name="lbl_hop_weight">Waga chmielu</string>
+    <string name="lbl_no_hops_added">Nie dodano chmieli</string>
+    <string name="title_ibu_calculator">Kalkulator IBU</string>
+    <string name="lbl_estimated_ibu_rager">Szacowane IBU (metoda Ragera):</string>
+    <string name="lbl_estimated_ibu_tinseth">Szacowane IBU (metoda Tinsetha):</string>
+    <string name="lbl_hop_type">Typ chmielu</string>
+    <string name="lbl_minutes">minuty</string>
+    <string name="lbl_weight_unit">Jednostka wagi</string>
 </resources>

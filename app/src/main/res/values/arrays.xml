@@ -28,4 +28,18 @@
         <item>@string/temp_unit_C</item>
         <item>@string/temp_unit_F</item>
     </string-array>
+
+    <string name="weight_unit_oz" translatable="false">oz</string>
+    <string name="weight_unit_g" translatable="false">g</string>
+    <string-array name="weight_light_unit">
+        <item>@string/weight_unit_g</item>
+        <item>@string/weight_unit_oz</item>
+    </string-array>
+
+    <string name="hop_type_pellet">Pellet</string>
+    <string name="hop_type_whole_hops">Whole hops</string>
+    <string-array name="hop_types">
+        <item>@string/hop_type_pellet</item>
+        <item>@string/hop_type_whole_hops</item>
+    </string-array>
 </resources>

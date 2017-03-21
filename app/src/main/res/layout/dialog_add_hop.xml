@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight">
+
+    <!-- Dummy item to prevent EditText from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="0px"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        style="@style/StyleTextView_DialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_add_hop" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:text="@string/lbl_alpha_acids" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:id="@+id/txt_ibu_alpha" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_hop_weight" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:id="@+id/txt_ibu_weight" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sp_hop_weight_unit"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/weight_light_unit"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/lbl_hop_type"
+                    android:gravity="center_vertical" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sp_hop_type"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/hop_types"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal"
+                android:showDividers="middle"
+                android:gravity="center_vertical"
+                android:divider="@drawable/empty_divider_vertical">
+
+                <TextView
+                    android:text="@string/lbl_boiling_time"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/calc_field"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:id="@+id/txt_ibu_time" />
+
+                <TextView
+                    android:text="@string/lbl_minutes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_hop_cancel"
+            android:text="@string/cancel"
+            style="@style/StyleButton_HalfButton"/>
+
+        <View android:layout_height="match_parent"
+            android:layout_width="@dimen/stroke_width"
+            android:background="@color/colorPrimaryLight"></View>
+        <Button
+            android:id="@+id/btn_add_hop_save"
+            android:text="@string/save"
+            style="@style/StyleButton_HalfButton"/>
+    </LinearLayout>
+
+</LinearLayout>

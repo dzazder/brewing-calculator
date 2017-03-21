@@ -33,6 +33,7 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
     private Spinner spDefaultPrimingVol;
     private EditText txtBeerTemp;
     private Spinner spDefaultTempScale;
+    private Spinner spDefaultWeightUnit;
     private Button btnSettingsCancel;
     private Button btnSettingsSave;
 
@@ -56,6 +57,7 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
         spDefaultPrimingVol = (Spinner) dialogview.findViewById(R.id.sp_default_priming_size);
         txtBeerTemp = (EditText) dialogview.findViewById(R.id.txt_default_beer_temp);
         spDefaultTempScale = (Spinner) dialogview.findViewById(R.id.sp_default_temp_scale);
+        spDefaultWeightUnit = (Spinner) dialogview.findViewById(R.id.sp_default_weight_unit);
         btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);
         btnSettingsSave = (Button) dialogview.findViewById(R.id.btn_settings_save);
     }
@@ -75,6 +77,7 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
         initExtractUnitSpinner();
         initPrimingVolSpinner();
         initTempScaleSpinner();
+		initDefaultWeightUnitSpinner();
     }
 
     private void initTextControls() {
@@ -117,6 +120,19 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
         int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
         spDefaultPrimingVol.setSelection(spinnerPrimingUnigPosition);
     }
+	
+	private void initDefaultWeightUnitSpinner() {
+		ArrayAdapter<CharSequence> weightUnit = ArrayAdapter.createFromResource(getActivity(),
+                R.array.weight_light_unit, android.R.layout.simple_spinner_item);
+        final WeightUnit weightDefUnit = WeightUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefWeightUnit().toString());
+        String valSelectedInWeightUnit = "";
+        switch (weightDefUnit) {
+            case OZ: valSelectedInWeightUnit = getActivity().getResources().getString(R.string.weight_unit_oz); break;
+            case G: valSelectedInWeightUnit = getActivity().getResources().getString(R.string.weight_unit_g); break;
+        }
+        int spinnerWeightPosition = weightUnit.getPosition(valSelectedInWeightUnit);
+        spDefaultWeightUnit.setSelection(spinnerWeightPosition);
+	}
 
     @Override
     public void onClick(View view) {
@@ -154,6 +170,12 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
         }
         Log.d("settings", "tempUnit: " + tempUnit);
         Log.d("settings", "def tempUnit: " + defTempUnit.toString());
+		
+		WeightUnit defWeightUnit = WeightUnit.G;
+		String weightUnit = spDefaultWeightUnit.getSelectedItem().toString();
+		if (weightUnit.equals(getActivity().getResources().getString(R.string.weight_unit_oz))) {
+			defWeightUnit = WeightUnit.OZ;
+		}
 
         //FileDB.saveDefaultUnit(selectedUnit, getApplicationContext());
         AppConfiguration.getInstance().defaultSettings.setDefExtractUnit(selectedUnit);
@@ -163,11 +185,13 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
         AppConfiguration.getInstance().defaultSettings.setDefVolumeUnit(defVolUnit);
         AppConfiguration.getInstance().defaultSettings.setDefTemperature(beerTemp);
         AppConfiguration.getInstance().defaultSettings.setDefTempUnit(defTempUnit);
+        AppConfiguration.getInstance().defaultSettings.setDefWeightUnit(defWeightUnit);
 
         BCalcConf conf = new BCalcConf();
         conf.setDefExtractUnit(selectedUnit);
         conf.setDefUseRefractometer(useRefractometer);
         conf.setDefWortCorrectionFactor(wortCorrectFactor);
+		conf.setDefWeightUnit(defWeightUnit);
         FileDB.saveConfiguration(conf, getActivity().getApplicationContext());
     }
 }
