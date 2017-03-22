@@ -121,13 +121,15 @@
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             android:gravity="center_vertical"
-                            android:text="@string/lbl_after_fermentation" />
+                            android:text="@string/lbl_calculated_fg" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
+                            android:layout_margin="@dimen/padding_normal"
+                            android:textStyle="bold"
                             android:id="@+id/lbl_refractometer_final_gravity"
                             android:text="0"/>
                     </LinearLayout>

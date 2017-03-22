@@ -62,4 +62,5 @@
     <string name="lbl_hop_type">Typ chmielu</string>
     <string name="lbl_minutes">minuty</string>
     <string name="lbl_weight_unit">Jednostka wagi</string>
+    <string name="lbl_calculated_fg">Obliczona gęstość końcowa</string>
 </resources>

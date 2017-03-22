@@ -19,11 +19,12 @@
     <string name="one_value" translatable="false">1.00</string>
 
     <string name="lbl_after_fermentation">Final gravity</string>
+    <string name="lbl_calculated_fg">Calculated final gravity</string>
     <string name="lbl_alcohol">Alcohol</string>
     <string name="lbl_always_use_refractometer">Always use refractometer</string>
     <string name="lbl_attenuation">Attenuation</string>
     <string name="lbl_beer_temp">Beer temperature</string>
-    <string name="lbl_before_fermentation">Original gravity</string>
+    <string name="lbl_before_fermentation">Measured original gravity</string>
     <string name="lbl_co2_volumes">Volumes of CO2</string>
     <string name="lbl_priming_size">Priming size</string>
     <string name="lbl_default_priming_size">Default priming size</string>

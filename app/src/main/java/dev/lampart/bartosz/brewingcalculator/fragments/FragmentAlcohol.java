@@ -144,18 +144,19 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
 
             double fg = alcatt.z;
 
-            if (extAfter == ExtractUnit.Brix) {
+            ExtractUnit extUnit = AppConfiguration.getInstance().defaultSettings.getDefExtractUnit();
+            if (extUnit == ExtractUnit.Brix) {
                 fg = ExtractCalc.calcSGToBrix(alcatt.z);
             }
-            if (extAfter == ExtractUnit.Plato) {
+            if (extUnit == ExtractUnit.Plato) {
                 fg = ExtractCalc.calcSGToPlato(alcatt.z);
             }
 
-            setValues(alcatt.x, alcatt.y, fg);
+            setValues(alcatt.x, alcatt.y, fg, extUnit);
         }
     }
 
-    private void setValues(double alco, double att, double fg) {
+    private void setValues(double alco, double att, double fg, ExtractUnit fgUnit) {
         if (alco <0 || alco > 100) {
             
             lblAlco.setTextColor(getResources().getColor(R.color.colorError));
@@ -164,7 +165,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         else {
             lblAlco.setTextColor(getResources().getColor(R.color.colorAccent));
             lblAlco.setText(String.format(Locale.US, "%.2f ", alco));
-            lblFG.setText(String.format(Locale.US, "%.2f ", fg));
+            lblFG.setText(String.format(Locale.US, "%.2f %s", fg, fgUnit.toString()));
         }
         if (att < 0 || att > 100) {
             lblAtt.setTextColor(getResources().getColor(R.color.colorError));
@@ -173,7 +174,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         else {
             lblAtt.setTextColor(getResources().getColor(R.color.colorAccent));
             lblAtt.setText(String.format(Locale.US, "%.2f ", att));
-            lblFG.setText(String.format(Locale.US, "%.2f ", fg));
+            lblFG.setText(String.format(Locale.US, "%.2f %s", fg, fgUnit.toString()));
         }
     }
 
