@@ -165,7 +165,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         else {
             lblAlco.setTextColor(getResources().getColor(R.color.colorAccent));
             lblAlco.setText(String.format(Locale.US, "%.2f ", alco));
-            lblFG.setText(String.format(Locale.US, "%.2f %s", fg, fgUnit.toString()));
+            lblFG.setText(String.format(Locale.US, fgUnit == ExtractUnit.SG ? "%.3f %s" : "%.2f %s", fg, fgUnit.toString()));
         }
         if (att < 0 || att > 100) {
             lblAtt.setTextColor(getResources().getColor(R.color.colorError));
@@ -174,7 +174,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         else {
             lblAtt.setTextColor(getResources().getColor(R.color.colorAccent));
             lblAtt.setText(String.format(Locale.US, "%.2f ", att));
-            lblFG.setText(String.format(Locale.US, "%.2f %s", fg, fgUnit.toString()));
+            lblFG.setText(String.format(Locale.US, fgUnit == ExtractUnit.SG ? "%.3f %s" : "%.2f %s", fg, fgUnit.toString()));
         }
     }
 
