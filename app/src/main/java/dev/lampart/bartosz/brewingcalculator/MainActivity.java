@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 FragmentSettings fs = new FragmentSettings();
                 fs.show(getFragmentManager(), "fragment_settings");
                 break;
+
             default:
                 onBackPressed();
                 break;
@@ -131,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
             case DictFragment.FRAGMENT_IBU:
                 newFragment = new FragmentIBU();
                 break;
+            case DictFragment.FRAGMENT_WATER_CORRECTION:
+                newFragment = new FragmentWaterCorrection();
             default:
                 newFragment = new FragmentHome();
                 break;

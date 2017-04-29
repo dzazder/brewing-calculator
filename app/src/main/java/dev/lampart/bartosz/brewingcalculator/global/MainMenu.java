@@ -49,6 +49,10 @@ public class MainMenu {
                 BrewingCalculatorApplication.getContext().getString(R.string.description_hydrometer_adjustment),
                 R.drawable.ic_yeast_fragment, DictFragment.FRAGMENT_HYDROMETER);
 
+        MainMenuItem calcWaterCorrection = new MainMenuItem(7,
+                BrewingCalculatorApplication.getContext().getString(R.string.title_water_correction),
+                BrewingCalculatorApplication.getContext().getString(R.string.description_water_correction),
+                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_WATER_CORRECTION);
 
         items.add(calcExtract);
         items.add(calcAlcohol);
@@ -56,6 +60,7 @@ public class MainMenu {
         items.add(calcYeasts);
         //items.add(calcHydrometer);
         items.add(calcIBU);
+        items.add(calcWaterCorrection);
     }
 
     public static synchronized MainMenu getInstance() {

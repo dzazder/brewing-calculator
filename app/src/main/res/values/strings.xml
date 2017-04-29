@@ -17,6 +17,7 @@
     <string name="plato" translatable="false">Plato</string>
     <string name="zero_value" translatable="false">0.00</string>
     <string name="one_value" translatable="false">1.00</string>
+    <string name="email_address" translatable="false">bartosz.lampart@gmail.com</string>
 
     <string name="lbl_after_fermentation">Final gravity</string>
     <string name="lbl_calculated_fg">Calculated final gravity</string>
@@ -75,6 +76,7 @@
     <string name="lbl_weight_unit">Weight unit</string>
     <string name="lbl_hop_type">Hop type</string>
     <string name="lbl_minutes">minutes</string>
+    <string name="lbl_report_issue">Report issue</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>
@@ -83,6 +85,7 @@
     <string name="title_yeasts_amount_calculator">Yeast Amount Calculator</string>
     <string name="title_hydrometer_adjustment" translatable="false">Hydrometer temperature adjustment</string>
     <string name="title_ibu_calculator">IBU Calculator</string>
+    <string name="title_water_correction">Gravity correction by water</string>
 
     <string name="title_yeasts_dry">Dry yeast</string>
     <string name="title_yeasts_liquid">Liquid yeast</string>
@@ -94,6 +97,7 @@
     <string name="description_yeasts_amount_calculator">Calculate amount of yeasts for your beer</string>
     <string name="description_hydrometer_adjustment" translatable="false">Measure SG by hydrometer with temperature adjustment</string>
     <string name="description_ibu_calculator">Calculate IBU</string>
+    <string name="description_water_correction">Calculate how much water should add to achieve expected gravity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
