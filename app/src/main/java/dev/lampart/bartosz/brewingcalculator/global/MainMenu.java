@@ -52,7 +52,7 @@ public class MainMenu {
         MainMenuItem calcWaterCorrection = new MainMenuItem(7,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_water_correction),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_water_correction),
-                R.drawable.ic_alcohol_fragment, DictFragment.FRAGMENT_WATER_CORRECTION);
+                R.drawable.ic_water_correction, DictFragment.FRAGMENT_WATER_CORRECTION);
 
         items.add(calcExtract);
         items.add(calcAlcohol);

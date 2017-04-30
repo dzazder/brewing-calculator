@@ -77,6 +77,8 @@
     <string name="lbl_hop_type">Hop type</string>
     <string name="lbl_minutes">minutes</string>
     <string name="lbl_report_issue">Report issue</string>
+    <string name="lbl_expected_gravity">Expected gravity</string>
+    <string name="lbl_additional_water">Additional water</string>
 
 
     <string name="title_extract_calculator">Gravity Units Calculator</string>
