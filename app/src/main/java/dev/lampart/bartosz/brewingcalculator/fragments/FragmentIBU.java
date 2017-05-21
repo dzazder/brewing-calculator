@@ -306,7 +306,9 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     public void onSaveInstanceState(Bundle savedState) {
         super.onSaveInstanceState(savedState);
 
-        ArrayList<IBUData> values = hopItemAdapter.getValues();
-        savedState.putParcelableArrayList(ConstStrings.IBU_DATA, values);
+        if (hopItemAdapter != null) {
+            ArrayList<IBUData> values = hopItemAdapter.getValues();
+            savedState.putParcelableArrayList(ConstStrings.IBU_DATA, values);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dev.lampart.bartosz.brewingcalculator.BrewingCalculatorApplication;
 import dev.lampart.bartosz.brewingcalculator.MainActivity;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.HomeMenuItemAdapter;
@@ -53,5 +56,18 @@ public class FragmentHome extends Fragment {
 
 
         return view;
+    }
+
+    public void sendMail(View v) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"dzazder+brewingcalculator@gmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "[Brewing Calculator] Report issue");
+        i.putExtra(Intent.EXTRA_TEXT, "");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this.getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
