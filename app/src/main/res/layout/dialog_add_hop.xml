@@ -132,27 +132,27 @@
                     android:layout_width="wrap_content"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btn_add_hop_cancel"
+                    android:text="@string/cancel"
+                    style="@style/StyleButton_HalfButton"/>
+
+                <View android:layout_height="match_parent"
+                    android:layout_width="@dimen/stroke_width"
+                    android:background="@color/colorPrimaryLight"></View>
+                <Button
+                    android:id="@+id/btn_add_hop_save"
+                    android:text="@string/save"
+                    style="@style/StyleButton_HalfButton"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_add_hop_cancel"
-            android:text="@string/cancel"
-            style="@style/StyleButton_HalfButton"/>
-
-        <View android:layout_height="match_parent"
-            android:layout_width="@dimen/stroke_width"
-            android:background="@color/colorPrimaryLight"></View>
-        <Button
-            android:id="@+id/btn_add_hop_save"
-            android:text="@string/save"
-            style="@style/StyleButton_HalfButton"/>
-    </LinearLayout>
 
 </LinearLayout>

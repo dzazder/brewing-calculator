@@ -147,6 +147,8 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
 
     @Override
     public void onDestroyView() {
+        super.onDestroyView();
+
         try {
             Dialog dialog = getDialog();
             // handles https://code.google.com/p/android/issues/detail?id=17423
@@ -154,11 +156,13 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
                 dialog.setDismissMessage(null);
                 dialog.dismiss();
             }
-            this.dismiss();
-            super.onDestroyView();
+
+            this.dismiss(); // error
+            //super.onDestroyView();
         }
         catch (Exception e) {
             // todo obsluga błędu
         }
+
     }
 }

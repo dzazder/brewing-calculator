@@ -140,12 +140,14 @@ public class MainActivity extends AppCompatActivity {
                 newFragment = new FragmentHome();
                 break;
         }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!isFinishing()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.layout_fragment_area, newFragment, ConstStrings.CURRENT_FRAGMENT);
-        transaction.addToBackStack(null);
+            transaction.replace(R.id.layout_fragment_area, newFragment, ConstStrings.CURRENT_FRAGMENT);
+            transaction.addToBackStack(null);
 
-        transaction.commit();
+            transaction.commitAllowingStateLoss();
+        }
     }
 
     @Override
