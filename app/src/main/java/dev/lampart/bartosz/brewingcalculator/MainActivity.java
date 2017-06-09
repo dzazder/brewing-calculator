@@ -43,6 +43,7 @@ import dev.lampart.bartosz.brewingcalculator.fragments.FragmentWaterCorrection;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentYeasts;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
+import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         addOnBackStackChangedListenerToFragmentManager();
 
-        final Drawable upArrow = ContextCompat.getDrawable(getApplicationContext(), R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable upArrow = ContextCompat.getDrawable(getApplicationContext(), R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showBackStackButton);
 
+        MobileAds.initialize(this, "ca-app-pub-4293040940774831~5599977907");
     }
 
     @Override
