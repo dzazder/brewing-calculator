@@ -22,6 +22,9 @@ import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -71,6 +74,8 @@ public class FragmentYeasts extends Fragment {
     private DatePickerDialog harvestDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
+    private AdView mAdView;
+
     public FragmentYeasts() {
         // Required empty public constructor
     }
@@ -87,6 +92,10 @@ public class FragmentYeasts extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_yeasts, container, false);
+
+        mAdView = (AdView) view.findViewById(R.id.adViewFragmentYeasts);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_yeasts_amount_calculator));
 

@@ -44,6 +44,8 @@ import dev.lampart.bartosz.brewingcalculator.fragments.FragmentYeasts;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity {
 

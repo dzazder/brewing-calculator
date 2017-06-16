@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Locale;
 
 import dev.lampart.bartosz.brewingcalculator.MainActivity;
@@ -31,6 +34,8 @@ public class FragmentSgPlato extends Fragment  {
     private EditText txtSG;
     private EditText txtPlato;
 
+    private AdView mAdView;
+
     public FragmentSgPlato() {
         // Required empty public constructor
     }
@@ -40,6 +45,10 @@ public class FragmentSgPlato extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
+
+        mAdView = (AdView) view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_extract_calculator));
 

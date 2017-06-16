@@ -22,6 +22,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +59,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
     private CheckBox chbUseRefractometer;
     private RadioGroup rgFormula;
 
+    private AdView mAdView;
 
     public FragmentAlcohol() {
         // Required empty public constructor
@@ -66,6 +70,10 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_alcohol, container, false);
+
+        mAdView = (AdView) rootView.findViewById(R.id.adViewFragmentAlcohol);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_alcohol_calculator));
 

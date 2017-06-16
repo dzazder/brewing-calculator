@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
@@ -35,11 +38,18 @@ public class FragmentWaterCorrection extends Fragment implements TextWatcher, Ad
     private Spinner spExpGravityUnit;
     private TextView txtAdditionalWater;
 
+    private AdView mAdView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_water_correction, container, false);
+
+        mAdView = (AdView) view.findViewById(R.id.adViewFragmentWaterCorrection);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        mAdView.loadAd(adRequest);
+
         getActivity().setTitle(getResources().getString(R.string.title_water_correction));
         initControls(view);
 
