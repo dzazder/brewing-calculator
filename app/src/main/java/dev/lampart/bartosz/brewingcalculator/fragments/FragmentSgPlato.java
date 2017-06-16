@@ -47,7 +47,7 @@ public class FragmentSgPlato extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
 
         mAdView = (AdView) view.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_extract_calculator));

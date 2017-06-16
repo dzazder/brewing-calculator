@@ -72,7 +72,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         final View rootView = inflater.inflate(R.layout.fragment_alcohol, container, false);
 
         mAdView = (AdView) rootView.findViewById(R.id.adViewFragmentAlcohol);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_alcohol_calculator));

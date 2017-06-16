@@ -47,7 +47,7 @@ public class FragmentWaterCorrection extends Fragment implements TextWatcher, Ad
         View view = inflater.inflate(R.layout.fragment_water_correction, container, false);
 
         mAdView = (AdView) view.findViewById(R.id.adViewFragmentWaterCorrection);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("8488AE5DD406CB17CA7F26FED807020C").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_water_correction));
