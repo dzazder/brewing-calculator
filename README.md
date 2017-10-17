@@ -12,6 +12,8 @@ In the current version you can:
 - calculates alcohol by value (with refractometer use too)
 - calculates carbonation value
 - calculates slurry amount to fermentation
+- IBU calculator
+- water correction
 
 ### Development
 If you are interested of developing this app, contact with me :)
