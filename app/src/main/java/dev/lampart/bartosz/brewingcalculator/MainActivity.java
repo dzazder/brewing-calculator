@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showBackStackButton);
 
-        MobileAds.initialize(this, "ca-app-pub-4293040940774831~5599977907");
+        //MobileAds.initialize(this, "ca-app-pub-4293040940774831~5599977907");
     }
 
     @Override
