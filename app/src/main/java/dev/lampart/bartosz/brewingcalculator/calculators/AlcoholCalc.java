@@ -83,30 +83,17 @@ public class AlcoholCalc extends Calc {
         Log.d("CALC ALC", "Brix original: " + brixOriginal);
         Log.d("CALC ALC", "Brix final: " + brixFinal);
         double og = (brixOriginal/wortCorrectionFactor)/(258.6 - (((brixOriginal/wortCorrectionFactor)/258.2)*227.1))+1;
-        /*double fg = 1 - 0.0044993 * (brixOriginal / wortCorrectionFactor) + 0.0117741 * (brixFinal / wortCorrectionFactor)
-                + 0.000275806 * Math.pow(brixOriginal / wortCorrectionFactor, 2)
-                - 0.00127169 * Math.pow(brixFinal / wortCorrectionFactor, 2)
-                - 0.00000727999 * Math.pow(brixOriginal / wortCorrectionFactor, 3)
-                + 0.0000632929 * Math.pow(brixFinal / wortCorrectionFactor, 3);
-*/
-        double fgBrix = 1.001843 - (0.002318474 * brixOriginal)-
+        
+        double fg = 1.001843 - (0.002318474 * brixOriginal)-
                 (0.000007775 * Math.pow(brixOriginal, 2)) -
                 (0.000000034 * Math.pow(brixOriginal, 3)) +
                 (0.00574 * brixFinal) +
                 (0.00003344 * Math.pow(brixFinal, 2)) +
                 (0.000000086 * Math.pow(brixFinal, 3));
 
-        double fg = ExtractCalc.calcBrixToSG(fgBrix);
-
         Log.d("CALC ALC", "OG: " + og);
         Log.d("CALC ALC", "FG: " + fg);
 
-        double alc = (76.08 * (og - fg) / (1.775 - og)) * (fg / 0.794);
-        double att = ((og - 1) - (fg - 1)) / (og - 1) * 100;
-
-        Log.d("CALC ALC", "ALC: " + alc);
-        Log.d("CALC ALC", "ATT: " + att);
-
-        return new Triple<>(alc, att, fg);
+        return CalculateAlcohol(og, fg, ExtractUnit.SG, ExtractUnit.SG, false, 1, AlcFormula.Standard);
     }
 }
