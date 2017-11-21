@@ -83,7 +83,7 @@ public class AlcoholCalc extends Calc {
         Log.d("CALC ALC", "Brix original: " + brixOriginal);
         Log.d("CALC ALC", "Brix final: " + brixFinal);
         double og = (brixOriginal/wortCorrectionFactor)/(258.6 - (((brixOriginal/wortCorrectionFactor)/258.2)*227.1))+1;
-        
+
         double fg = 1.001843 - (0.002318474 * brixOriginal)-
                 (0.000007775 * Math.pow(brixOriginal, 2)) -
                 (0.000000034 * Math.pow(brixOriginal, 3)) +
