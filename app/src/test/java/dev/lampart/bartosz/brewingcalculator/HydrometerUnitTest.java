@@ -12,6 +12,7 @@ import static junit.framework.TestCase.assertEquals;
  * Created by bartek on 29.07.2016.
  */
 public class HydrometerUnitTest  {
+    /*
     @Test
     public void celsiusBrixCorrect() throws Exception {
         assertEquals(20.47,
@@ -84,4 +85,5 @@ public class HydrometerUnitTest  {
                 HydrometerCalc.calcAdjustmentGravity(10, 25, ExtractUnit.SG, TemperatureUnit.F, ExtractUnit.SG),
                 0.01);
     }
+    */
 }
