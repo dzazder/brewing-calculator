@@ -54,6 +54,8 @@ public class MainMenu {
                 BrewingCalculatorApplication.getContext().getString(R.string.description_water_correction),
                 R.drawable.ic_water_correction, DictFragment.FRAGMENT_WATER_CORRECTION);
 
+
+
         items.add(calcExtract);
         items.add(calcAlcohol);
         items.add(calcCarbonation);
