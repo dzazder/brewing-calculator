@@ -16,10 +16,6 @@ public class IBUData implements Parcelable {
     private WeightUnit weightUnit;
     private HopType hopType;
 
-    public IBUData() {
-
-    }
-
     public IBUData(double alpha, double weight, WeightUnit weightUnit, double time, HopType hopType) {
         this.alpha = alpha;
         this.weight = weight;

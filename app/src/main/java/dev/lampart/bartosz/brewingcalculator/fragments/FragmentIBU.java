@@ -4,7 +4,6 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,14 +22,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.CopyOnWriteArraySet;
 
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
 import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopIntentValues;
-import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
@@ -38,8 +36,6 @@ import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 import dev.lampart.bartosz.brewingcalculator.helpers.ArraysHelper;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
-import dev.lampart.bartosz.brewingcalculator.listeners.IEditTextTextChangedListener;
-import dev.lampart.bartosz.brewingcalculator.listeners.IOnItemSelectedListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -135,30 +131,20 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     }
 
     private void getControlsFromView(View view) {
-        mainLayout = (LinearLayout) view.findViewById(R.id.layout_ibu_main);
-        noHopLayout = (LinearLayout) view.findViewById(R.id.layout_noHopLabel);
-        txtEstimatedIBURager = (TextView) view.findViewById(R.id.txt_estimated_ibu_rager);
-        txtEstimatedIBUTinseth = (TextView) view.findViewById(R.id.txt_estimated_ibu_tinseth);
-        txtPrimingSize = (EditText) view.findViewById(R.id.txt_ibu_priming_size);
-        txtGravity = (EditText) view.findViewById(R.id.txt_ibu_extract_after);
-        spSizeUnit = (Spinner) view.findViewById(R.id.sp_ibu_priming_size);
-        spGravityUnit = (Spinner) view.findViewById(R.id.sp_ibu_extract_after);
-        lvHops = (ListView) view.findViewById(R.id.lv_hops);
-        btnAddHop = (Button) view.findViewById(R.id.btn_add_hop);
+        mainLayout = view.findViewById(R.id.layout_ibu_main);
+        noHopLayout = view.findViewById(R.id.layout_noHopLabel);
+        txtEstimatedIBURager = view.findViewById(R.id.txt_estimated_ibu_rager);
+        txtEstimatedIBUTinseth = view.findViewById(R.id.txt_estimated_ibu_tinseth);
+        txtPrimingSize = view.findViewById(R.id.txt_ibu_priming_size);
+        txtGravity = view.findViewById(R.id.txt_ibu_extract_after);
+        spSizeUnit = view.findViewById(R.id.sp_ibu_priming_size);
+        spGravityUnit = view.findViewById(R.id.sp_ibu_extract_after);
+        lvHops = view.findViewById(R.id.lv_hops);
+        btnAddHop = view.findViewById(R.id.btn_add_hop);
     }
 
     private void initHopItemsAdapter() {
-        hopItemAdapter = new IBUHopItemAdapter(getActivity(), items, new IEditTextTextChangedListener() {
-            @Override
-            public void afterTextChanged(int position) {
-                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
-            }
-        }, new IOnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int position) {
-                calculateIBU(txtPrimingSize, txtGravity, spSizeUnit, spGravityUnit, txtEstimatedIBURager, txtEstimatedIBUTinseth);
-            }
-        });
+        hopItemAdapter = new IBUHopItemAdapter(getActivity(), items);
         hopItemAdapter.setFragmentIBU(this);
         lvHops.setAdapter(hopItemAdapter);
         lvHops.setOnItemClickListener(new AdapterView.OnItemClickListener() {

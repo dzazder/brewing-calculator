@@ -55,9 +55,9 @@ public class HomeMenuItemAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.home_menu_item, null);
         }
 
-        TextView txtFirst = (TextView)convertView.findViewById(R.id.txt_main_menu_firstline);
-        TextView txtSecond = (TextView)convertView.findViewById(R.id.txt_main_menu_secondline);
-        ImageView imgIcon = (ImageView)convertView.findViewById(R.id.main_menu_icon);
+        TextView txtFirst = convertView.findViewById(R.id.txt_main_menu_firstline);
+        TextView txtSecond = convertView.findViewById(R.id.txt_main_menu_secondline);
+        ImageView imgIcon = convertView.findViewById(R.id.main_menu_icon);
 
         txtFirst.setText(items.get(position).getTitle());
         txtSecond.setText(items.get(position).getDescription());

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/brewing-calculator.iml" filepath="$PROJECT_DIR$/brewing-calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/brewing-calculator.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/brewing-calculator.app.iml" />
     </modules>
   </component>
 </project>

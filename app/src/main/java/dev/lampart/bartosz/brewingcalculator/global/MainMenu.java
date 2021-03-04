@@ -1,13 +1,10 @@
 package dev.lampart.bartosz.brewingcalculator.global;
 
-import android.app.Application;
-
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.BrewingCalculatorApplication;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
-import dev.lampart.bartosz.brewingcalculator.entities.BCalcConf;
 import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
 
 /**
@@ -52,7 +49,7 @@ public class MainMenu {
         MainMenuItem calcWaterCorrection = new MainMenuItem(7,
                 BrewingCalculatorApplication.getContext().getString(R.string.title_water_correction),
                 BrewingCalculatorApplication.getContext().getString(R.string.description_water_correction),
-                R.drawable.ic_water_correction, DictFragment.FRAGMENT_WATER_CORRECTION);
+                R.drawable.ic_water_correction, DictFragment.FRAGMENT_EXTRACT_CORRECTION);
 
 
 

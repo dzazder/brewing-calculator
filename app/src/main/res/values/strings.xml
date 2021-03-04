@@ -101,7 +101,13 @@
     <string name="description_ibu_calculator">Calculate IBU</string>
     <string name="description_water_correction">Calculate how much water should add to achieve expected gravity</string>
 
+    <string name="liquid_extract">of liquid extract</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="lbl_estimated_ibu">Estimated IBU:</string>
+    <string name="dry_extract">of dry extract</string>
+    <string name="corn_sugar">of corn sugar</string>
+    <string name="lbl_have_to_add">You have to add</string>
 </resources>

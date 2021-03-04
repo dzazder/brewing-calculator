@@ -68,4 +68,8 @@
     <string name="lbl_expected_gravity">Oczekiwana gęstość</string>
     <string name="lbl_report_issue">Zgłoś problem</string>
     <string name="title_water_correction">Korekcja gęstości brzeczki wodą</string>
+    <string name="liquid_extract">płynnego esktraktu</string>
+    <string name="dry_extract">suchego ekstraktu</string>
+    <string name="corn_sugar">glukozy</string>
+    <string name="lbl_have_to_add">Musisz dodać</string>
 </resources>

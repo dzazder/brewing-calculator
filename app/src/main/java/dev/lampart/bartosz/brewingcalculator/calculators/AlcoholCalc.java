@@ -26,7 +26,7 @@ public class AlcoholCalc extends Calc {
                                                                   ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
                                                                   boolean useRefractometer, double wortFactor, AlcFormula formula) {
         double alc = 0;
-        double att = 0;
+        double att;
 
         if (useRefractometer) {
             switch (extBeforeUnit) {
