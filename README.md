@@ -1,7 +1,5 @@
 # brewing-calculator
 
-[![Build Status](https://travis-ci.org/dzazder/brewing-calculator.svg?branch=master)](https://travis-ci.org/dzazder/brewing-calculator)
-
 ### Download
 [Google Play Link]
 
