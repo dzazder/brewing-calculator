@@ -11,9 +11,10 @@ public class GravityCorrectionCalc extends Calc {
     private final ExtractCalc extractCalcService;
     private final UnitCalc unitCalcService;
 
-    private int _liquidExtractCorrectionFactor = 35;
-    private int _dryExtractCorrectionFactor = 44;
-    private int _cornSugarCorrectionFactor = 37;
+    private final int _liquidExtractCorrectionFactor = 35;
+    private final int _dryExtractCorrectionFactor = 44;
+    private final int _cornSugarCorrectionFactor = 37;
+    private final int _tableSugarCorrectionFactor = 46;
 
     @Inject
     public GravityCorrectionCalc(ExtractCalc extractCalc, UnitCalc unitCalcService) {
@@ -56,7 +57,8 @@ public class GravityCorrectionCalc extends Calc {
         double expectedLiquidMalt = expectedRaw / _liquidExtractCorrectionFactor;
         double expectedDryExtract = expectedRaw / _dryExtractCorrectionFactor;
         double expectedCornSugar = expectedRaw / _cornSugarCorrectionFactor;
+        double expectedTableSugar = expectedRaw / _tableSugarCorrectionFactor;
 
-        return new ExtractRaws(expectedLiquidMalt, expectedDryExtract, expectedCornSugar);
+        return new ExtractRaws(expectedLiquidMalt, expectedDryExtract, expectedCornSugar, expectedTableSugar);
     }
 }

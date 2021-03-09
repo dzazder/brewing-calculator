@@ -152,10 +152,11 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
             else {
                 ExtractRaws result = gravityCorrectionCalcService.calculateExtract(batchSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
 
-                txtToAdd.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
+                txtToAdd.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
                         result.getLiquidMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getLiquidMaltExtract()), getResources().getText(R.string.liquid_extract),
                         result.getDryMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getDryMaltExtract()), getResources().getText(R.string.dry_extract),
-                        result.getCornSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar)));
+                        result.getCornSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar),
+                        result.getTableSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getTableSugar()), getResources().getText(R.string.table_sugar)));
             }
         }
 
