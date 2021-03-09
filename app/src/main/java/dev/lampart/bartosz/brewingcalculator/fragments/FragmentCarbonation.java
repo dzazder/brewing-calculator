@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
@@ -43,8 +45,11 @@ public class FragmentCarbonation extends Fragment implements TextWatcher, Adapte
     private TextView txtAmountCornSugar;
     private TextView txtAmountDME;
 
-    public FragmentCarbonation() {
-        // Required empty public constructor
+    private final CarbonationCalc carbonationCalcService;
+
+    @Inject
+    public FragmentCarbonation(CarbonationCalc carbonationCalcService) {
+        this.carbonationCalcService = carbonationCalcService;
     }
 
     @Override
@@ -146,7 +151,7 @@ public class FragmentCarbonation extends Fragment implements TextWatcher, Adapte
             }
 
             List<Tuple<SugarType, Double>> sugarAmount =
-                    CarbonationCalc.calcSugarAmount(dPrimingSize, dCO2, dBeerTemp, volUnit, tempUnit);
+                    carbonationCalcService.calcSugarAmount(dPrimingSize, dCO2, dBeerTemp, volUnit, tempUnit);
 
             for (Tuple<SugarType, Double> el: sugarAmount) {
                 switch (el.x) {

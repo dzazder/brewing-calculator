@@ -30,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
@@ -73,8 +75,11 @@ public class FragmentYeasts extends Fragment {
 
     private AdView mAdView;
 
-    public FragmentYeasts() {
-        // Required empty public constructor
+    private final YeastCalc yeastCalcService;
+
+    @Inject
+    public FragmentYeasts(YeastCalc yeastCalcService) {
+        this.yeastCalcService = yeastCalcService;
     }
 
     @Override
@@ -371,7 +376,7 @@ public class FragmentYeasts extends Fragment {
                 case R.id.toggle_option_yeast_lager: beerStyle = BeerStyle.Lager; break;
             }
 
-            long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
+            long yeastNeeded = yeastCalcService.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
 
             //setDryYeastNeeded(yeastNeeded, dryProdDate);
@@ -388,7 +393,7 @@ public class FragmentYeasts extends Fragment {
         }
         else {
             txtLiquidPacksNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-            double liquidYeastPacksNeeded = YeastCalc.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
+            double liquidYeastPacksNeeded = yeastCalcService.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
             txtLiquidPacksNeeded.setText(String.format(Locale.US, "%.2f", liquidYeastPacksNeeded));
         }
     }
@@ -400,7 +405,7 @@ public class FragmentYeasts extends Fragment {
         }
         else {
             txtStarterSizeNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-            double starterSizeNeeded = YeastCalc.calcMililitersOfStarter(yeastNeeded, prodDate);
+            double starterSizeNeeded = yeastCalcService.calcMililitersOfStarter(yeastNeeded, prodDate);
             txtStarterSizeNeeded.setText(String.format(Locale.US, "%.2f ml", starterSizeNeeded));
         }
     }
@@ -412,7 +417,7 @@ public class FragmentYeasts extends Fragment {
         }
         else {
             txtSlurryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-            double slurryYeastNeeded = YeastCalc.calcMililitersOfSlurry(yeastNeeded, harvestDate);
+            double slurryYeastNeeded = yeastCalcService.calcMililitersOfSlurry(yeastNeeded, harvestDate);
             txtSlurryYeastNeeded.setText(String.format(Locale.US, "%.2f ml", slurryYeastNeeded));
         }
     }
@@ -424,7 +429,7 @@ public class FragmentYeasts extends Fragment {
         }
         else {
             txtDryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-            double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded, productionDate);
+            double dryYeastNeeded = yeastCalcService.calcGramsOfDryYeast(yeastNeeded, productionDate);
             txtDryYeastNeeded.setText(String.format(Locale.US, "%.2f g", dryYeastNeeded));
         }
     }

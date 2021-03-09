@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import javax.inject.Inject;
+
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
@@ -41,6 +43,17 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
     private TextView txtToAdd;
 
     private AdView mAdView;
+
+    private final GravityCorrectionCalc gravityCorrectionCalcService;
+    private final WaterCorrectionCalc waterCorrectionCalcService;
+    private final UnitCalc unitCalcService;
+
+    @Inject
+    public FragmentGravityCorrection(GravityCorrectionCalc gravityCorrectionCalcService, WaterCorrectionCalc waterCorrectionCalcService, UnitCalc unitCalcService) {
+        this.gravityCorrectionCalcService = gravityCorrectionCalcService;
+        this.waterCorrectionCalcService = waterCorrectionCalcService;
+        this.unitCalcService = unitCalcService;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,10 +136,10 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
             }
 
             if (expGravity < gravity) {
-                double result = WaterCorrectionCalc.calcAdditionalWater(batchSize, volUnit,
+                double result = waterCorrectionCalcService.calcAdditionalWater(batchSize, volUnit,
                         gravity, gravityUnit, expGravity, expGravityUnit);
 
-                double gallResult = UnitCalc.calcLitresToGallons(result);
+                double gallResult = unitCalcService.calcLitresToGallons(result);
 
                 txtToAdd.setText(String.format("%.2f %s %s \n %.2f %s %s",
                         result,
@@ -137,13 +150,12 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
                         getResources().getText(R.string.lbl_of_water)));
             }
             else {
-                GravityCorrectionCalc extractCorrectionCalc = new GravityCorrectionCalc();
-                ExtractRaws result = extractCorrectionCalc.calculateExtract(batchSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
+                ExtractRaws result = gravityCorrectionCalcService.calculateExtract(batchSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
 
                 txtToAdd.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
-                        result.getLiquidMaltExtract(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getLiquidMaltExtract()), getResources().getText(R.string.liquid_extract),
-                        result.getDryMaltExtract(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getDryMaltExtract()), getResources().getText(R.string.dry_extract),
-                        result.getCornSugar(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar)));
+                        result.getLiquidMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getLiquidMaltExtract()), getResources().getText(R.string.liquid_extract),
+                        result.getDryMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getDryMaltExtract()), getResources().getText(R.string.dry_extract),
+                        result.getCornSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar)));
             }
         }
 

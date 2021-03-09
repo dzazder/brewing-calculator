@@ -2,6 +2,8 @@ package dev.lampart.bartosz.brewingcalculator.calculators;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
@@ -15,24 +17,33 @@ import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
  */
 public class IBUCalc extends Calc {
 
-    private static double PELLET_FACTOR = 1.15;
+    private final ExtractCalc extractCalcService;
+    private final UnitCalc unitCalcService;
+
+    private final double PELLET_FACTOR = 1.15;
+
+    @Inject
+    public IBUCalc(ExtractCalc extractCalcService, UnitCalc unitCalcService) {
+        this.extractCalcService = extractCalcService;
+        this.unitCalcService = unitCalcService;
+    }
 
     public enum FormulaTypeIBU {
         RAGER, GARETZ, TINSETH
     }
 
-    public static double calcIBU(IBUData ibuData, double sg, double volume, ExtractUnit extractUnit,
+    public double calcIBU(IBUData ibuData, double sg, double volume, ExtractUnit extractUnit,
                                  VolumeUnit volumeUnit, FormulaTypeIBU formula) {
         switch (extractUnit) {
             case Brix:
-                sg = ExtractCalc.calcBrixToSG(sg);
+                sg = extractCalcService.calcBrixToSG(sg);
                 break;
             case Plato:
-                sg = ExtractCalc.calcPlatoToSG(sg);
+                sg = extractCalcService.calcPlatoToSG(sg);
                 break;
         }
         if (volumeUnit == VolumeUnit.Liter) {
-            volume = UnitCalc.calcLitresToGallons(volume);
+            volume = unitCalcService.calcLitresToGallons(volume);
         }
 
         double ibu = 0;
@@ -46,14 +57,14 @@ public class IBUCalc extends Calc {
         return ibu;
     }
 
-    private static double calcIBUGaretz() {
+    private double calcIBUGaretz() {
         return 0;
     }
 
-    private static double calcIBUTinseth(IBUData ibuData, double sg, double volume) {
+    private double calcIBUTinseth(IBUData ibuData, double sg, double volume) {
         double weight = ibuData.getWeight();
         if (ibuData.getWeightUnit() == WeightUnit.G) {
-            weight = UnitCalc.calcGramsToOunces(ibuData.getWeight());
+            weight = unitCalcService.calcGramsToOunces(ibuData.getWeight());
         }
 
         double boilTimeFactor = (1 - Math.exp(-0.04 * ibuData.getTime())) / 4.15;
@@ -69,10 +80,10 @@ public class IBUCalc extends Calc {
         return ibu;
     }
 
-    private static double calcIBURager(IBUData ibuData, double sg, double volume) {
+    private double calcIBURager(IBUData ibuData, double sg, double volume) {
         double weight = ibuData.getWeight();
         if (ibuData.getWeightUnit() == WeightUnit.G) {
-            weight = UnitCalc.calcGramsToOunces(weight);
+            weight = unitCalcService.calcGramsToOunces(weight);
         }
         
         double utilization = 18.11 + (13.86 * Math.tanh((ibuData.getTime() - 31.32)/18.27));
@@ -96,7 +107,7 @@ public class IBUCalc extends Calc {
      * @param volume volume after boil in gallons
      * @return
      */
-    public static double calcIBU(ArrayList<IBUData> ibuDatas, double sg, double volume, ExtractUnit extractUnit,
+    public double calcIBU(ArrayList<IBUData> ibuDatas, double sg, double volume, ExtractUnit extractUnit,
                                  VolumeUnit volumeUnit, FormulaTypeIBU formula ) {
         double sum = 0;
         for (IBUData ibuData: ibuDatas) {

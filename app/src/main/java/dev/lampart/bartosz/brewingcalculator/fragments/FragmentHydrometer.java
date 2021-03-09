@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
@@ -36,8 +38,11 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
     private RadioGroup rgTemperature;
     private TextView lblRealGravity;
 
-    public FragmentHydrometer() {
-        // Required empty public constructor
+    private final HydrometerCalc hydrometerCalcService;
+
+    @Inject
+    public FragmentHydrometer(HydrometerCalc hydrometerCalcService) {
+        this.hydrometerCalcService = hydrometerCalcService;
     }
 
 
@@ -93,7 +98,7 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
 
             ExtractUnit resultUnit = ExtractUnit.valueOf(spRealGravity.getSelectedItem().toString());
 
-            double realTemp = HydrometerCalc.calcAdjustmentGravity(gravity, temperature, grUnit,
+            double realTemp = hydrometerCalcService.calcAdjustmentGravity(gravity, temperature, grUnit,
                     tempUnit, resultUnit);
 
             setResultValue(realTemp);

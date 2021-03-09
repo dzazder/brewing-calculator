@@ -33,8 +33,10 @@ public class FragmentSgPlato extends Fragment {
 
     private AdView mAdView;
 
-    public FragmentSgPlato() {
-        // Required empty public constructor
+    private final ExtractCalc extractCalcService;
+
+    public FragmentSgPlato(ExtractCalc extractCalcService) {
+        this.extractCalcService = extractCalcService;
     }
 
     @Override
@@ -74,8 +76,8 @@ public class FragmentSgPlato extends Fragment {
 
                     String platoTxt = s.toString().replace(',', '.');
                     double platoNum = platoTxt.length() > 0 ? Double.parseDouble(platoTxt) : 0;
-                    double sgNum = ExtractCalc.calcPlatoToSG(platoNum);
-                    double brixNum = ExtractCalc.calcPlatoToBrix(platoNum);
+                    double sgNum = extractCalcService.calcPlatoToSG(platoNum);
+                    double brixNum = extractCalcService.calcPlatoToBrix(platoNum);
 
                     setValues(brixNum, sgNum, txtBrix, txtSG);
                     editedByProgram = false;
@@ -98,8 +100,8 @@ public class FragmentSgPlato extends Fragment {
 
                     String sgText = s.toString().replace(',', '.');
                     double sgNum = sgText.length() > 0 ? Double.parseDouble(sgText) : 0;
-                    double platoNum = ExtractCalc.calcSGToPlato(sgNum);
-                    double brixNum = ExtractCalc.calcSGToBrix(sgNum);
+                    double platoNum = extractCalcService.calcSGToPlato(sgNum);
+                    double brixNum = extractCalcService.calcSGToBrix(sgNum);
 
                     setValues(brixNum, platoNum, txtBrix, txtPlato);
                     editedByProgram = false;
@@ -122,8 +124,8 @@ public class FragmentSgPlato extends Fragment {
 
                     String brixText = s.toString().replace(',', '.');
                     double brixNum = brixText.length() > 0 ? Double.parseDouble(brixText) : 0;
-                    double platoNum = ExtractCalc.calcBrixToPlato(brixNum);
-                    double sgNum = ExtractCalc.calcBrixToSG(brixNum);
+                    double platoNum = extractCalcService.calcBrixToPlato(brixNum);
+                    double sgNum = extractCalcService.calcBrixToSG(brixNum);
 
                     setValues(platoNum, sgNum, txtPlato, txtSG);
 

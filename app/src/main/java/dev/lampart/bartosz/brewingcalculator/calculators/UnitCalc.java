@@ -1,34 +1,40 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
+import javax.inject.Inject;
+
 /**
  * Created by bartek on 11.07.2016.
  */
 public class UnitCalc extends Calc {
-    public static double calcLitresToGallons(double litres) {
+
+    @Inject
+    public UnitCalc() {}
+
+    public double calcLitresToGallons(double litres) {
         return litres / 3.785411784;
     }
 
-    public static double calcGallonsToLitres(double gallons) {
+    public double calcGallonsToLitres(double gallons) {
         return gallons * 3.785411784;
     }
 
-    public static double calcCelsiusToFahrenheit(double c) {
+    public double calcCelsiusToFahrenheit(double c) {
         return (c * ((double)9 / 5)) + 32;
     }
 
-    public static double calcFahrenheitToCelsius(double f) {
+    public double calcFahrenheitToCelsius(double f) {
         return (f - 32) * (5 / 9);
     }
 
-    public static double calcGramsToOunces(double g) {
+    public double calcGramsToOunces(double g) {
         return g / 28.3495231;
     }
 
-    public static double calcOuncesToGrams(double o) {
+    public double calcOuncesToGrams(double o) {
         return o * 28.3495231;
     }
 
-    public static double calcPoundsToKilograms(double p) { return p * 0.453592; }
+    public double calcPoundsToKilograms(double p) { return p * 0.453592; }
 
-    public static double calcKilogramsToPounds(double k) { return k * 2.20462; }
+    public double calcKilogramsToPounds(double k) { return k * 2.20462; }
 }
