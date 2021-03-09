@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.HydrometerCalc;
@@ -101,11 +102,11 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
 
     private void setResultValue(double realGravity) {
         if (realGravity < 0) {
-            lblRealGravity.setTextColor(getResources().getColor(R.color.colorError));
+            lblRealGravity.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             lblRealGravity.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            lblRealGravity.setTextColor(getResources().getColor(R.color.colorAccent));
+            lblRealGravity.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             lblRealGravity.setText(String.format(Locale.US,
                     ExtractUnit.valueOf(spRealGravity.getSelectedItem().toString()) == ExtractUnit.SG ?
                             "%.3f" : "%.2f", realGravity));

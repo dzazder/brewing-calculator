@@ -13,9 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalc;
@@ -144,7 +145,7 @@ public class FragmentCarbonation extends Fragment implements TextWatcher, Adapte
                 volUnit = VolumeUnit.Liter;
             }
 
-            ArrayList<Tuple<SugarType, Double>> sugarAmount =
+            List<Tuple<SugarType, Double>> sugarAmount =
                     CarbonationCalc.calcSugarAmount(dPrimingSize, dCO2, dBeerTemp, volUnit, tempUnit);
 
             for (Tuple<SugarType, Double> el: sugarAmount) {
@@ -159,11 +160,11 @@ public class FragmentCarbonation extends Fragment implements TextWatcher, Adapte
 
     private void setSugarAmountValue(TextView txtToSet, double valToSet) {
         if (valToSet < 0) {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorError));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtToSet.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             txtToSet.setText(String.format(Locale.US, "%.2f g", valToSet));
         }
     }

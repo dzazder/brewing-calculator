@@ -75,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
 
-                //FragmentManager fm = getSupportFragmentManager();
+                FragmentManager fm = getSupportFragmentManager();
+
                 FragmentSettings fs = new FragmentSettings();
-                fs.show(getFragmentManager(), "fragment_settings");
+                fs.show(fm, "fragment_settings");
                 break;
 
             default:

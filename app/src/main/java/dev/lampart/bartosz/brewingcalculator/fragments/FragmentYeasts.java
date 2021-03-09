@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
@@ -382,11 +383,11 @@ public class FragmentYeasts extends Fragment {
 
     private void setLiquidPacksNeeded(long yeastNeeded, Date prodDate) {
         if (yeastNeeded < 0) {
-            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtLiquidPacksNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtLiquidPacksNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtLiquidPacksNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             double liquidYeastPacksNeeded = YeastCalc.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
             txtLiquidPacksNeeded.setText(String.format(Locale.US, "%.2f", liquidYeastPacksNeeded));
         }
@@ -394,11 +395,11 @@ public class FragmentYeasts extends Fragment {
 
     private void setStarterSize(long yeastNeeded, Date prodDate) {
         if (yeastNeeded < 0) {
-            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtStarterSizeNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtStarterSizeNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtStarterSizeNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             double starterSizeNeeded = YeastCalc.calcMililitersOfStarter(yeastNeeded, prodDate);
             txtStarterSizeNeeded.setText(String.format(Locale.US, "%.2f ml", starterSizeNeeded));
         }
@@ -406,11 +407,11 @@ public class FragmentYeasts extends Fragment {
 
     private void setSlurryNeeded(long yeastNeeded, Date harvestDate) {
         if (yeastNeeded < 0) {
-            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtSlurryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtSlurryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtSlurryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             double slurryYeastNeeded = YeastCalc.calcMililitersOfSlurry(yeastNeeded, harvestDate);
             txtSlurryYeastNeeded.setText(String.format(Locale.US, "%.2f ml", slurryYeastNeeded));
         }
@@ -418,11 +419,11 @@ public class FragmentYeasts extends Fragment {
 
     private void setDryYeastNeeded(long yeastNeeded, Date productionDate) {
         if (yeastNeeded < 0) {
-            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtDryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtDryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtDryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded, productionDate);
             txtDryYeastNeeded.setText(String.format(Locale.US, "%.2f g", dryYeastNeeded));
         }
@@ -430,11 +431,12 @@ public class FragmentYeasts extends Fragment {
 
     private void setYeastNeededValue(long yeast, TextView txtToSet) {
         if (yeast < 0) {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorError));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtToSet.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            ;
 
             DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
             DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
