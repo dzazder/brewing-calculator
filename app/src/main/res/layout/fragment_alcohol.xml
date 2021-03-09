@@ -25,7 +25,7 @@
             android:showDividers="middle">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@drawable/empty_divider_vertical"
                 android:gravity="center_vertical"
@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:text="@string/lbl_before_fermentation" />
 
                 <EditText
@@ -137,7 +137,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@drawable/empty_divider_vertical"
                 android:gravity="center_vertical"
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:text="@string/lbl_after_fermentation" />
 
                 <EditText
@@ -171,7 +171,7 @@
 
             <LinearLayout
                 android:id="@+id/layout_alcohol_formula"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@drawable/empty_divider_vertical"
                 android:gravity="center_vertical"
@@ -188,21 +188,20 @@
                     android:id="@+id/alc_formula"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginBottom="@dimen/padding_normal"
                     android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:layout_marginTop="@dimen/padding_normal"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:layout_marginBottom="@dimen/padding_normal"
                     android:layout_weight="1"
-                    android:background="@drawable/toggle_outline"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/alc_formula_option_normal"
                         android:layout_width="85dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="1dp"
                         android:layout_marginLeft="1dp"
                         android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@drawable/toggle_background"
                         android:button="@null"
                         android:checked="true"
@@ -214,9 +213,9 @@
                         android:id="@+id/alc_formula_option_alternative"
                         android:layout_width="85dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginRight="1dp"
                         android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@drawable/toggle_background"
                         android:button="@null"
                         android:gravity="center"
