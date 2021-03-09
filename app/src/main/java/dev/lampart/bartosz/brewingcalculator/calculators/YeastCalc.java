@@ -67,7 +67,6 @@ public class YeastCalc {
 
     public static double calcMililitersOfStarter(long yeastCells, Date prodDate) {
         double yeastViability = calcLiquidViability(prodDate);
-        double growthFactor = 3.0;
 
         return yeastCells / (yeastViability * starterMililiterCells);
     }
@@ -77,7 +76,7 @@ public class YeastCalc {
         long diff = today.getTime() - productionDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        return (double)(90 - ((double)daysDiff * dayDryViabilityDecrease)) / 100.;
+        return (90 - ((double)daysDiff * dayDryViabilityDecrease)) / 100.;
     }
 
     public static double calcLiquidViability(Date productionDate) {
@@ -85,7 +84,7 @@ public class YeastCalc {
         long diff = today.getTime() - productionDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        return (double)(96 - ((double)daysDiff * dayLiquidViabilityDecrease)) / 100.;
+        return (96 - ((double)daysDiff * dayLiquidViabilityDecrease)) / 100.;
     }
 
     public static double calcSlurryViability(Date harvestDate) {
@@ -93,7 +92,7 @@ public class YeastCalc {
         long diff = today.getTime() - harvestDate.getTime();
         long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        return (double)(94 - ((double)daysDiff * dayFlurryViabilityDecrease)) / 100.;
+        return (94 - ((double)daysDiff * dayFlurryViabilityDecrease)) / 100.;
     }
 
     private static double getBeerStyleYeastRate(BeerStyle beerStyle) {

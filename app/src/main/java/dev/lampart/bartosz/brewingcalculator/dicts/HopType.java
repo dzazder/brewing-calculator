@@ -14,7 +14,7 @@ public enum HopType {
 
     private int mResourceId;
 
-    private HopType(int id) {
+    HopType(int id) {
         this.mResourceId = id;
     }
 

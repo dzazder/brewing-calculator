@@ -1,13 +1,9 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,20 +20,17 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
-import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.AlcFormula;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 import dev.lampart.bartosz.brewingcalculator.helpers.Triple;
-import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +63,7 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_alcohol, container, false);
 
-        mAdView = (AdView) rootView.findViewById(R.id.adViewFragmentAlcohol);
+        mAdView = rootView.findViewById(R.id.adViewFragmentAlcohol);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -89,18 +81,18 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
     }
 
     private void getControlsFromView(View rootView) {
-        spBefore = (Spinner)rootView.findViewById(R.id.sp_extract_before);
-        spAfter = (Spinner)rootView.findViewById(R.id.sp_extract_after);
-        txtExtBefore = (EditText)rootView.findViewById(R.id.txt_extract_before);
-        txtExtAfter = (EditText)rootView.findViewById(R.id.txt_extract_after);
-        txtWortCorrectionFactor = (EditText)rootView.findViewById(R.id.txt_calc_wort_correction_factor);
-        lblAlco = (TextView)rootView.findViewById(R.id.txt_calc_alc);
-        lblAtt = (TextView)rootView.findViewById(R.id.txt_calc_att);
-        lblFG = (TextView)rootView.findViewById(R.id.lbl_refractometer_final_gravity);
-        chbUseRefractometer = (CheckBox)rootView.findViewById(R.id.chb_use_refractometer);
-        layWortCorrectionFactor = (LinearLayout)rootView.findViewById(R.id.layout_wort_correction_factor);
-        layFormulaSelector = (LinearLayout)rootView.findViewById(R.id.layout_alcohol_formula);
-        rgFormula = (RadioGroup)rootView.findViewById(R.id.alc_formula);
+        spBefore = rootView.findViewById(R.id.sp_extract_before);
+        spAfter = rootView.findViewById(R.id.sp_extract_after);
+        txtExtBefore = rootView.findViewById(R.id.txt_extract_before);
+        txtExtAfter = rootView.findViewById(R.id.txt_extract_after);
+        txtWortCorrectionFactor = rootView.findViewById(R.id.txt_calc_wort_correction_factor);
+        lblAlco = rootView.findViewById(R.id.txt_calc_alc);
+        lblAtt = rootView.findViewById(R.id.txt_calc_att);
+        lblFG = rootView.findViewById(R.id.lbl_refractometer_final_gravity);
+        chbUseRefractometer = rootView.findViewById(R.id.chb_use_refractometer);
+        layWortCorrectionFactor = rootView.findViewById(R.id.layout_wort_correction_factor);
+        layFormulaSelector = rootView.findViewById(R.id.layout_alcohol_formula);
+        rgFormula = rootView.findViewById(R.id.alc_formula);
     }
 
     private void setControlValues() {

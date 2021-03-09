@@ -2,9 +2,7 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,16 +15,15 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
-import dev.lampart.bartosz.brewingcalculator.MainActivity;
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
-import dev.lampart.bartosz.brewingcalculator.helpers.InputFilterMinMax;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentSgPlato extends Fragment  {
+public class FragmentSgPlato extends Fragment {
 
     private boolean editedByProgram = false;
 
@@ -46,7 +43,7 @@ public class FragmentSgPlato extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sg_plato, container, false);
 
-        mAdView = (AdView) view.findViewById(R.id.adView);
+        mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -58,9 +55,9 @@ public class FragmentSgPlato extends Fragment  {
     }
 
     private void initControls(View view) {
-        txtBrix = (EditText)view.findViewById(R.id.txt_calc_brix);
-        txtSG = (EditText)view.findViewById(R.id.txt_calc_og);
-        txtPlato = (EditText)view.findViewById(R.id.txt_calc_plato);
+        txtBrix = view.findViewById(R.id.txt_calc_brix);
+        txtSG = view.findViewById(R.id.txt_calc_og);
+        txtPlato = view.findViewById(R.id.txt_calc_plato);
 
         initBrixTextChangedListener();
         initSGTextChangedListener();

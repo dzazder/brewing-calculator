@@ -27,4 +27,8 @@ public class UnitCalc extends Calc {
     public static double calcOuncesToGrams(double o) {
         return o * 28.3495231;
     }
+
+    public static double calcPoundsToKilograms(double p) { return p * 0.453592; }
+
+    public static double calcKilogramsToPounds(double k) { return k * 2.20462; }
 }

@@ -12,5 +12,5 @@ public class DictFragment {
     public static final int FRAGMENT_YEASTS = 5;
     public static final int FRAGMENT_HYDROMETER = 6;
     public static final int FRAGMENT_IBU = 7;
-    public static final int FRAGMENT_WATER_CORRECTION = 8;
+    public static final int FRAGMENT_EXTRACT_CORRECTION = 8;
 }

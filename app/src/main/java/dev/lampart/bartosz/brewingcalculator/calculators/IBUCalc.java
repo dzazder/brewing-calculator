@@ -1,8 +1,5 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
-import android.util.Log;
-
-import java.io.Console;
 import java.util.ArrayList;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
@@ -41,7 +38,7 @@ public class IBUCalc extends Calc {
         double ibu = 0;
 
         switch (formula) {
-            case GARETZ: ibu = calcIBUGaretz(ibuData, sg, volume); break;
+            case GARETZ: ibu = calcIBUGaretz(); break;
             case TINSETH: ibu = calcIBUTinseth(ibuData, sg, volume); break;
             case RAGER: ibu = calcIBURager(ibuData, sg, volume); break;
         }
@@ -49,7 +46,7 @@ public class IBUCalc extends Calc {
         return ibu;
     }
 
-    private static double calcIBUGaretz(IBUData ibuData, double sg, double volume) {
+    private static double calcIBUGaretz() {
         return 0;
     }
 

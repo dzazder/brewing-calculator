@@ -3,14 +3,10 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,8 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
-import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.BeerStyle;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
@@ -93,13 +89,13 @@ public class FragmentYeasts extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_yeasts, container, false);
 
-        mAdView = (AdView) view.findViewById(R.id.adViewFragmentYeasts);
+        mAdView = view.findViewById(R.id.adViewFragmentYeasts);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         getActivity().setTitle(getResources().getString(R.string.title_yeasts_amount_calculator));
 
-        mTabHost = (TabHost)view.findViewById(R.id.tabhost_yeasts);
+        mTabHost = view.findViewById(R.id.tabhost_yeasts);
         mTabHost.setup();
         //Tab 1
         /*TabHost.TabSpec spec = mTabHost.newTabSpec(getResources().getString(R.string.title_yeasts_dry));
@@ -119,16 +115,16 @@ public class FragmentYeasts extends Fragment {
         spec.setIndicator(getResources().getString(R.string.title_yeasts_slurry));
         mTabHost.addTab(spec);
 
-        txtBeerAmount = (EditText)view.findViewById(R.id.txt_yeast_priming_size);
-        txtGravity = (EditText)view.findViewById(R.id.txt_yeast_extract);
-        txtYeastNeeded = (TextView)view.findViewById(R.id.txt_yeast_needed);
-        spGravityUnit = (Spinner)view.findViewById(R.id.sp_yeast_extract_unit);
-        spVolumeUnit = (Spinner)view.findViewById(R.id.sp_yeast_priming_size);
-        rgBeerStyle = (RadioGroup)view.findViewById(R.id.toggle_yeast_beer_style);
-        txtHarvestDate = (EditText)view.findViewById(R.id.txt_harvest_date);
+        txtBeerAmount = view.findViewById(R.id.txt_yeast_priming_size);
+        txtGravity = view.findViewById(R.id.txt_yeast_extract);
+        txtYeastNeeded = view.findViewById(R.id.txt_yeast_needed);
+        spGravityUnit = view.findViewById(R.id.sp_yeast_extract_unit);
+        spVolumeUnit = view.findViewById(R.id.sp_yeast_priming_size);
+        rgBeerStyle = view.findViewById(R.id.toggle_yeast_beer_style);
+        txtHarvestDate = view.findViewById(R.id.txt_harvest_date);
         //txtDryProdDate = (EditText)view.findViewById(R.id.txt_dry_production_date);
         //txtLiquidProdDate = (EditText)view.findViewById(R.id.txt_liquid_production_date);
-        txtSlurryYeastNeeded = (TextView) view.findViewById(R.id.txt_yeast_slurry_needed);
+        txtSlurryYeastNeeded = view.findViewById(R.id.txt_yeast_slurry_needed);
         //txtLiquidPacksNeeded = (TextView) view.findViewById(R.id.txt_yeast_liquid_needed);
         //txtStarterSizeNeeded = (TextView) view.findViewById(R.id.txt_starter_size);
 

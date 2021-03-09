@@ -54,14 +54,6 @@ public class FileDB {
         SaveDBFileContent(context, confString);
     }
 
-    public static void saveDefaultUnit(ExtractUnit extUnit, Context context) {
-        setCfgValue(strUnit, extUnit.toString(), context);
-    }
-
-    public static void saveDefaultLanguage(Language language, Context context) {
-        setCfgValue(strLang, language.getLocale(), context);
-    }
-
     /**
      * Save content to the file
      * @param context application context
@@ -124,21 +116,6 @@ public class FileDB {
         return defUnit;
     }
 
-    public static WeightUnit getDefaultWeightUnit(Context context) {
-        Log.d("FileDB", "Read configuration default weight unit");
-        WeightUnit weightUnit = WeightUnit.G;
-
-        String content = ReadDBFileContent(context);
-        String readUnit = getCfgValue(strWeightUnit, content);
-        if (readUnit.length() > 0) {
-            weightUnit = WeightUnit.valueOf(readUnit);
-        }
-
-        Log.d("FileDB", "Default weight unit is: " + weightUnit.toString());
-
-        return weightUnit;
-    }
-
     public static boolean getDefaultUsingRefractometer(Context context) {
         Log.d("FileDB", "Read configuration default using refractometer");
         boolean useRefr = false;
@@ -149,7 +126,7 @@ public class FileDB {
             useRefr = true;
         }
 
-        Log.d("FileDB", "Default using refractometer is: " + Boolean.toString(useRefr));
+        Log.d("FileDB", "Default using refractometer is: " + useRefr);
         return useRefr;
     }
 
@@ -169,32 +146,8 @@ public class FileDB {
             }
         }
 
-        Log.d("FileDB", "Default wort correction factor is: " + Double.toString(defWortFactor));
+        Log.d("FileDB", "Default wort correction factor is: " + defWortFactor);
         return defWortFactor;
-    }
-
-    public static double getDefaultPrimingSize(Context context) {
-        Log.d("FileDB", "Read configuration default priming size");
-        // todo
-        return 0;
-    }
-
-    public static Language getDefaultLanguage(Context context) {
-        Log.d("FileDB", "Read configuration default language");
-        String defLang = "en";
-
-        String content = ReadDBFileContent(context);
-        Log.d("FileDB", "Content of cfg: " + content);
-        String readLang = getCfgValue(strLang, content);
-        Log.d("FileDB", "Read language from cfg: " + readLang);
-        if (readLang.length() > 0) {
-            defLang = readLang;
-        }
-
-
-
-        Log.d("FileDB", "Default language is: " + defLang);
-        return DictLanguages.getLanguageByLocale(defLang);
     }
 
     private static String getCfgValue(String type, String content) {
@@ -204,7 +157,7 @@ public class FileDB {
         for (String s: cfgValues) {
             Log.d("FileDB", "Item in splitted: " + s);
             if (s.length() > 0 && s.contains(cfgValStart)) {
-                String keyVal[] = s.split(cfgValStart);
+                String[] keyVal = s.split(cfgValStart);
                 if (keyVal.length == 2) {
                     if (keyVal[0].equals(type)) {
                         Log.d("FileDB", "Return cfg value: " + keyVal[1]);

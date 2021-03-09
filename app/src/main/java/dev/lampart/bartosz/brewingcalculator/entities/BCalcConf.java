@@ -29,19 +29,6 @@ public class BCalcConf {
         this.defWeightUnit = WeightUnit.G;
     }
 
-    public BCalcConf(ExtractUnit defExtractUnit, boolean defUseRefractometer, double defWortCorrectionFactor,
-                     double defPrimingSize, VolumeUnit defVolumeUnit, double defTemp, TemperatureUnit defTempUnit,
-                     WeightUnit defWeightUnit) {
-        this.defExtractUnit = defExtractUnit;
-        this.defUseRefractometer = defUseRefractometer;
-        this.defWortCorrectionFactor = defWortCorrectionFactor;
-        this.defPrimingSize = defPrimingSize;
-        this.defVolumeUnit = defVolumeUnit;
-        this.defTemperature = defTemp;
-        this.defTempUnit = defTempUnit;
-        this.defWeightUnit = defWeightUnit;
-    }
-
     public ExtractUnit getDefExtractUnit() {
         return defExtractUnit;
     }

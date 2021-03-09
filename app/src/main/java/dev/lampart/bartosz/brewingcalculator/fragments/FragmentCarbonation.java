@@ -2,7 +2,6 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.SugarType;
@@ -109,16 +109,16 @@ public class FragmentCarbonation extends Fragment implements TextWatcher, Adapte
 
 
     private void getControlsFromView(View rootView) {
-        txtPrimingSize = (EditText)rootView.findViewById(R.id.txt_priming_size);
-        txtCO2 = (EditText)rootView.findViewById(R.id.txt_co2_volumes);
-        txtBeerTemp = (EditText)rootView.findViewById(R.id.txt_beer_temp);
+        txtPrimingSize = rootView.findViewById(R.id.txt_priming_size);
+        txtCO2 = rootView.findViewById(R.id.txt_co2_volumes);
+        txtBeerTemp = rootView.findViewById(R.id.txt_beer_temp);
 
-        spPrimingSize = (Spinner)rootView.findViewById(R.id.sp_priming_size);
-        spBeerTemp = (Spinner)rootView.findViewById(R.id.sp_temp_scale);
+        spPrimingSize = rootView.findViewById(R.id.sp_priming_size);
+        spBeerTemp = rootView.findViewById(R.id.sp_temp_scale);
 
-        txtAmountTableSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_table_sugar);
-        txtAmountCornSugar = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_corn_sugar);
-        txtAmountDME = (TextView)rootView.findViewById(R.id.txt_priming_sugar_amount_value_dme);
+        txtAmountTableSugar = rootView.findViewById(R.id.txt_priming_sugar_amount_value_table_sugar);
+        txtAmountCornSugar = rootView.findViewById(R.id.txt_priming_sugar_amount_value_corn_sugar);
+        txtAmountDME = rootView.findViewById(R.id.txt_priming_sugar_amount_value_dme);
     }
 
     private void calculateCarbonation(EditText txtPrimingSize, EditText txtCO2, EditText txtBeerTemp,

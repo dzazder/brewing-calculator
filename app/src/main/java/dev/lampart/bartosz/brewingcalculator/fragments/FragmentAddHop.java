@@ -3,8 +3,6 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +10,14 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
 import dev.lampart.bartosz.brewingcalculator.R;
-import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopIntentValues;
 import dev.lampart.bartosz.brewingcalculator.dicts.HopType;
 import dev.lampart.bartosz.brewingcalculator.dicts.RequestCodes;
-import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.WeightUnit;
-import dev.lampart.bartosz.brewingcalculator.entities.IBUData;
-import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 
@@ -40,7 +33,6 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
     Spinner spWeightUnit;
     Spinner spHopType;
 
-    IBUData ibuData = null;
     int ibuIndex = -1;
 
     @Override
@@ -48,18 +40,18 @@ public class FragmentAddHop extends DialogFragment implements View.OnClickListen
         dialogView = inflater.inflate(R.layout.dialog_add_hop, container, false);
         //fragmentIBU = inflater.inflate(R.layout.fragment_ibu, container, false);
 
-        txtAlpha = (EditText) dialogView.findViewById(R.id.txt_ibu_alpha);
-        txtWeight = (EditText) dialogView.findViewById(R.id.txt_ibu_weight);
-        txtMinutes = (EditText) dialogView.findViewById(R.id.txt_ibu_time);
-        spWeightUnit = (Spinner) dialogView.findViewById(R.id.sp_hop_weight_unit);
-        spHopType = (Spinner) dialogView.findViewById(R.id.sp_hop_type);
+        txtAlpha = dialogView.findViewById(R.id.txt_ibu_alpha);
+        txtWeight = dialogView.findViewById(R.id.txt_ibu_weight);
+        txtMinutes = dialogView.findViewById(R.id.txt_ibu_time);
+        spWeightUnit = dialogView.findViewById(R.id.sp_hop_weight_unit);
+        spHopType = dialogView.findViewById(R.id.sp_hop_type);
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        Button btnCancel = (Button)dialogView.findViewById(R.id.btn_add_hop_cancel);
+        Button btnCancel = dialogView.findViewById(R.id.btn_add_hop_cancel);
         btnCancel.setOnClickListener(this);
 
-        Button btnSave = (Button)dialogView.findViewById(R.id.btn_add_hop_save);
+        Button btnSave = dialogView.findViewById(R.id.btn_add_hop_save);
         btnSave.setOnClickListener(this);
 
         Bundle bundle = this.getArguments();

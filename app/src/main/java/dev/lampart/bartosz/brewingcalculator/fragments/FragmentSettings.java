@@ -51,16 +51,16 @@ public class FragmentSettings extends DialogFragment implements View.OnClickList
     }
 
     private void getControls(View dialogview) {
-        spDefaultExtractUnit = (Spinner) dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
-        chbUseRefractometer = (CheckBox) dialogview.findViewById(R.id.chb_always_use_refractometer);
-        txtWortCorrectFactor = (EditText) dialogview.findViewById(R.id.txt_default_wort_correction_factor);
-        txtPrimingSize = (EditText) dialogview.findViewById(R.id.txt_default_priming_size);
-        spDefaultPrimingVol = (Spinner) dialogview.findViewById(R.id.sp_default_priming_size);
-        txtBeerTemp = (EditText) dialogview.findViewById(R.id.txt_default_beer_temp);
-        spDefaultTempScale = (Spinner) dialogview.findViewById(R.id.sp_default_temp_scale);
-        spDefaultWeightUnit = (Spinner) dialogview.findViewById(R.id.sp_default_weight_unit);
-        btnSettingsCancel = (Button) dialogview.findViewById(R.id.btn_settings_cancel);
-        btnSettingsSave = (Button) dialogview.findViewById(R.id.btn_settings_save);
+        spDefaultExtractUnit = dialogview.findViewById(R.id.spinner_choose_default_extract_unit);
+        chbUseRefractometer = dialogview.findViewById(R.id.chb_always_use_refractometer);
+        txtWortCorrectFactor = dialogview.findViewById(R.id.txt_default_wort_correction_factor);
+        txtPrimingSize = dialogview.findViewById(R.id.txt_default_priming_size);
+        spDefaultPrimingVol = dialogview.findViewById(R.id.sp_default_priming_size);
+        txtBeerTemp = dialogview.findViewById(R.id.txt_default_beer_temp);
+        spDefaultTempScale = dialogview.findViewById(R.id.sp_default_temp_scale);
+        spDefaultWeightUnit = dialogview.findViewById(R.id.sp_default_weight_unit);
+        btnSettingsCancel = dialogview.findViewById(R.id.btn_settings_cancel);
+        btnSettingsSave = dialogview.findViewById(R.id.btn_settings_save);
     }
 
     private void initAllControls() {

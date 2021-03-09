@@ -2,7 +2,6 @@ package dev.lampart.bartosz.brewingcalculator.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.HydrometerCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
@@ -68,12 +68,12 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
     }
 
     private void getControlsFromView(View rootView) {
-        txtGravity = (EditText)rootView.findViewById(R.id.txt_hydrometer_measured_gravity);
-        txtTemperature = (EditText)rootView.findViewById(R.id.txt_adjustment_temperature);
-        spGravity = (Spinner)rootView.findViewById(R.id.sp_hydrometer_gravity_unit);
-        spRealGravity = (Spinner)rootView.findViewById(R.id.sp_hydrometer_real_gravity_unit);
-        rgTemperature = (RadioGroup)rootView.findViewById(R.id.temp_unit_selector);
-        lblRealGravity = (TextView)rootView.findViewById(R.id.lbl_hydrometer_real_gravity);
+        txtGravity = rootView.findViewById(R.id.txt_hydrometer_measured_gravity);
+        txtTemperature = rootView.findViewById(R.id.txt_adjustment_temperature);
+        spGravity = rootView.findViewById(R.id.sp_hydrometer_gravity_unit);
+        spRealGravity = rootView.findViewById(R.id.sp_hydrometer_real_gravity_unit);
+        rgTemperature = rootView.findViewById(R.id.temp_unit_selector);
+        lblRealGravity = rootView.findViewById(R.id.lbl_hydrometer_real_gravity);
     }
 
     private void calculateGravity(EditText txtGravity, EditText txtTemperature, Spinner spGravity,

@@ -12,23 +12,12 @@ public class Language {
         this.locale = locale;
     }
 
-    public Language() {
-    }
-
     public String getLangName() {
         return langName;
     }
 
-    public void setLangName(String langName) {
-        this.langName = langName;
-    }
-
     public String getLocale() {
         return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
     }
 
     @Override

@@ -1,29 +1,19 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import dev.lampart.bartosz.brewingcalculator.BrewingCalculatorApplication;
+import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.MainActivity;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.HomeMenuItemAdapter;
-import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.entities.MainMenuItem;
 import dev.lampart.bartosz.brewingcalculator.global.MainMenu;
 
@@ -39,7 +29,7 @@ public class FragmentHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         getActivity().setTitle(R.string.app_name);
 
-        ListView menuList = (ListView)view.findViewById(R.id.view_home_menu);
+        ListView menuList = view.findViewById(R.id.view_home_menu);
 
         final HomeMenuItemAdapter adapter = new HomeMenuItemAdapter(getActivity(), MainMenu.getInstance().items);
         menuList.setAdapter(adapter);
@@ -54,11 +44,18 @@ public class FragmentHome extends Fragment {
             }
         });
 
+        Button btnReportIssue = view.findViewById(R.id.btn_report_issue);
+        btnReportIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMail();
+            }
+        });
 
         return view;
     }
 
-    public void sendMail(View v) {
+    public void sendMail() {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL, new String[]{"dzazder+brewingcalculator@gmail.com"});
