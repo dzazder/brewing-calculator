@@ -1,8 +1,9 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
-import android.util.Log;
-
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import dev.lampart.bartosz.brewingcalculator.dicts.SugarType;
 import dev.lampart.bartosz.brewingcalculator.dicts.TemperatureUnit;
@@ -14,28 +15,39 @@ import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
  */
 public class CarbonationCalc extends Calc {
 
-    public static ArrayList<Tuple<SugarType, Double>> calcSugarAmount(double primingSize, double co2, double beerTemp,
-                                                                      VolumeUnit primingUnit, TemperatureUnit tempUnit) {
+    private final UnitCalc unitCalcService;
+
+    private final double cornSugarFactor = 1.0985;
+    private final double dmeFactor = 1.4705;
+
+    @Inject
+    public CarbonationCalc(UnitCalc unitCalcService) {
+        this.unitCalcService = unitCalcService;
+    }
+
+    public List<Tuple<SugarType, Double>> calcSugarAmount(double primingSize, double co2, double beerTemp,
+                                                                 VolumeUnit primingUnit, TemperatureUnit tempUnit) {
 
         if (tempUnit == TemperatureUnit.C) {
-            beerTemp = UnitCalc.calcCelsiusToFahrenheit(beerTemp);
+            beerTemp = unitCalcService.calcCelsiusToFahrenheit(beerTemp);
         }
         if (primingUnit == VolumeUnit.Liter) {
-            primingSize = UnitCalc.calcLitresToGallons(primingSize);
+            primingSize = unitCalcService.calcLitresToGallons(primingSize);
         }
 
         double dissolvedCO2 = 3.0378 - (0.050062 * beerTemp) + (0.00026555 * Math.pow(beerTemp, 2));
         double standardAmount = (co2 - dissolvedCO2) / 0.0131686;    // dextrose, 5 gallons
         double result = standardAmount * primingSize / 5;   // standard is for 5 gallons
-        //Log.d("Carbonation", "Result: " + result);
-        // corn sugar 1.0985
-        // lde 1.4705
 
-        ArrayList<Tuple<SugarType, Double>> resultArray = new ArrayList<Tuple<SugarType, Double>>();
+        List<Tuple<SugarType, Double>> resultArray = new ArrayList<>();
 
-        resultArray.add(new Tuple(SugarType.TableSugar, result));
-        resultArray.add(new Tuple(SugarType.CornSugar, 1.0985 * result));
-        resultArray.add(new Tuple(SugarType.DME, 1.4705 * result));
+        Tuple<SugarType, Double> tableSugarResult = new Tuple<>(SugarType.TableSugar, result);
+        Tuple<SugarType, Double> cornSugarResult = new Tuple<>(SugarType.CornSugar, cornSugarFactor * result);
+        Tuple<SugarType, Double> dmeResult = new Tuple<>(SugarType.DME, dmeFactor * result);
+
+        resultArray.add(tableSugarResult);
+        resultArray.add(cornSugarResult);
+        resultArray.add(dmeResult);
 
         return resultArray;
     }

@@ -1,14 +1,26 @@
 package dev.lampart.bartosz.brewingcalculator.calculators;
 
+import javax.inject.Inject;
+
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.ExtractRaws;
 
 public class GravityCorrectionCalc extends Calc {
 
-    private int _liquidExtractCorrectionFactor = 35;
-    private int _dryExtractCorrectionFactor = 44;
-    private int _cornSugarCorrectionFactor = 37;
+    private final ExtractCalc extractCalcService;
+    private final UnitCalc unitCalcService;
+
+    private final int _liquidExtractCorrectionFactor = 35;
+    private final int _dryExtractCorrectionFactor = 44;
+    private final int _cornSugarCorrectionFactor = 37;
+    private final int _tableSugarCorrectionFactor = 46;
+
+    @Inject
+    public GravityCorrectionCalc(ExtractCalc extractCalc, UnitCalc unitCalcService) {
+        this.extractCalcService = extractCalc;
+        this.unitCalcService = unitCalcService;
+    }
 
     /**
      *
@@ -25,19 +37,19 @@ public class GravityCorrectionCalc extends Calc {
                                         double expextedGravity, ExtractUnit expectedGravityUnit) {
 
         if (batchUnit == VolumeUnit.Liter) {
-            batchSize = UnitCalc.calcLitresToGallons(batchSize);
+            batchSize = unitCalcService.calcLitresToGallons(batchSize);
         }
         if (gravityUnit == ExtractUnit.Brix) {
-            gravity = ExtractCalc.calcBrixToSG(gravity);
+            gravity = extractCalcService.calcBrixToSG(gravity);
         }
         if (gravityUnit == ExtractUnit.Plato) {
-            gravity = ExtractCalc.calcPlatoToSG(gravity);
+            gravity = extractCalcService.calcPlatoToSG(gravity);
         }
         if (expectedGravityUnit == ExtractUnit.Brix) {
-            expextedGravity = ExtractCalc.calcBrixToSG(expextedGravity);
+            expextedGravity = extractCalcService.calcBrixToSG(expextedGravity);
         }
         if (expectedGravityUnit == ExtractUnit.Plato) {
-            expextedGravity = ExtractCalc.calcPlatoToSG(expextedGravity);
+            expextedGravity = extractCalcService.calcPlatoToSG(expextedGravity);
         }
 
         double expectedRaw = 1000 * batchSize * (expextedGravity - gravity);
@@ -45,7 +57,8 @@ public class GravityCorrectionCalc extends Calc {
         double expectedLiquidMalt = expectedRaw / _liquidExtractCorrectionFactor;
         double expectedDryExtract = expectedRaw / _dryExtractCorrectionFactor;
         double expectedCornSugar = expectedRaw / _cornSugarCorrectionFactor;
+        double expectedTableSugar = expectedRaw / _tableSugarCorrectionFactor;
 
-        return new ExtractRaws(expectedLiquidMalt, expectedDryExtract, expectedCornSugar);
+        return new ExtractRaws(expectedLiquidMalt, expectedDryExtract, expectedCornSugar, expectedTableSugar);
     }
 }

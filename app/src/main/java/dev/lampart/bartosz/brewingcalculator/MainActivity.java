@@ -13,22 +13,43 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.hilt.android.AndroidEntryPoint;
+import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.HydrometerCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentCarbonation;
+import dev.lampart.bartosz.brewingcalculator.fragments.FragmentGravityCorrection;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHome;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentHydrometer;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentIBU;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSettings;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentSgPlato;
-import dev.lampart.bartosz.brewingcalculator.fragments.FragmentGravityCorrection;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentYeasts;
 import dev.lampart.bartosz.brewingcalculator.global.ConstStrings;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
     private boolean showBackStackButton;
+
+    private AlcoholCalc alcoholCalc;
+    private CarbonationCalc carbonationCalc;
+    private ExtractCalc extractCalc;
+    private GravityCorrectionCalc gravityCorrectionCalc;
+    private HydrometerCalc hydrometerCalc;
+    private IBUCalc ibuCalc;
+    private UnitCalc unitCalc;
+    private WaterCorrectionCalc waterCorrectionCalc;
+    private YeastCalc yeastCalc;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         BrewingCalculatorApplication.setContext(this);
         setContentView(R.layout.activity_main);
+
+        // DI
+        extractCalc = new ExtractCalc();
+        unitCalc = new UnitCalc();
+
+        alcoholCalc = new AlcoholCalc(extractCalc);
+        carbonationCalc = new CarbonationCalc(unitCalc);
+        gravityCorrectionCalc = new GravityCorrectionCalc(extractCalc, unitCalc);
+        hydrometerCalc = new HydrometerCalc(extractCalc, unitCalc);
+        ibuCalc = new IBUCalc(extractCalc, unitCalc);
+        waterCorrectionCalc = new WaterCorrectionCalc(extractCalc, unitCalc);
+        yeastCalc = new YeastCalc(extractCalc, unitCalc);
+        // end of DI
 
         if (savedInstanceState == null) {
             switchFragment(DictFragment.FRAGMENT_HOME);
@@ -75,9 +109,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
 
-                //FragmentManager fm = getSupportFragmentManager();
+                FragmentManager fm = getSupportFragmentManager();
+
                 FragmentSettings fs = new FragmentSettings();
-                fs.show(getFragmentManager(), "fragment_settings");
+                fs.show(fm, "fragment_settings");
                 break;
 
             default:
@@ -95,25 +130,25 @@ public class MainActivity extends AppCompatActivity {
         Fragment newFragment = null;
         switch (fragment) {
             case DictFragment.FRAGMENT_OG_PLATO:
-                newFragment = new FragmentSgPlato();
+                newFragment = new FragmentSgPlato(extractCalc);
                 break;
             case DictFragment.FRAGMENT_ALCOHOL:
-                newFragment = new FragmentAlcohol();
+                newFragment = new FragmentAlcohol(alcoholCalc, extractCalc);
                 break;
             case DictFragment.FRAGMENT_CARBONATION:
-                newFragment = new FragmentCarbonation();
+                newFragment = new FragmentCarbonation(carbonationCalc);
                 break;
             case DictFragment.FRAGMENT_YEASTS:
-                newFragment = new FragmentYeasts();
+                newFragment = new FragmentYeasts(yeastCalc);
                 break;
             case DictFragment.FRAGMENT_HYDROMETER:
-                newFragment = new FragmentHydrometer();
+                newFragment = new FragmentHydrometer(hydrometerCalc);
                 break;
             case DictFragment.FRAGMENT_IBU:
-                newFragment = new FragmentIBU();
+                newFragment = new FragmentIBU(ibuCalc);
                 break;
             case DictFragment.FRAGMENT_EXTRACT_CORRECTION:
-                newFragment = new FragmentGravityCorrection();
+                newFragment = new FragmentGravityCorrection(gravityCorrectionCalc, waterCorrectionCalc, unitCalc);
                 break;
             default:
                 newFragment = new FragmentHome();

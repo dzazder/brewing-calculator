@@ -1,6 +1,5 @@
 package dev.lampart.bartosz.brewingcalculator.fragments;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.fragment.app.DialogFragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.dbfile.FileDB;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;

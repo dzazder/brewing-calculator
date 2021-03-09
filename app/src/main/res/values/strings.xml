@@ -107,6 +107,7 @@
     <string name="lbl_estimated_ibu">Estimated IBU:</string>
     <string name="dry_extract">of dry extract</string>
     <string name="corn_sugar">of corn sugar</string>
+    <string name="table_sugar">of table sugar</string>
     <string name="lbl_have_to_add">You have to add</string>
     <string name="lbl_of_water">of water</string>
     <string name="lbl_or">or</string>

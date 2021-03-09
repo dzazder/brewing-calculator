@@ -4,12 +4,14 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import dagger.hilt.android.HiltAndroidApp;
 import dev.lampart.bartosz.brewingcalculator.dbfile.FileDB;
 import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 
 /**
  * Created by bartek on 09.06.2016.
  */
+@HiltAndroidApp
 public class BrewingCalculatorApplication extends Application {
 
     private static Context mContext = null;

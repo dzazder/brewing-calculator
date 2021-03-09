@@ -23,6 +23,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.IBUHopItemAdapter;
@@ -57,8 +60,11 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
     private ArrayList<IBUData> items = new ArrayList<IBUData>();
     private IBUHopItemAdapter hopItemAdapter;
 
-    public FragmentIBU() {
-        // Required empty public constructor
+    private final IBUCalc ibuCalcService;
+
+    @Inject
+    public FragmentIBU(IBUCalc ibuCalcService) {
+        this.ibuCalcService = ibuCalcService;
     }
 
     @Override
@@ -211,10 +217,10 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
                 ibuDatas.add(ibuData);
             }
 
-            double ibuRager = IBUCalc.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
+            double ibuRager = ibuCalcService.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
                     IBUCalc.FormulaTypeIBU.RAGER);
 
-            double ibuTinseth = IBUCalc.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
+            double ibuTinseth = ibuCalcService.calcIBU(ibuDatas, gravity, primingSize, gravityUnit, volUnit,
                     IBUCalc.FormulaTypeIBU.TINSETH);
 
             setEstimatedIBUValue(txtEstimatedIBURager, ibuRager);
@@ -225,10 +231,10 @@ public class FragmentIBU extends Fragment implements TextWatcher, AdapterView.On
 
     private void setEstimatedIBUValue(TextView txtToSet, double valToSet) {
         if (valToSet < 0) {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorError));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtToSet.setText(getResources().getText(R.string.incorrect_value));
         } else {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             txtToSet.setText(String.format(Locale.US, "%.1f IBU", valToSet));
         }
     }

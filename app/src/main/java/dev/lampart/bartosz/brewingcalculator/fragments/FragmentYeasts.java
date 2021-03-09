@@ -30,6 +30,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
@@ -72,8 +75,11 @@ public class FragmentYeasts extends Fragment {
 
     private AdView mAdView;
 
-    public FragmentYeasts() {
-        // Required empty public constructor
+    private final YeastCalc yeastCalcService;
+
+    @Inject
+    public FragmentYeasts(YeastCalc yeastCalcService) {
+        this.yeastCalcService = yeastCalcService;
     }
 
     @Override
@@ -370,7 +376,7 @@ public class FragmentYeasts extends Fragment {
                 case R.id.toggle_option_yeast_lager: beerStyle = BeerStyle.Lager; break;
             }
 
-            long yeastNeeded = YeastCalc.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
+            long yeastNeeded = yeastCalcService.calcYeastCells(beerAmount, gravity, volUnit, gravityUnit,beerStyle);
             setYeastNeededValue(yeastNeeded, txtYeastNeeded);
 
             //setDryYeastNeeded(yeastNeeded, dryProdDate);
@@ -382,59 +388,60 @@ public class FragmentYeasts extends Fragment {
 
     private void setLiquidPacksNeeded(long yeastNeeded, Date prodDate) {
         if (yeastNeeded < 0) {
-            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtLiquidPacksNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtLiquidPacksNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtLiquidPacksNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
-            double liquidYeastPacksNeeded = YeastCalc.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
+            txtLiquidPacksNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            double liquidYeastPacksNeeded = yeastCalcService.calcLiquidPackwWithoutStarter(yeastNeeded, prodDate);
             txtLiquidPacksNeeded.setText(String.format(Locale.US, "%.2f", liquidYeastPacksNeeded));
         }
     }
 
     private void setStarterSize(long yeastNeeded, Date prodDate) {
         if (yeastNeeded < 0) {
-            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtStarterSizeNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtStarterSizeNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtStarterSizeNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
-            double starterSizeNeeded = YeastCalc.calcMililitersOfStarter(yeastNeeded, prodDate);
+            txtStarterSizeNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            double starterSizeNeeded = yeastCalcService.calcMililitersOfStarter(yeastNeeded, prodDate);
             txtStarterSizeNeeded.setText(String.format(Locale.US, "%.2f ml", starterSizeNeeded));
         }
     }
 
     private void setSlurryNeeded(long yeastNeeded, Date harvestDate) {
         if (yeastNeeded < 0) {
-            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtSlurryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtSlurryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtSlurryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
-            double slurryYeastNeeded = YeastCalc.calcMililitersOfSlurry(yeastNeeded, harvestDate);
+            txtSlurryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            double slurryYeastNeeded = yeastCalcService.calcMililitersOfSlurry(yeastNeeded, harvestDate);
             txtSlurryYeastNeeded.setText(String.format(Locale.US, "%.2f ml", slurryYeastNeeded));
         }
     }
 
     private void setDryYeastNeeded(long yeastNeeded, Date productionDate) {
         if (yeastNeeded < 0) {
-            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorError));
+            txtDryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtDryYeastNeeded.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtDryYeastNeeded.setTextColor(getResources().getColor(R.color.colorAccent));
-            double dryYeastNeeded = YeastCalc.calcGramsOfDryYeast(yeastNeeded, productionDate);
+            txtDryYeastNeeded.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            double dryYeastNeeded = yeastCalcService.calcGramsOfDryYeast(yeastNeeded, productionDate);
             txtDryYeastNeeded.setText(String.format(Locale.US, "%.2f g", dryYeastNeeded));
         }
     }
 
     private void setYeastNeededValue(long yeast, TextView txtToSet) {
         if (yeast < 0) {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorError));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             txtToSet.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            txtToSet.setTextColor(getResources().getColor(R.color.colorAccent));
+            txtToSet.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            ;
 
             DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
             DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();

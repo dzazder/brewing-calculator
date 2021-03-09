@@ -2,16 +2,23 @@ package dev.lampart.bartosz.brewingcalculator.calculators;
 
 import android.util.Log;
 
+import javax.inject.Inject;
+
 import dev.lampart.bartosz.brewingcalculator.dicts.AlcFormula;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
-import dev.lampart.bartosz.brewingcalculator.global.AppConfiguration;
 import dev.lampart.bartosz.brewingcalculator.helpers.Triple;
-import dev.lampart.bartosz.brewingcalculator.helpers.Tuple;
 
 /**
  * Created by bartek on 01.07.2016.
  */
 public class AlcoholCalc extends Calc {
+
+    private final ExtractCalc extractCalcService;
+
+    @Inject
+    public AlcoholCalc(ExtractCalc extractCalc) {
+        this.extractCalcService = extractCalc;
+    }
 
     /**
      * Calculates Alcohol by volume and Attenuation
@@ -22,7 +29,7 @@ public class AlcoholCalc extends Calc {
      * @param useRefractometer
      * @return
      */
-    public static Triple<Double, Double, Double> CalculateAlcohol(double extBefore, double extAfter,
+    public Triple<Double, Double, Double> CalculateAlcohol(double extBefore, double extAfter,
                                                                   ExtractUnit extBeforeUnit, ExtractUnit extAfterUnit,
                                                                   boolean useRefractometer, double wortFactor, AlcFormula formula) {
         double alc = 0;
@@ -31,18 +38,18 @@ public class AlcoholCalc extends Calc {
         if (useRefractometer) {
             switch (extBeforeUnit) {
                 case SG:
-                    extBefore = ExtractCalc.calcSGToBrix(extBefore);
+                    extBefore = extractCalcService.calcSGToBrix(extBefore);
                     break;
                 case Plato:
-                    extBefore = ExtractCalc.calcPlatoToBrix(extBefore);
+                    extBefore = extractCalcService.calcPlatoToBrix(extBefore);
                     break;
             }
             switch (extAfterUnit) {
                 case SG:
-                    extAfter = ExtractCalc.calcSGToBrix(extAfter);
+                    extAfter = extractCalcService.calcSGToBrix(extAfter);
                     break;
                 case Plato:
-                    extAfter = ExtractCalc.calcPlatoToBrix(extAfter);
+                    extAfter = extractCalcService.calcPlatoToBrix(extAfter);
                     break;
             }
 
@@ -51,19 +58,19 @@ public class AlcoholCalc extends Calc {
         else {
             switch (extBeforeUnit) {
                 case Brix:
-                    extBefore = ExtractCalc.calcBrixToSG(extBefore);
+                    extBefore = extractCalcService.calcBrixToSG(extBefore);
                     break;
                 case Plato:
-                    extBefore = ExtractCalc.calcPlatoToSG(extBefore);
+                    extBefore = extractCalcService.calcPlatoToSG(extBefore);
                     break;
             }
 
             switch (extAfterUnit) {
                 case Brix:
-                    extAfter = ExtractCalc.calcBrixToSG(extAfter);
+                    extAfter = extractCalcService.calcBrixToSG(extAfter);
                     break;
                 case Plato:
-                    extAfter = ExtractCalc.calcPlatoToSG(extAfter);
+                    extAfter = extractCalcService.calcPlatoToSG(extAfter);
                     break;
             }
 
@@ -78,7 +85,7 @@ public class AlcoholCalc extends Calc {
         return new Triple<>(alc, att, extAfter);
     }
 
-    private static Triple<Double, Double, Double> calcAlcoholWithRefractometer(double brixOriginal, double brixFinal, double wortCorrectionFactor) {
+    private Triple<Double, Double, Double> calcAlcoholWithRefractometer(double brixOriginal, double brixFinal, double wortCorrectionFactor) {
         Log.d("CALC ALC", "==========");
         Log.d("CALC ALC", "Brix original: " + brixOriginal);
         Log.d("CALC ALC", "Brix final: " + brixFinal);

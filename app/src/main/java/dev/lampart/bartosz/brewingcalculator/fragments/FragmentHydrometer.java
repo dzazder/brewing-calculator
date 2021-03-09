@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.HydrometerCalc;
@@ -35,8 +38,11 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
     private RadioGroup rgTemperature;
     private TextView lblRealGravity;
 
-    public FragmentHydrometer() {
-        // Required empty public constructor
+    private final HydrometerCalc hydrometerCalcService;
+
+    @Inject
+    public FragmentHydrometer(HydrometerCalc hydrometerCalcService) {
+        this.hydrometerCalcService = hydrometerCalcService;
     }
 
 
@@ -92,7 +98,7 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
 
             ExtractUnit resultUnit = ExtractUnit.valueOf(spRealGravity.getSelectedItem().toString());
 
-            double realTemp = HydrometerCalc.calcAdjustmentGravity(gravity, temperature, grUnit,
+            double realTemp = hydrometerCalcService.calcAdjustmentGravity(gravity, temperature, grUnit,
                     tempUnit, resultUnit);
 
             setResultValue(realTemp);
@@ -101,11 +107,11 @@ public class FragmentHydrometer extends Fragment implements TextWatcher,
 
     private void setResultValue(double realGravity) {
         if (realGravity < 0) {
-            lblRealGravity.setTextColor(getResources().getColor(R.color.colorError));
+            lblRealGravity.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             lblRealGravity.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            lblRealGravity.setTextColor(getResources().getColor(R.color.colorAccent));
+            lblRealGravity.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             lblRealGravity.setText(String.format(Locale.US,
                     ExtractUnit.valueOf(spRealGravity.getSelectedItem().toString()) == ExtractUnit.SG ?
                             "%.3f" : "%.2f", realGravity));

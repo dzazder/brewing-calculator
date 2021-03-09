@@ -22,6 +22,9 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
@@ -53,8 +56,13 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
 
     private AdView mAdView;
 
-    public FragmentAlcohol() {
-        // Required empty public constructor
+    private final AlcoholCalc alcoholCalcService;
+    private final ExtractCalc extractCalcService;
+
+    @Inject
+    public FragmentAlcohol(AlcoholCalc alcoholCalcService, ExtractCalc extractCalcService) {
+        this.alcoholCalcService = alcoholCalcService;
+        this.extractCalcService = extractCalcService;
     }
 
     @Override
@@ -139,17 +147,17 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
                 alcFormula = AlcFormula.Alternative;
             }
 
-            Triple<Double, Double, Double> alcatt =  AlcoholCalc.CalculateAlcohol(dBefore, dAfter, extBefore,
-                    extAfter, useRefractometer, dWortFactor, alcFormula);
+            Triple<Double, Double, Double> alcatt =  alcoholCalcService.CalculateAlcohol(dBefore,
+                    dAfter, extBefore, extAfter, useRefractometer, dWortFactor, alcFormula);
 
             double fg = alcatt.z;
 
             ExtractUnit extUnit = AppConfiguration.getInstance().defaultSettings.getDefExtractUnit();
             if (extUnit == ExtractUnit.Brix) {
-                fg = ExtractCalc.calcSGToBrix(alcatt.z);
+                fg = extractCalcService.calcSGToBrix(alcatt.z);
             }
             if (extUnit == ExtractUnit.Plato) {
-                fg = ExtractCalc.calcSGToPlato(alcatt.z);
+                fg = extractCalcService.calcSGToPlato(alcatt.z);
             }
 
             setValues(alcatt.x, alcatt.y, fg, extUnit);
@@ -157,24 +165,25 @@ public class FragmentAlcohol extends Fragment implements AdapterView.OnItemSelec
     }
 
     private void setValues(double alco, double att, double fg, ExtractUnit fgUnit) {
+        String resultFormat = String.format(Locale.US, fgUnit == ExtractUnit.SG ? "%.3f %s" : "%.2f %s", fg, fgUnit.toString());
+
         if (alco <0 || alco > 100) {
-            
-            lblAlco.setTextColor(getResources().getColor(R.color.colorError));
+            lblAlco.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             lblAlco.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            lblAlco.setTextColor(getResources().getColor(R.color.colorAccent));
+            lblAlco.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             lblAlco.setText(String.format(Locale.US, "%.2f ", alco));
-            lblFG.setText(String.format(Locale.US, fgUnit == ExtractUnit.SG ? "%.3f %s" : "%.2f %s", fg, fgUnit.toString()));
+            lblFG.setText(resultFormat);
         }
         if (att < 0 || att > 100) {
-            lblAtt.setTextColor(getResources().getColor(R.color.colorError));
+            lblAtt.setTextColor(ContextCompat.getColor(getContext(), R.color.colorError));
             lblAtt.setText(getResources().getText(R.string.incorrect_value));
         }
         else {
-            lblAtt.setTextColor(getResources().getColor(R.color.colorAccent));
+            lblAtt.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             lblAtt.setText(String.format(Locale.US, "%.2f ", att));
-            lblFG.setText(String.format(Locale.US, fgUnit == ExtractUnit.SG ? "%.3f %s" : "%.2f %s", fg, fgUnit.toString()));
+            lblFG.setText(resultFormat);
         }
     }
 
