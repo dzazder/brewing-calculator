@@ -2,7 +2,7 @@ package dev.lampart.bartosz.brewingcalculator;
 
 import org.junit.Test;
 
-import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCorrectionCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.ExtractRaws;
@@ -12,7 +12,7 @@ import static junit.framework.Assert.assertEquals;
 public class ExtractCorrectionTest {
     @Test
     public void extractCorrectionTest() throws Exception {
-        ExtractCorrectionCalc calc = new ExtractCorrectionCalc();
+        GravityCorrectionCalc calc = new GravityCorrectionCalc();
         ExtractRaws result = calc.calculateExtract(5, VolumeUnit.Gallon, 1.04, ExtractUnit.SG, 1.05, ExtractUnit.SG);
 
         assertEquals(1.43, result.getLiquidMaltExtract(), 1);
@@ -22,7 +22,7 @@ public class ExtractCorrectionTest {
 
     @Test
     public void extractCorrectionTest2() throws Exception {
-        ExtractCorrectionCalc calc = new ExtractCorrectionCalc();
+        GravityCorrectionCalc calc = new GravityCorrectionCalc();
         ExtractRaws result = calc.calculateExtract(20, VolumeUnit.Liter, 1.04, ExtractUnit.SG, 1.07, ExtractUnit.SG);
 
         assertEquals(4.53, result.getLiquidMaltExtract(), 1);

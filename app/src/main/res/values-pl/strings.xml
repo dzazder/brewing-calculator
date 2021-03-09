@@ -63,13 +63,15 @@
     <string name="lbl_minutes">minuty</string>
     <string name="lbl_weight_unit">Jednostka wagi</string>
     <string name="lbl_calculated_fg">Obliczona gęstość końcowa</string>
-    <string name="description_water_correction">Oblicz ile dolać wody do brzeczki, aby uzyskać pożądaną gęstość</string>
+    <string name="title_gravity_correction">Korekta gęstości brzeczki</string>
+    <string name="description_gravity_correction">Oblicz ile dodać wody lub ekstraktu słodowego do brzeczki, aby uzyskać pożądaną gęstość</string>
     <string name="lbl_additional_water">Ilość wody do dolania</string>
     <string name="lbl_expected_gravity">Oczekiwana gęstość</string>
     <string name="lbl_report_issue">Zgłoś problem</string>
-    <string name="title_water_correction">Korekcja gęstości brzeczki wodą</string>
     <string name="liquid_extract">płynnego esktraktu</string>
     <string name="dry_extract">suchego ekstraktu</string>
     <string name="corn_sugar">glukozy</string>
     <string name="lbl_have_to_add">Musisz dodać</string>
+    <string name="lbl_of_water">wody</string>
+    <string name="lbl_or">lub</string>
 </resources>

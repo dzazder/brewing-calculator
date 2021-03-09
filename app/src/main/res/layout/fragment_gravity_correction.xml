@@ -132,11 +132,11 @@
 
                 <TextView
                     android:id="@+id/txt_additional_water"
-                    android:textColor="@color/colorAccentDark"
-                    android:textStyle="bold"
-                    android:text="--"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:text="--"
+                    android:textColor="@color/colorAccentDark"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

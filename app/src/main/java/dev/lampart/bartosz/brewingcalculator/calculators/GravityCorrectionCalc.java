@@ -4,12 +4,22 @@ import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.ExtractRaws;
 
-public class ExtractCorrectionCalc extends Calc {
+public class GravityCorrectionCalc extends Calc {
 
     private int _liquidExtractCorrectionFactor = 35;
     private int _dryExtractCorrectionFactor = 44;
     private int _cornSugarCorrectionFactor = 37;
 
+    /**
+     *
+     * @param batchSize
+     * @param batchUnit
+     * @param gravity
+     * @param gravityUnit
+     * @param expextedGravity
+     * @param expectedGravityUnit
+     * @return result in lbs
+     */
     public ExtractRaws calculateExtract(double batchSize, VolumeUnit batchUnit,
                                         double gravity, ExtractUnit gravityUnit,
                                         double expextedGravity, ExtractUnit expectedGravityUnit) {

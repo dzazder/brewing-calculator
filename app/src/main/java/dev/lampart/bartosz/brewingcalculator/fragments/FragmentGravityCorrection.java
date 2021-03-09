@@ -18,7 +18,7 @@ import com.google.android.gms.ads.AdView;
 
 import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
-import dev.lampart.bartosz.brewingcalculator.calculators.ExtractCorrectionCalc;
+import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
@@ -30,7 +30,7 @@ import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 /**
  * Created by bartek on 29.04.2017.
  */
-public class FragmentExtractCorrection extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener{
+public class FragmentGravityCorrection extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener{
 
     private EditText txtPrimingSize;
     private Spinner spPrimingSize;
@@ -46,13 +46,13 @@ public class FragmentExtractCorrection extends Fragment implements TextWatcher, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_extract_correction, container, false);
+        View view = inflater.inflate(R.layout.fragment_gravity_correction, container, false);
 
         mAdView = view.findViewById(R.id.adViewFragmentWaterCorrection);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        getActivity().setTitle(getResources().getString(R.string.title_water_correction));
+        getActivity().setTitle(getResources().getString(R.string.title_gravity_correction));
         initControls(view);
 
         return view;
@@ -128,27 +128,24 @@ public class FragmentExtractCorrection extends Fragment implements TextWatcher, 
 
                 double gallResult = UnitCalc.calcLitresToGallons(result);
 
-                txtToAdd.setText(String.format("%.2f %s / %.2f %s",
+                txtToAdd.setText(String.format("%.2f %s %s \n %.2f %s %s",
                         result,
                         getResources().getText(R.string.volume_unit_liters),
+                        getResources().getText(R.string.lbl_of_water),
                         gallResult,
-                        getResources().getText(R.string.volume_unit_gallons)));
+                        getResources().getText(R.string.volume_unit_gallons),
+                        getResources().getText(R.string.lbl_of_water)));
             }
             else {
-                ExtractCorrectionCalc extractCorrectionCalc = new ExtractCorrectionCalc();
+                GravityCorrectionCalc extractCorrectionCalc = new GravityCorrectionCalc();
                 ExtractRaws result = extractCorrectionCalc.calculateExtract(batchSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
 
-                txtToAdd.setText(String.format("%.2f %s / %.2f %s / %.2f %s",
-                        result.getLiquidMaltExtract(), getResources().getText(R.string.liquid_extract),
-                        result.getDryMaltExtract(), getResources().getText(R.string.dry_extract),
-                        result.getCornSugar(), getResources().getText(R.string.corn_sugar)));
+                txtToAdd.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
+                        result.getLiquidMaltExtract(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getLiquidMaltExtract()), getResources().getText(R.string.liquid_extract),
+                        result.getDryMaltExtract(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getDryMaltExtract()), getResources().getText(R.string.dry_extract),
+                        result.getCornSugar(), getResources().getText(R.string.lbl_or), UnitCalc.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar)));
             }
         }
-
-    }
-
-    private void calculateCorrectionExtract() {
-        ExtractCorrectionCalc calc = new ExtractCorrectionCalc();
 
     }
 

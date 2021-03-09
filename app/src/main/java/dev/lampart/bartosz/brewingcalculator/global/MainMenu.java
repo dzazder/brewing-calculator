@@ -47,8 +47,8 @@ public class MainMenu {
                 R.drawable.ic_yeast_fragment, DictFragment.FRAGMENT_HYDROMETER);
 
         MainMenuItem calcWaterCorrection = new MainMenuItem(7,
-                BrewingCalculatorApplication.getContext().getString(R.string.title_water_correction),
-                BrewingCalculatorApplication.getContext().getString(R.string.description_water_correction),
+                BrewingCalculatorApplication.getContext().getString(R.string.title_gravity_correction),
+                BrewingCalculatorApplication.getContext().getString(R.string.description_gravity_correction),
                 R.drawable.ic_water_correction, DictFragment.FRAGMENT_EXTRACT_CORRECTION);
 
 
