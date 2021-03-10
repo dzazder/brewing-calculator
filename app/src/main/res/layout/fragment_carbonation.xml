@@ -67,13 +67,21 @@
                 <TextView
                     android:text="@string/lbl_co2_volumes"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
 
-                <EditText android:layout_width="wrap_content"
+                <EditText android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:id="@+id/txt_co2_volumes"
                     android:background="@drawable/calc_field"
                     style="@style/StyleEditText_CalcFieldSmall"></EditText>
+
+                <TextView
+                    android:text=""
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
@@ -88,18 +96,21 @@
                 <TextView
                     android:text="@string/lbl_beer_temp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
 
-                <EditText android:layout_width="wrap_content"
+                <EditText android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:inputType="number"
                     android:id="@+id/txt_beer_temp"
                     android:background="@drawable/calc_field"
                     style="@style/StyleEditText_CalcFieldSmall"></EditText>
 
                 <Spinner
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:dropDownWidth="wrap_content"
                     android:spinnerMode="dropdown"
                     android:id="@+id/sp_temp_scale"
