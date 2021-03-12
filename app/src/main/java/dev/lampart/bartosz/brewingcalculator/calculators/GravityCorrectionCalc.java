@@ -61,4 +61,28 @@ public class GravityCorrectionCalc extends Calc {
 
         return new ExtractRaws(expectedLiquidMalt, expectedDryExtract, expectedCornSugar, expectedTableSugar);
     }
+
+    public double calcAdditionalWater(double batchSize, VolumeUnit batchUnit,
+                                      double gravity, ExtractUnit gravityUnit,
+                                      double expextedGravity, ExtractUnit expectedGravityUnit) {
+        if (batchUnit == VolumeUnit.Gallon) {
+            batchSize = unitCalcService.calcGallonsToLitres(batchSize);
+        }
+        if (gravityUnit == ExtractUnit.Brix) {
+            gravity = extractCalcService.calcBrixToPlato(gravity);
+        }
+        if (gravityUnit == ExtractUnit.SG) {
+            gravity = extractCalcService.calcSGToPlato(gravity);
+        }
+        if (expectedGravityUnit == ExtractUnit.Brix) {
+            expextedGravity = extractCalcService.calcBrixToPlato(expextedGravity);
+        }
+        if (expectedGravityUnit == ExtractUnit.SG) {
+            expextedGravity = extractCalcService.calcSGToPlato(expextedGravity);
+        }
+
+        double waterLiters = (batchSize * gravity) / expextedGravity;
+
+        return waterLiters - batchSize;
+    }
 }

@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
-import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.ExtractRaws;
@@ -45,13 +44,11 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
     private AdView mAdView;
 
     private final GravityCorrectionCalc gravityCorrectionCalcService;
-    private final WaterCorrectionCalc waterCorrectionCalcService;
     private final UnitCalc unitCalcService;
 
     @Inject
-    public FragmentGravityCorrection(GravityCorrectionCalc gravityCorrectionCalcService, WaterCorrectionCalc waterCorrectionCalcService, UnitCalc unitCalcService) {
+    public FragmentGravityCorrection(GravityCorrectionCalc gravityCorrectionCalcService, UnitCalc unitCalcService) {
         this.gravityCorrectionCalcService = gravityCorrectionCalcService;
-        this.waterCorrectionCalcService = waterCorrectionCalcService;
         this.unitCalcService = unitCalcService;
     }
 
@@ -136,7 +133,7 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
             }
 
             if (expGravity < gravity) {
-                double result = waterCorrectionCalcService.calcAdditionalWater(batchSize, volUnit,
+                double result = gravityCorrectionCalcService.calcAdditionalWater(batchSize, volUnit,
                         gravity, gravityUnit, expGravity, expGravityUnit);
 
                 double gallResult = unitCalcService.calcLitresToGallons(result);
