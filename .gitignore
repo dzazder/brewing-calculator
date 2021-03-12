@@ -45,6 +45,3 @@ captures/
 
 # Intellij
 *.iml 
-
-# Others
-/others/adv/*
