@@ -15,6 +15,15 @@
         android:dividerHeight="@dimen/padding_large">
     </ListView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_normal"
+        android:text=""
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/lbl_version"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

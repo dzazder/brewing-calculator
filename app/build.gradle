@@ -33,8 +33,9 @@ android {
 
 dependencies {
     implementation 'androidx.fragment:fragment:1.2.4'
+    implementation 'androidx.core:core:1.2.0'
     implementation 'com.android.support:multidex:1.0.3'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //compile 'com.android.support:appcompat-v7:25.3.1'
     //compile 'com.android.support:support-v4:25.3.1'
     implementation 'com.google.android.gms:play-services:11.0.0'

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
-import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.ExtractUnit;
 import dev.lampart.bartosz.brewingcalculator.dicts.VolumeUnit;
 import dev.lampart.bartosz.brewingcalculator.entities.ExtractRaws;
@@ -32,26 +33,30 @@ import dev.lampart.bartosz.brewingcalculator.helpers.NumberFormatter;
 /**
  * Created by bartek on 29.04.2017.
  */
-public class FragmentGravityCorrection extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener{
+public class FragmentGravityCorrection extends Fragment implements TextWatcher, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
-    private EditText txtPrimingSize;
-    private Spinner spPrimingSize;
-    private EditText txtGravity;
-    private Spinner spGravityUnit;
+    private EditText txtCurrentSize;
+    private Spinner spCurrentSizeUnit;
+    private EditText txtCurrentGravity;
+    private Spinner spCurrentGravityUnit;
     private EditText txtExpGravity;
     private Spinner spExpGravityUnit;
-    private TextView txtToAdd;
+    private EditText txtExpSize;
+    private Spinner spExpSizeUnit;
+    private TextView txtGravityChangesResult;
+    private RadioGroup rgCorrection;
+    private LinearLayout viewCorrectionGravity;
+    private LinearLayout viewCorrectionSize;
+    private TextView lblGravityChanges;
 
     private AdView mAdView;
 
     private final GravityCorrectionCalc gravityCorrectionCalcService;
-    private final WaterCorrectionCalc waterCorrectionCalcService;
     private final UnitCalc unitCalcService;
 
     @Inject
-    public FragmentGravityCorrection(GravityCorrectionCalc gravityCorrectionCalcService, WaterCorrectionCalc waterCorrectionCalcService, UnitCalc unitCalcService) {
+    public FragmentGravityCorrection(GravityCorrectionCalc gravityCorrectionCalcService, UnitCalc unitCalcService) {
         this.gravityCorrectionCalcService = gravityCorrectionCalcService;
-        this.waterCorrectionCalcService = waterCorrectionCalcService;
         this.unitCalcService = unitCalcService;
     }
 
@@ -73,62 +78,132 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
 
     private void initControls(View view) {
         getControlsFromView(view);
-        initPrimingSizeSpinner();
+        initSizeSpinner();
         initGravityUnitSpinner();
         initListeners();
+        setControlsView();
     }
 
     private void initListeners() {
-        txtGravity.addTextChangedListener(this);
-        txtPrimingSize.addTextChangedListener(this);
+        txtCurrentGravity.addTextChangedListener(this);
+        txtCurrentSize.addTextChangedListener(this);
         txtExpGravity.addTextChangedListener(this);
-        spGravityUnit.setOnItemSelectedListener(this);
-        spPrimingSize.setOnItemSelectedListener(this);
+        txtExpSize.addTextChangedListener(this);
+        spCurrentGravityUnit.setOnItemSelectedListener(this);
+        spCurrentSizeUnit.setOnItemSelectedListener(this);
         spExpGravityUnit.setOnItemSelectedListener(this);
+        spExpSizeUnit.setOnItemSelectedListener(this);
+
+        rgCorrection.setOnCheckedChangeListener(this);
     }
 
-    private void initPrimingSizeSpinner() {
+    private void initSizeSpinner() {
         ArrayAdapter<CharSequence> primingSizeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.volume_units,
                 android.R.layout.simple_spinner_item);
         VolumeUnit selDefVolUnit = VolumeUnit.valueOf(AppConfiguration.getInstance().defaultSettings.getDefVolumeUnit().toString());
         String valSelectedInSpinnerVol = "";
         switch (selDefVolUnit) {
-            case Liter: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters); break;
-            case Gallon: valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons); break;
+            case Liter:
+                valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_liters);
+                break;
+            case Gallon:
+                valSelectedInSpinnerVol = getActivity().getResources().getString(R.string.volume_unit_gallons);
+                break;
         }
-        int spinnerPrimingUnigPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
-        spPrimingSize.setSelection(spinnerPrimingUnigPosition);
+        int spinnerUnitPosition = primingSizeAdapter.getPosition(valSelectedInSpinnerVol);
+        spCurrentSizeUnit.setSelection(spinnerUnitPosition);
+        spExpSizeUnit.setSelection(spinnerUnitPosition);
     }
 
     private void initGravityUnitSpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.extract_units,
                 android.R.layout.simple_spinner_item);
         int spinnerPosition = adapter.getPosition(AppConfiguration.getInstance().defaultSettings.getDefExtractUnit().toString());
-        spGravityUnit.setSelection(spinnerPosition);
+        spCurrentGravityUnit.setSelection(spinnerPosition);
         spExpGravityUnit.setSelection(spinnerPosition);
     }
 
     private void getControlsFromView(View rootView) {
-        txtPrimingSize = rootView.findViewById(R.id.txt_wc_priming_size);
-        spPrimingSize = rootView.findViewById(R.id.sp_wc_priming_size);
-        txtGravity = rootView.findViewById(R.id.txt_wc_extract_after);
-        spGravityUnit = rootView.findViewById(R.id.sp_wc_extract_after);
-        txtExpGravity = rootView.findViewById(R.id.txt_wc_expected_gravity);
-        spExpGravityUnit = rootView.findViewById(R.id.sp_wc_expected_gravity_unit);
-        txtToAdd = rootView.findViewById(R.id.txt_additional_water);
+        txtCurrentSize = rootView.findViewById(R.id.txt_gc_current_size);
+        spCurrentSizeUnit = rootView.findViewById(R.id.sp_gc_current_size_units);
+        txtCurrentGravity = rootView.findViewById(R.id.txt_gc_current_gravity);
+        spCurrentGravityUnit = rootView.findViewById(R.id.sp_gc_current_gravity_units);
+        txtExpGravity = rootView.findViewById(R.id.txt_gc_expected_gravity);
+        spExpGravityUnit = rootView.findViewById(R.id.sp_gc_expected_gravity_units);
+        txtExpSize = rootView.findViewById(R.id.txt_gc_expected_size);
+        spExpSizeUnit = rootView.findViewById(R.id.sp_gc_expected_size_units);
+        txtGravityChangesResult = rootView.findViewById(R.id.txt_gravity_changes);
+        rgCorrection = rootView.findViewById(R.id.correction);
+        viewCorrectionGravity = rootView.findViewById(R.id.view_correction_gravity);
+        viewCorrectionSize = rootView.findViewById(R.id.view_correction_size);
+        lblGravityChanges = rootView.findViewById(R.id.lbl_gravity_changes);
     }
 
     private void calculate() {
-        if (NumberFormatter.isNumeric(txtPrimingSize.getText().toString()) &&
-                NumberFormatter.isNumeric(txtGravity.getText().toString()) &&
-                NumberFormatter.isNumeric(txtExpGravity.getText().toString())) {
 
-            double batchSize = Double.parseDouble(txtPrimingSize.getText().toString());
-            double gravity = Double.parseDouble(txtGravity.getText().toString());
-            double expGravity = Double.parseDouble(txtExpGravity.getText().toString());
-            String selectedVolUnit = spPrimingSize.getSelectedItem().toString();
-            ExtractUnit gravityUnit = ExtractUnit.valueOf(spGravityUnit.getSelectedItem().toString());
-            ExtractUnit expGravityUnit = ExtractUnit.valueOf(spExpGravityUnit.getSelectedItem().toString());
+        resetLabels();
+        double currentSize = NumberFormatter.getDoubleValue(txtCurrentSize);
+        double expSize = NumberFormatter.getDoubleValue(txtExpSize);
+        double gravity = NumberFormatter.getDoubleValue(txtCurrentGravity);
+        double expGravity = NumberFormatter.getDoubleValue(txtExpGravity);
+        String selectedVolUnit = spCurrentSizeUnit.getSelectedItem().toString();
+        String expVolUnit = spExpSizeUnit.getSelectedItem().toString();
+        ExtractUnit gravityUnit = ExtractUnit.valueOf(spCurrentGravityUnit.getSelectedItem().toString());
+        ExtractUnit expGravityUnit = ExtractUnit.valueOf(spExpGravityUnit.getSelectedItem().toString());
+
+        switch (rgCorrection.getCheckedRadioButtonId()) {
+            case R.id.correction_gravity:
+                calculateValuesForGravity(currentSize, selectedVolUnit, gravity, gravityUnit, expGravity, expGravityUnit);
+                break;
+            case R.id.correction_size:
+                calculateValueForSize(currentSize, selectedVolUnit, gravity, gravityUnit, expSize, expVolUnit);
+                break;
+        }
+    }
+
+    private void calculateValueForSize(double currentSize, String selectedVolUnit, double gravity,
+                                       ExtractUnit gravityUnit, double expSize, String expVolUnit) {
+        if (currentSize > 0 && gravity > 0 && expSize > 0) {
+            if (currentSize > expSize) {
+                lblGravityChanges.setText(getText(R.string.lbl_after_evaporation));
+            } else if (currentSize < expSize) {
+                lblGravityChanges.setText(getText(R.string.lbl_after_adding_water));
+            }
+
+            VolumeUnit volUnit = VolumeUnit.Gallon;
+            if (selectedVolUnit == getContext().getString(R.string.volume_unit_liters)) {
+                volUnit = VolumeUnit.Liter;
+            }
+
+            VolumeUnit volExpUnit = VolumeUnit.Gallon;
+            if (expVolUnit == getContext().getString(R.string.volume_unit_liters)) {
+                volExpUnit = VolumeUnit.Liter;
+            }
+
+            double result = gravityCorrectionCalcService.calcExtractAfterEvaporation(currentSize, volUnit, expSize, volExpUnit, gravity, gravityUnit);
+
+            String gravityUnitLabel = "";
+            switch (gravityUnit) {
+                case SG:
+                    gravityUnitLabel = "SG";
+                    break;
+                case Plato:
+                    gravityUnitLabel = "Plato";
+                    break;
+                case Brix:
+                    gravityUnitLabel = "Brix";
+                    break;
+            }
+
+            txtGravityChangesResult.setText(String.format("%.2f %s", result, gravityUnitLabel));
+        }
+    }
+
+    private void calculateValuesForGravity(double currentSize, String selectedVolUnit, double gravity,
+                                           ExtractUnit gravityUnit, double expGravity, ExtractUnit expGravityUnit) {
+
+        if (expGravity > 0 && currentSize > 0 && gravity > 0) {
+            lblGravityChanges.setText(getText(R.string.lbl_have_to_add));
 
             VolumeUnit volUnit = VolumeUnit.Gallon;
             if (selectedVolUnit == getContext().getString(R.string.volume_unit_liters)) {
@@ -136,30 +211,46 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
             }
 
             if (expGravity < gravity) {
-                double result = waterCorrectionCalcService.calcAdditionalWater(batchSize, volUnit,
+                double result = gravityCorrectionCalcService.calcAdditionalWater(currentSize, volUnit,
                         gravity, gravityUnit, expGravity, expGravityUnit);
 
                 double gallResult = unitCalcService.calcLitresToGallons(result);
 
-                txtToAdd.setText(String.format("%.2f %s %s \n %.2f %s %s",
+                txtGravityChangesResult.setText(String.format("%.2f %s %s \n %.2f %s %s",
                         result,
                         getResources().getText(R.string.volume_unit_liters),
                         getResources().getText(R.string.lbl_of_water),
                         gallResult,
                         getResources().getText(R.string.volume_unit_gallons),
                         getResources().getText(R.string.lbl_of_water)));
-            }
-            else {
-                ExtractRaws result = gravityCorrectionCalcService.calculateExtract(batchSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
+            } else {
+                ExtractRaws result = gravityCorrectionCalcService.calculateExtract(currentSize, volUnit, gravity, gravityUnit, expGravity, expGravityUnit);
 
-                txtToAdd.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
+                txtGravityChangesResult.setText(String.format("%.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s \n %.2f lbs %s %.2f kg %s",
                         result.getLiquidMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getLiquidMaltExtract()), getResources().getText(R.string.liquid_extract),
                         result.getDryMaltExtract(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getDryMaltExtract()), getResources().getText(R.string.dry_extract),
                         result.getCornSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getCornSugar()), getResources().getText(R.string.corn_sugar),
                         result.getTableSugar(), getResources().getText(R.string.lbl_or), unitCalcService.calcPoundsToKilograms(result.getTableSugar()), getResources().getText(R.string.table_sugar)));
             }
         }
+    }
 
+    private void setControlsView() {
+        switch (rgCorrection.getCheckedRadioButtonId()) {
+            case R.id.correction_gravity:
+                viewCorrectionSize.setVisibility(View.GONE);
+                viewCorrectionGravity.setVisibility(View.VISIBLE);
+                break;
+            case R.id.correction_size:
+                viewCorrectionSize.setVisibility(View.VISIBLE);
+                viewCorrectionGravity.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void resetLabels() {
+        txtGravityChangesResult.setText("");
+        lblGravityChanges.setText("");
     }
 
     @Override
@@ -184,6 +275,12 @@ public class FragmentGravityCorrection extends Fragment implements TextWatcher, 
 
     @Override
     public void afterTextChanged(Editable editable) {
+        calculate();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        setControlsView();
         calculate();
     }
 }
