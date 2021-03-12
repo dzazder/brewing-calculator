@@ -1,6 +1,5 @@
 package dev.lampart.bartosz.brewingcalculator;
 
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +9,8 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,7 +22,6 @@ import dev.lampart.bartosz.brewingcalculator.calculators.GravityCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.HydrometerCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.IBUCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.UnitCalc;
-import dev.lampart.bartosz.brewingcalculator.calculators.WaterCorrectionCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.YeastCalc;
 import dev.lampart.bartosz.brewingcalculator.dicts.DictFragment;
 import dev.lampart.bartosz.brewingcalculator.fragments.FragmentAlcohol;
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private HydrometerCalc hydrometerCalc;
     private IBUCalc ibuCalc;
     private UnitCalc unitCalc;
-    private WaterCorrectionCalc waterCorrectionCalc;
     private YeastCalc yeastCalc;
 
     @Override
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         gravityCorrectionCalc = new GravityCorrectionCalc(extractCalc, unitCalc);
         hydrometerCalc = new HydrometerCalc(extractCalc, unitCalc);
         ibuCalc = new IBUCalc(extractCalc, unitCalc);
-        waterCorrectionCalc = new WaterCorrectionCalc(extractCalc, unitCalc);
         yeastCalc = new YeastCalc(extractCalc, unitCalc);
         // end of DI
 
@@ -88,11 +86,9 @@ public class MainActivity extends AppCompatActivity {
         addOnBackStackChangedListenerToFragmentManager();
 
         final Drawable upArrow = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_back);
-        upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark), BlendModeCompat.SRC_ATOP));
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showBackStackButton);
-
-        //MobileAds.initialize(this, "ca-app-pub-4293040940774831~5599977907");
     }
 
     @Override
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 newFragment = new FragmentIBU(ibuCalc);
                 break;
             case DictFragment.FRAGMENT_EXTRACT_CORRECTION:
-                newFragment = new FragmentGravityCorrection(gravityCorrectionCalc, waterCorrectionCalc, unitCalc);
+                newFragment = new FragmentGravityCorrection(gravityCorrectionCalc, unitCalc);
                 break;
             default:
                 newFragment = new FragmentHome();

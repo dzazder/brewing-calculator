@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import dev.lampart.bartosz.brewingcalculator.BuildConfig;
 import dev.lampart.bartosz.brewingcalculator.MainActivity;
 import dev.lampart.bartosz.brewingcalculator.R;
 import dev.lampart.bartosz.brewingcalculator.adapters.HomeMenuItemAdapter;
@@ -52,6 +54,8 @@ public class FragmentHome extends Fragment {
             }
         });
 
+        setVersionLabel(view);
+
         return view;
     }
 
@@ -66,5 +70,10 @@ public class FragmentHome extends Fragment {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this.getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setVersionLabel(View view) {
+        TextView versionName = view.findViewById(R.id.lbl_version);
+        versionName.setText("v." + BuildConfig.VERSION_NAME);
     }
 }

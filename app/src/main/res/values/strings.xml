@@ -28,6 +28,7 @@
     <string name="lbl_before_fermentation">Measured original gravity</string>
     <string name="lbl_co2_volumes">Volumes of CO2</string>
     <string name="lbl_priming_size">Priming size</string>
+    <string name="lbl_current_size">Current size</string>
     <string name="lbl_default_priming_size">Default priming size</string>
     <string name="lbl_priming_sugar">Priming sugar</string>
     <string name="lbl_priming_sugar_type">Priming sugar type</string>
@@ -111,4 +112,12 @@
     <string name="lbl_have_to_add">You have to add</string>
     <string name="lbl_of_water">of water</string>
     <string name="lbl_or">or</string>
+    <string name="lbl_cap_or">OR</string>
+    <string name="lbl_expected_size">Expected size</string>
+    <string name="lbl_current_gravity">Current gravity</string>
+    <string name="lbl_size">Size</string>
+    <string name="lbl_gravity">Gravity</string>
+    <string name="what_expect">What do you expect?</string>
+    <string name="lbl_after_evaporation">After evaporation</string>
+    <string name="lbl_after_adding_water">After adding water</string>
 </resources>

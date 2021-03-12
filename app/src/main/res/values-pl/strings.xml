@@ -26,7 +26,7 @@
     <string name="lbl_beer_temp">Temperatura piwa</string>
     <string name="lbl_carbonation_guidelines">Tabela nagazowania</string>
     <string name="lbl_co2_volumes">Poziom nagazowania</string>
-    <string name="lbl_priming_size">Wielkość warki</string>
+    <string name="lbl_current_size">Aktualna ilość</string>
     <string name="lbl_priming_sugar">Rodzaj cukru</string>
     <string name="lbl_priming_sugar_amount">Ilość cukru</string>
     <string name="lbl_priming_sugar_type">Rodzaj cukru</string>
@@ -50,6 +50,7 @@
     <string name="lbl_formula_normal">Standardowy</string>
     <string name="description_ibu_calculator">Oblicz IBU</string>
     <string name="lbl_add_hop">Dodaj chmiel</string>
+    <string name="lbl_priming_size">Wielkość warki</string>
     <string name="lbl_alpha_acids">Alfa kwasy</string>
     <string name="lbl_boiling_size">Wielkość warki</string>
     <string name="lbl_boiling_time">Czas gotowania</string>
@@ -75,4 +76,12 @@
     <string name="lbl_have_to_add">Musisz dodać</string>
     <string name="lbl_of_water">wody</string>
     <string name="lbl_or">lub</string>
+    <string name="lbl_cap_or">LUB</string>
+    <string name="lbl_expected_size">Oczekiwana ilość</string>
+    <string name="lbl_current_gravity">Aktualna gęstość</string>
+    <string name="lbl_size">Ilość</string>
+    <string name="lbl_gravity">Objętość</string>
+    <string name="what_expect">Co chcesz osiągnąć?</string>
+    <string name="lbl_after_evaporation">Po odparowaniu</string>
+    <string name="lbl_after_adding_water">Po dodaniu wody</string>
 </resources>
