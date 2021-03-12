@@ -8,10 +8,10 @@
 
     <!-- Dummy item to prevent EditText from receiving focus -->
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="0px"
-        android:layout_height="0px"/>
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,142 +20,247 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/empty_divider_horizontal"
             android:orientation="vertical"
-            android:showDividers="middle"
-            android:divider="@drawable/empty_divider_horizontal">
+            android:showDividers="middle">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:showDividers="middle"
+                android:divider="@drawable/empty_divider_vertical"
                 android:gravity="center_vertical"
-                android:divider="@drawable/empty_divider_vertical">
+                android:orientation="horizontal"
+                android:showDividers="middle">
 
                 <TextView
-                    android:text="@string/lbl_priming_size"
-                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
-                    android:layout_weight="2"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/lbl_current_size" />
 
-                <EditText android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/txt_gc_current_size"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/txt_wc_priming_size"
-                    android:background="@drawable/calc_field"
-                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
+                    android:background="@drawable/calc_field"></EditText>
 
-                <Spinner android:layout_height="wrap_content"
+                <Spinner
+                    android:id="@+id/sp_gc_current_size_units"
                     android:layout_width="0dp"
-                    android:dropDownWidth="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:spinnerMode="dropdown"
-                    android:id="@+id/sp_wc_priming_size"
+                    android:dropDownWidth="wrap_content"
+                    android:entries="@array/volume_units"
+                    android:spinnerMode="dropdown">
+
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/empty_divider_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/lbl_current_gravity" />
+
+                <EditText
+                    android:id="@+id/txt_gc_current_gravity"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/calc_field"></EditText>
+
+                <Spinner
+                    android:id="@+id/sp_gc_current_gravity_units"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/extract_units">
+
+                </Spinner>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccentDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/empty_divider_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_expect" />
+
+                <RadioGroup
+                    android:id="@+id/correction"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:layout_marginBottom="@dimen/padding_normal"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/correction_gravity"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/toggle_background"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/lbl_gravity"
+                        android:textColor="@color/colorPrimaryLight" />
+
+                    <RadioButton
+                        android:id="@+id/correction_size"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/toggle_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/lbl_size"
+                        android:textColor="@color/colorPrimaryLight" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_correction_gravity"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/empty_divider_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/lbl_expected_gravity" />
+
+                <EditText
+                    android:id="@+id/txt_gc_expected_gravity"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/calc_field"></EditText>
+
+                <Spinner
+                    android:id="@+id/sp_gc_expected_gravity_units"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/extract_units">
+
+                </Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_correction_size"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/empty_divider_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/lbl_expected_size" />
+
+                <EditText
+                    android:id="@+id/txt_gc_expected_size"
+                    style="@style/StyleEditText_CalcFieldSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/calc_field"></EditText>
+
+                <Spinner
+                    android:id="@+id/sp_gc_expected_size_units"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:entries="@array/volume_units">
 
                 </Spinner>
+
             </LinearLayout>
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:showDividers="middle"
-                android:divider="@drawable/empty_divider_vertical">
-                <TextView
-                    android:text="@string/lbl_after_fermentation"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"/>
-
-                <EditText android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/txt_wc_extract_after"
-                    android:background="@drawable/calc_field"
-                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
-
-                <Spinner android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:id="@+id/sp_wc_extract_after"
-                    android:entries="@array/extract_units">
-
-                </Spinner>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:showDividers="middle"
-                android:divider="@drawable/empty_divider_vertical">
-                <TextView
-                    android:text="@string/lbl_expected_gravity"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"/>
-
-                <EditText android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/txt_wc_expected_gravity"
-                    android:background="@drawable/calc_field"
-                    style="@style/StyleEditText_CalcFieldSmall"></EditText>
-
-                <Spinner android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:id="@+id/sp_wc_expected_gravity_unit"
-                    android:entries="@array/extract_units">
-
-                </Spinner>
-
-            </LinearLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorAccentDark" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:divider="@drawable/empty_divider_vertical"
                 android:gravity="center_vertical"
-                android:showDividers="middle"
-                android:divider="@drawable/empty_divider_vertical">
+                android:orientation="horizontal"
+                android:showDividers="middle">
 
                 <TextView
+                    android:id="@+id/lbl_gravity_changes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/lbl_have_to_add" />
+                    android:layout_weight="2" />
 
                 <TextView
-                    android:id="@+id/txt_additional_water"
+                    android:id="@+id/txt_gravity_changes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="--"
                     android:textColor="@color/colorAccentDark"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_normal"
-                android:orientation="horizontal">
-                <com.google.android.gms.ads.AdView
-                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_normal">
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/adViewFragmentWaterCorrection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     ads:adSize="BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-                </com.google.android.gms.ads.AdView>
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
             </LinearLayout>
 
         </LinearLayout>

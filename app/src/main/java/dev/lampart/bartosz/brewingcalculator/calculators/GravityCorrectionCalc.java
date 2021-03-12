@@ -85,4 +85,36 @@ public class GravityCorrectionCalc extends Calc {
 
         return waterLiters - batchSize;
     }
+
+    public double calcExtractAfterEvaporation(double currentSize, VolumeUnit currentBatchUnit,
+                                              double expectedSize, VolumeUnit expectedBatchUnit,
+                                              double currentGravity, ExtractUnit currentGravityUnit) {
+        if (currentBatchUnit == VolumeUnit.Gallon) {
+            currentSize = unitCalcService.calcGallonsToLitres(currentSize);
+        }
+
+        if (expectedBatchUnit == VolumeUnit.Gallon) {
+            expectedSize = unitCalcService.calcGallonsToLitres(expectedSize);
+        }
+
+        if (currentGravityUnit == ExtractUnit.Brix) {
+            currentGravity = extractCalcService.calcBrixToPlato(currentGravity);
+        }
+
+        if (currentGravityUnit == ExtractUnit.SG) {
+            currentGravity = extractCalcService.calcSGToPlato(currentGravity);
+        }
+
+        double expectedGravity = (currentSize * currentGravity) / expectedSize;
+
+        if (currentGravityUnit == ExtractUnit.Brix) {
+            expectedGravity = extractCalcService.calcPlatoToBrix(expectedGravity);
+        }
+
+        if (currentGravityUnit == ExtractUnit.SG) {
+            expectedGravity = extractCalcService.calcPlatoToSG(expectedGravity);
+        }
+
+        return expectedGravity;
+    }
 }
