@@ -80,7 +80,7 @@
     <string name="lbl_expected_size">Oczekiwana ilość</string>
     <string name="lbl_current_gravity">Aktualna gęstość</string>
     <string name="lbl_size">Ilość</string>
-    <string name="lbl_gravity">Objętość</string>
+    <string name="lbl_gravity">Gęstość</string>
     <string name="what_expect">Co chcesz osiągnąć?</string>
     <string name="lbl_after_evaporation">Po odparowaniu</string>
     <string name="lbl_after_adding_water">Po dodaniu wody</string>
