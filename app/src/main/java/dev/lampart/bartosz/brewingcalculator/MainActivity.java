@@ -14,6 +14,9 @@ import androidx.core.graphics.BlendModeCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.ads.MobileAds;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
 import dev.lampart.bartosz.brewingcalculator.calculators.CarbonationCalc;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         BrewingCalculatorApplication.setContext(this);
         setContentView(R.layout.activity_main);
+
 
         // DI
         extractCalc = new ExtractCalc();
