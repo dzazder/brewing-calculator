@@ -4,7 +4,7 @@
 [Google Play Link]
 
 ### Description
-Brewing Calculator is the appllication which contains several tools and calculators useful when you brew beer in a home.
+Brewing Calculator is the application which contains several tools and calculators useful when you brew beer in a home.
 In the current version you can:
 - convert beer extract units (Plato, Brix, SG)
 - calculates alcohol by value (with refractometer use too)

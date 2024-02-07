@@ -3,15 +3,19 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
 
-    compileSdkVersion 32
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "dev.lampart.bartosz.brewingcalculator"
-        minSdkVersion 16
-        targetSdkVersion 32
+        minSdkVersion 27
+        //noinspection OldTargetApi
+        targetSdkVersion 34
         versionCode 16
         versionName "2.3.2"
         multiDexEnabled true
+    }
+    buildFeatures {
+        buildConfig true
     }
     buildTypes {
         release {
@@ -32,29 +36,31 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '32.1.0-rc1'
+    buildToolsVersion '34.0.0'
+    useLibrary 'org.apache.http.legacy'
+    namespace 'dev.lampart.bartosz.brewingcalculator'
 }
 
 dependencies {
-    implementation 'androidx.fragment:fragment:1.4.1'
-    implementation 'androidx.core:core:1.7.0'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.core:core:1.12.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.google.android.gms:play-services:12.0.1'
     //noinspection GradleCompatible
-    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:support-v4:28.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     annotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
-    testImplementation 'junit:junit:4.13.1'
-    implementation 'com.google.dagger:hilt-android:2.40.5'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.40.5'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.dagger:hilt-android:2.50'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.50'
 
     // For instrumentation tests
-    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.40.5'
-    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.40.5'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.50'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.50'
 
     // For local unit tests
-    testImplementation 'com.google.dagger:hilt-android-testing:2.40.5'
-    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.40.5'
+    testImplementation 'com.google.dagger:hilt-android-testing:2.50'
+    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.50'
 }
