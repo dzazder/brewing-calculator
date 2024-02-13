@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import dev.lampart.bartosz.brewingcalculator.calculators.AlcoholCalc;
@@ -66,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         BrewingCalculatorApplication.setContext(this);
         setContentView(R.layout.activity_main);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
         // DI
         extractCalc = new ExtractCalc();

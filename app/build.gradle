@@ -3,15 +3,12 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
 
-    compileSdkVersion 34
-
     defaultConfig {
         applicationId "dev.lampart.bartosz.brewingcalculator"
-        minSdkVersion 27
-        //noinspection OldTargetApi
-        targetSdkVersion 34
-        versionCode 16
-        versionName "2.3.2"
+        minSdkVersion 34
+        compileSdk 34
+        versionCode 20
+        versionName "2.3.3"
         multiDexEnabled true
     }
     buildFeatures {
@@ -36,9 +33,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '34.0.0'
     useLibrary 'org.apache.http.legacy'
     namespace 'dev.lampart.bartosz.brewingcalculator'
+    compileSdk 34
 }
 
 dependencies {
@@ -46,7 +43,7 @@ dependencies {
     implementation 'androidx.core:core:1.12.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.google.android.gms:play-services-ads:22.6.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:28.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"
